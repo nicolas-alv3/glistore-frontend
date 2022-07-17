@@ -1,11 +1,13 @@
 import ProductCard from "./ProductCard";
 import {Card, Container, Divider, Header} from "semantic-ui-react";
-import React from "react";
+import React, {ReactElement, ReactNode} from "react";
 import {Product} from "../types";
+import {JSXElement} from "@typescript-eslint/types/dist/generated/ast-spec";
 
 interface Props {
     products: Product[],
-    title: string
+    title: string,
+    belowTitle?: any
 }
 
 export default function ProductList( props: Props ) {
@@ -15,6 +17,7 @@ export default function ProductList( props: Props ) {
                 <>
                     <Header> {props.title} </Header>
                     <Divider />
+                    {props.belowTitle && props.belowTitle}
                     <Card.Group itemsPerRow={5} doubling={true} >
                         {/* eslint-disable-next-line react/jsx-key */}
                         {props.products?.map( (p :Product) => <ProductCard key={p._id} product={p} />)}

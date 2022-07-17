@@ -6,30 +6,35 @@ import {Product, SearchRequest, SearchResponse} from "../../types";
 import SortOrFilter from "../../components/SortAndFilter/SortOrFilter";
 import {useRouter} from "next/router";
 import {parse} from "../../Utils/parseUtils";
+import {FilterStateContext} from "../_app";
+import {filter} from "dom7";
 
 export default function SearchProducts() {
     const [products, setProducts] = React.useState<Product[]>([]);
     const router = useRouter();
     const searchInput = router.query.searchInput as string;
-    const talles = router.query.talles as string;
-    const categories = router.query.categories as string;
+    const [filterState, setFilterState] = React.useContext(FilterStateContext);
+    const baseReq = filterState?.req || {
+        name: searchInput,
+        pageSize:10,
+        page:1,
+        filter: {
+            talles: parse(router.query.talles) || [],
+            categories: parse(router.query.categories) || []
+        },
+        sort: {
+            price: "NONE"
+        }
+    }
+    const [req, setReq] = React.useState(baseReq);
 
-    useEffect(() => {
-        console.log(router.query)
-       const sReq = {
-           name: String(searchInput),
-           pageSize:10,
-           page:1,
-           filter: {
-               talles: parse(router.query.talles) || [],
-               categories: parse(router.query.categories) || []
-           },
-           sort: {
-               price: "NONE"
-           }
-       }
-       getProducts(sReq);
-    }, [searchInput]);
+
+    useEffect( () => {
+        setFilterState( { lastVisitedId:"", req} )
+        SearchService.search(req).then( (res: SearchResponse) => {
+            setProducts(res.products);
+        })
+    }, [req])
 
     const getProducts = (searchRequest: Partial<SearchRequest>) => {
         const sReq: SearchRequest = {
@@ -38,11 +43,13 @@ export default function SearchProducts() {
             pageSize:10,
             page:1,
         }
-        console.log(sReq);
-        SearchService.search(sReq).then( (res: SearchResponse) => {
-            setProducts(res.products);
-        })
+        setReq(sReq);
     }
+
+    setTimeout( () => {
+        // @ts-ignore
+        document.getElementById(filterState?.lastVisitedId)?.scrollIntoView();
+    }, 600)
 
     return <div>
         <SortOrFilter products={products} updateProducts={getProducts}/>

@@ -1,4 +1,4 @@
-export const parse: (string) => string= (text: string) => {
+export const parse: (s: string | string[] | undefined) => string = (text: string) => {
     if(text) {
         try {
             return JSON.parse(text);

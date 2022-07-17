@@ -23,7 +23,8 @@ export interface CartItem {
 export interface SearchResponse {
     products: Product[],
     pageSize: number,
-    page: number
+    page: number,
+    totalPages: number
 }
 
 export interface SearchRequest {
@@ -36,7 +37,12 @@ export interface SearchRequest {
       price: SortType
     }
     filter: {
-        talles: string[],
-        categories: string[]
+        talles: string[] | string | never[],
+        categories: string[] | string | never[]
     }
+}
+
+export interface FilterState {
+    req: SearchRequest,
+    lastVisitedId: string
 }

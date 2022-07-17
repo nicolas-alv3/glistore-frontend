@@ -33,7 +33,7 @@ export default function Footer() {
                     </Grid.Column>
                 </Grid>
                 <List divided link size='small'>
-                    <List.Item className={styles.footerMeta} icon={"laptop"} as='a' href='https://linktr.ee/nicolas_alvarez'>
+                    <List.Item className={styles.footerMeta} as='a' href='https://linktr.ee/nicolas_alvarez'>
                         Proudly developed by <b>Nicolas Alvarez</b>
                     </List.Item>
                 </List>
