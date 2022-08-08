@@ -17,19 +17,19 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   // @ts-ignore
   return <Contexts>
+      <Provider store={store}>
             <Head>
               <title>{ companyName } | Store</title>
               <meta name="description" content={meta.description} />
               <link rel="icon" href="/favicon.ico" />
             </Head>
             <PageHeader/>
-            <Provider store={store}>
             <Container>
               <Component {...pageProps} />
             </Container>
-            </Provider>
             <Footer />
             <Toaster position="bottom-left"/>
+      </Provider>
   </Contexts>
 }
 

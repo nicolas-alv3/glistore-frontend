@@ -1,19 +1,21 @@
 import styles from '../../styles/Home.module.css';
-import {Button, Header, Icon, Input} from "semantic-ui-react";
+import {Button, Icon, Input} from "semantic-ui-react";
 import {getConfig} from "../hooks/getConfig";
 import React, {useEffect} from "react";
 import {useRouter} from "next/router";
 import Link from 'next/link';
 import {isAdminLogged} from "../utils/loginUtils";
-import {CartContext} from "../context/Contexts";
-
+import {selectCart, toggle} from "../../slices/sidebarSlice";
+import {useDispatch, useSelector} from "react-redux";
 // @ts-ignore
-export default function Navbar( { setVisible }) {
+export default function Navbar() {
     const { companyName } = getConfig();
-    const [cart] = React.useContext(CartContext);
+    const cart = useSelector(selectCart);
     const [searchInput, setSearchInput] = React.useState("");
     const router = useRouter();
     const [isUserLogged, setIsUserLogged] = React.useState(false);
+    const dispatch = useDispatch()
+
 
     const handleSearchChange = (e) => setSearchInput(e.target.value);
 
@@ -31,7 +33,6 @@ export default function Navbar( { setVisible }) {
             })
     }
 
-    const toggleSidebar = () => setVisible( (prevState: any) => !prevState)
     return <>
         <nav className={styles.navbar + ` ${router.pathname.includes("admin") && styles.navbarAdmin}`}>
                 <Link href={"/"}>
@@ -47,7 +48,7 @@ export default function Navbar( { setVisible }) {
                     </Input>
                 </form>
                 <div className={styles.cartContainer}>
-                    <Button icon basic onClick={toggleSidebar}>
+                    <Button icon basic onClick={() => dispatch(toggle())}>
                         <Icon name='cart' size={"big"} />
                         <b>{cart.length > 0 && cart.length}</b>
                     </Button>

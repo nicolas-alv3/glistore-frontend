@@ -17,16 +17,17 @@ import TrendingSwiper from '../../src/components/TrendingSwiper';
 import {CartItem, Product} from "../../src/types";
 import ToastUtils from "../../src/utils/toastUtils";
 import Title from "../../src/components/Utils/Title";
-import {CartContext, SidebarContext} from "../../src/context/Contexts";
+import {show, addItem} from "../../slices/sidebarSlice";
+import {useDispatch} from "react-redux";
 
 const ProductDetail = () => {
     const router = useRouter()
     const { id } = router.query
     const [product, setProduct] = React.useState<Product>();
     const [amount, setAmount] = React.useState(1);
-    const [visible, setVisible] = React.useContext(SidebarContext)
-    const [cart, setCart] = React.useContext<[CartItem[], Function]>(CartContext);
     const [talle, setTalle] = React.useState("");
+    const dispatch = useDispatch()
+
 
     useEffect( () => {
         ProductService.getProductById(String(id)).then( p => setProduct(p))
@@ -38,9 +39,9 @@ const ProductDetail = () => {
             amount,
             talle
         }
-        setCart((prevCart: CartItem[]) => prevCart.concat([cartItem as CartItem]));
+        dispatch(addItem(cartItem as CartItem));
         ToastUtils.success("Perfecto!")
-        setVisible(true);
+        dispatch(show());
     }
 
     // @ts-ignore

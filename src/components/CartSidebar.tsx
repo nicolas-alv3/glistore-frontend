@@ -4,14 +4,19 @@ import styles from '../../styles/Home.module.css';
 import WhatsappService from "../../service/WhatsappService";
 import {getConfig} from "../hooks/getConfig";
 import {CartItem} from "../types";
-import {CartContext} from "../context/Contexts";
+import {hide, selectCart, selectShow} from "../../slices/sidebarSlice";
+import {useDispatch, useSelector} from "react-redux";
 
 
 // @ts-ignore
-export default function CartSidebar ( { visible, setVisible }) {
-    const [cart, setCart] = React.useContext(CartContext);
+export default function CartSidebar () {
+    const cart = useSelector(selectCart);
     const [editMode, setEditMode] = React.useState(false);
     const config = getConfig();
+    const show = useSelector(selectShow);
+    const dispatch = useDispatch()
+
+
 
     const deleteItem = (idx: number) => {
         setCart( cart.filter( (i, index) => index !== idx));
@@ -49,9 +54,9 @@ export default function CartSidebar ( { visible, setVisible }) {
                 icon='labeled'
                 className={styles.sidebar}
                 direction={"right"}
-                onHide={() => setVisible(false)}
+                onHide={() => dispatch(hide())}
                 vertical
-                visible={visible}
+                visible={show}
             >
         <div style={{display:"flex", justifyContent: "space-between", alignItems:"center"}}>
             <Header>Tu carrito</Header>
@@ -76,7 +81,7 @@ export default function CartSidebar ( { visible, setVisible }) {
                     </Item.Content>
                 </Item>)}
                     <Item>
-                        <Button color={"brown"} basic fluid onClick={() => setVisible(false)}> Seguir mirando 👀 </Button>
+                        <Button color={"brown"} basic fluid onClick={hide}> Seguir mirando 👀 </Button>
                     </Item>
                     <Item>
                         <Button color={"brown"} fluid onClick={confirmOrder}> Finalizar compra 🥳</Button>
