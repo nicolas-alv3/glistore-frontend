@@ -35,6 +35,10 @@
   justify-content: space-between;
 }
 
+.navbarAdmin {
+  background: var(--col-primary);
+}
+
 .sidebar {
   padding: 16px;
   width: min(100%, 700px)!important;
@@ -90,6 +94,14 @@
 
 .card:hover {
   box-shadow: -1px 1px 20px 0px lightgrey !important;
+}
+
+.configButton {
+  position: fixed;
+  bottom: 16px;
+  top: unset;
+  left: 16px;
+  z-index: 2;
 }
 
 /* On screens that are 992px or less, set the background color to blue */

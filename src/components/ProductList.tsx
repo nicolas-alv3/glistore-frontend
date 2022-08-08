@@ -3,11 +3,13 @@ import {Card, Container, Divider, Header} from "semantic-ui-react";
 import React, {ReactElement, ReactNode} from "react";
 import {Product} from "../types";
 import {JSXElement} from "@typescript-eslint/types/dist/generated/ast-spec";
+import Title from "./Utils/Title";
 
 interface Props {
     products: Product[],
     title: string,
-    belowTitle?: any
+    belowTitle?: any,
+    withBackButton: boolean
 }
 
 export default function ProductList( props: Props ) {
@@ -15,8 +17,7 @@ export default function ProductList( props: Props ) {
         {
             props.products?.length ?
                 <>
-                    <Header> {props.title} </Header>
-                    <Divider />
+                    <Title title={props.title} withBackButton={props.withBackButton}/>
                     {props.belowTitle && props.belowTitle}
                     <Card.Group itemsPerRow={5} doubling={true} >
                         {/* eslint-disable-next-line react/jsx-key */}

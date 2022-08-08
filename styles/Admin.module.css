@@ -1,0 +1,60 @@
+.backgroundImage {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    object-fit: cover;
+    z-index: 10;
+}
+
+.loginForm {
+    box-shadow: 10px 9px 20px 0px gray;
+    padding: 60px 16px;
+    border-radius: 16px;
+    top: 15%;
+    left: min(100px, 15%) ;
+    position: absolute;
+    z-index: 15;
+    width: min(400px, 70%);
+    height: 70%;
+    background: whitesmoke;
+}
+
+.miniLogoLogin {
+    display: flex;
+    justify-content: center;
+}
+
+.miniLogoLogin img {
+    width: 130px;
+    height: 130px;
+}
+
+.floatingButton {
+    position: fixed;
+    bottom: 16px;
+    top: unset;
+    right: 16px;
+}
+
+.tallesContainer {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.tallesContainer div {
+    flex: 1 0 21%; /* explanation below */
+    margin: 5px
+}
+
+
+/* On screens that are 992px or less, set the background color to blue */
+@media screen and (min-width: 992px) {
+    .floatingButton {
+        position: absolute;
+        top: 60px;
+        right: 64px;
+        bottom: unset;
+    }
+}

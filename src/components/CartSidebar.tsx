@@ -1,16 +1,17 @@
 import {Button, Container, Divider, Header, Icon, Image, Item, ItemHeader, Menu, Sidebar} from "semantic-ui-react";
 import React from "react";
-import styles from '../styles/Home.module.css';
-import {CartContext, SidebarContext} from "../pages/_app";
-import WhatsappService from "../service/WhatsappService";
-import {useConfig} from "../hooks/useConfig";
+import styles from '../../styles/Home.module.css';
+import WhatsappService from "../../service/WhatsappService";
+import {getConfig} from "../hooks/getConfig";
+import {CartItem} from "../types";
+import {CartContext} from "../context/Contexts";
 
 
 // @ts-ignore
 export default function CartSidebar ( { visible, setVisible }) {
     const [cart, setCart] = React.useContext(CartContext);
     const [editMode, setEditMode] = React.useState(false);
-    const config = useConfig();
+    const config = getConfig();
 
     const deleteItem = (idx: number) => {
         setCart( cart.filter( (i, index) => index !== idx));
@@ -60,7 +61,7 @@ export default function CartSidebar ( { visible, setVisible }) {
         {
             cart.length ? <Item.Group>
                 {cart?.map( (i,idx) => <Item key={i.product._id} className={styles.item}>
-                    <Item.Image size='tiny' src={i.product.imgUrl} />
+                    <Item.Image size='tiny' src={i.product.images[0]} />
                     <Item.Content>
                         <Item.Header as='a'>{i.product.name}</Item.Header>
                         <Item.Meta>{i.amount}u.</Item.Meta>

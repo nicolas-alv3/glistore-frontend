@@ -1,5 +1,5 @@
 import React from "react";
-import styles from '../styles/Home.module.css';
+import styles from '../../styles/Home.module.css';
 import {Container, Divider, Grid, Header, Icon, List, Segment, TextArea} from "semantic-ui-react";
 
 export default function Footer() {

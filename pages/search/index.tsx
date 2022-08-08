@@ -1,13 +1,12 @@
 import React, {useEffect} from "react";
 import {Divider, Header} from "semantic-ui-react";
-import ProductList from "../../components/ProductList";
+import ProductList from "../../src/components/ProductList";
 import SearchService from "../../service/SearchService";
-import {Product, SearchRequest, SearchResponse} from "../../types";
-import SortOrFilter from "../../components/SortAndFilter/SortOrFilter";
+import {Product, SearchRequest, SearchResponse} from "../../src/types";
+import SortOrFilter from "../../src/components/SortAndFilter/SortOrFilter";
 import {useRouter} from "next/router";
-import {parse} from "../../Utils/parseUtils";
+import {parse} from "../../src/utils/parseUtils";
 import {FilterStateContext} from "../_app";
-import {filter} from "dom7";
 
 export default function SearchProducts() {
     const [products, setProducts] = React.useState<Product[]>([]);
@@ -28,6 +27,10 @@ export default function SearchProducts() {
     }
     const [req, setReq] = React.useState(baseReq);
 
+    useEffect(() => {
+
+    },[])
+
 
     useEffect( () => {
         setFilterState( { lastVisitedId:"", req} )
@@ -37,6 +40,7 @@ export default function SearchProducts() {
     }, [req])
 
     const getProducts = (searchRequest: Partial<SearchRequest>) => {
+        // @ts-ignore
         const sReq: SearchRequest = {
             ...searchRequest,
             name: searchInput,
@@ -53,6 +57,6 @@ export default function SearchProducts() {
 
     return <div>
         <SortOrFilter products={products} updateProducts={getProducts}/>
-        <ProductList title={`Resultados para "${searchInput}"`} products={products}/>
+        <ProductList title={`Resultados para "${searchInput}"`} products={products} withBackButton/>
     </div>
 }

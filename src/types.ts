@@ -4,7 +4,7 @@ export interface Product {
     talles: string[],
     _id: string,
     name: string,
-    imgUrl: string,
+    images: string[],
     description: string,
     price: number,
     discount: number,

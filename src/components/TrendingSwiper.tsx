@@ -1,9 +1,10 @@
 import React, {useEffect} from "react";
-import ProductService from "../service/ProductService";
+import ProductService from "../../service/ProductService";
 import {Swiper, SwiperSlide} from "swiper/react";
 import {Navigation} from "swiper";
 import ProductCard from "./ProductCard";
 import {Divider, Header} from "semantic-ui-react";
+import {Product} from "../types";
 
 export default function TrendingSwiper() {
     const [products, setProducts] = React.useState([]);
@@ -20,7 +21,7 @@ export default function TrendingSwiper() {
         <Swiper  navigation={true} modules={[Navigation]} slidesPerView={slidesPerView}
                  spaceBetween={5}
                  className="mySwiper">
-            {products.map( p => <SwiperSlide style={{width:"40%"}} key={p._id} >
+            {products.map( (p: Product) => <SwiperSlide style={{width:"40%"}} key={p._id} >
                     <ProductCard product={p} />
             </SwiperSlide>)}
         </Swiper>

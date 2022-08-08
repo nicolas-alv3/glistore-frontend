@@ -1,5 +1,5 @@
 import API from "./api";
-import {SearchRequest} from "../types";
+import {SearchRequest} from "../src/types";
 
 class SearchService {
     path = "/search"
