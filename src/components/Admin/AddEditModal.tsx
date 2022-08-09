@@ -1,5 +1,5 @@
 import {Button, Checkbox, Divider, Form, Modal} from "semantic-ui-react";
-import React, {ReactNode, useEffect} from "react";
+import React, {ReactNode} from "react";
 import ProductService from "../../../service/ProductService";
 import styles from '../../../styles/Admin.module.css';
 import SelectFilter, {SelectFilterType} from "../SortAndFilter/SelectFilter";
@@ -21,8 +21,8 @@ export default function AddEditModal(props: Props) {
     const [category, setCategory] = React.useState(props.product?.category || "");
     const [name, setName] = React.useState(props.product?.name || "");
     const [description, setDescription] = React.useState(props.product?.description || "");
-    const [price, setPrice] = React.useState(props.product?.price || 0);
-    const [discount, setDiscount] = React.useState(props.product?.discount || 0);
+    const [price, setPrice] = React.useState(props.product?.price || '');
+    const [discount, setDiscount] = React.useState(props.product?.discount || '');
     const [selectedTalles, setSelectedTalles] = React.useState(props.product?.talles || []);
     const [images, setImages] = React.useState<string[]>(props.product?.images || []);
     const [isTrending, setIsTrending] = React.useState<boolean>(typeof props.product?.isTrending !== 'boolean' ? false : props.product?.isTrending);
@@ -32,8 +32,8 @@ export default function AddEditModal(props: Props) {
         setCategory("");
         setName("");
         setDescription("");
-        setPrice(0);
-        setDiscount(0);
+        setPrice('');
+        setDiscount('');
         setSelectedTalles([]);
         setImages([]);
         setIsTrending(false);

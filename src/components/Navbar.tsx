@@ -54,6 +54,6 @@ export default function Navbar() {
                     </Button>
                 </div>
             </nav>
-        {!router.pathname.includes("admin") && <Button icon circular size={"large"} color={"orange"} className={styles.configButton} onClick={() => router.push({pathname: "/admin"})}><Icon name={"setting"} /></Button>}
+        {isUserLogged && !router.pathname.includes("admin") && <Button icon circular size={"large"} color={"orange"} className={styles.configButton} onClick={() => router.push({pathname: "/admin"})}><Icon name={"setting"} /></Button>}
         </>;
 }
