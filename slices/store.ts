@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
-import counterReducer from "../slices/counterSlice";
-import sidebar from "../slices/sidebarSlice";
-import filter from "../slices/filterSlice";
+import counterReducer from "./counterSlice";
+import sidebar from "./sidebarSlice";
+import filter from "./filterSlice";
 
 export const store = configureStore({
     reducer: {counterReducer, sidebar, filter},

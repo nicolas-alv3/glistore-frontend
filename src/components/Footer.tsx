@@ -1,6 +1,7 @@
 import React from "react";
 import styles from '../../styles/Home.module.css';
 import {Container, Divider, Grid, Header, Icon, List, Segment, TextArea} from "semantic-ui-react";
+import Image from "next/image";
 
 export default function Footer() {
     // @ts-ignore
@@ -8,7 +9,7 @@ export default function Footer() {
             <Container textAlign='center'>
                 <Grid stackable>
                     <Grid.Column width={4}>
-                        <img src={"https://pomelobebes.web.app/assets/logo.jpeg"} width={128} height={128} />
+                        <Image src={"https://pomelobebes.web.app/assets/logo.jpeg"} width={128} height={128} />
                     </Grid.Column>
                     <Grid.Column width={6}>
                         <Header size={"small"}> Acerca de Pomelo</Header>

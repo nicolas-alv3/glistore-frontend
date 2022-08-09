@@ -1,6 +1,6 @@
 import type {PayloadAction} from '@reduxjs/toolkit'
 import {createSlice} from '@reduxjs/toolkit'
-import {RootState} from "../pages/store";
+import {RootState} from "./store";
 import {SearchRequest, SortType} from "../src/types";
 
 

@@ -1,3 +1,4 @@
+// @ts-ignore
 export const parse: (s: string | string[] | undefined) => any = (text: string) => {
     if(text) {
         try {

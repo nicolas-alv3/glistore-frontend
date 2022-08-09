@@ -8,7 +8,7 @@ import Head from "next/head";
 import {getConfig} from "../src/hooks/getConfig";
 import {Container} from "semantic-ui-react";
 import Footer from "../src/components/Footer";
-import { store } from './store'
+import { store } from '../slices/store'
 import { Provider } from 'react-redux'
 
 function MyApp({ Component, pageProps }: AppProps) {

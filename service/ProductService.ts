@@ -38,12 +38,16 @@ class ProductService {
         ]
     }
 
-    create(body: any) {
-        return API.post(this.path + "/", body)
+    create(p: Product) {
+        return API.post(this.path + "/", p)
     }
 
     delete(p: Product) {
         return API.delete(this.path + "/"+ p._id)
+    }
+
+    update(p: Product) {
+        return API.put(this.path + "/", p)
     }
 }
 

@@ -6,7 +6,7 @@ import SelectFilter, {SelectFilterType} from "../SortAndFilter/SelectFilter";
 import ImageUploader from "./ImageUploader";
 import ToastUtils from "../../utils/toastUtils";
 import {Product} from "../../types";
-import product from "../../../pages/product";
+import TalleSelector from "../Utils/TalleSelector";
 
 
 interface Props {
@@ -16,52 +16,17 @@ interface Props {
 }
 
 export default function AddEditModal(props: Props) {
-    const [talles, setTalles] = React.useState<string[]>([]);
     const [open, setOpen] = React.useState(false);
 
-    const [category, setCategory] = React.useState("");
-    const [name, setName] = React.useState("");
-    const [description, setDescription] = React.useState("");
-    const [price, setPrice] = React.useState(0);
-    const [discount, setDiscount] = React.useState(0);
-    const [selectedTalles, setSelectedTalles] = React.useState(new Array(20).fill(false));
-    const [images, setImages] = React.useState<string[]>([]);
-    const [isTrending, setIsTrending] = React.useState<boolean>(false);
-    const [isVisible, setIsVisible] = React.useState<boolean>(false);
-
-    const getPreviousTalles = () => {
-            console.log(talles)
-                console.log(props.product?.talles)
-            return talles.filter( t => props.product.talles.includes(t))
-    }
-
-    const loadStatesFromProduct = () => {
-        const {product} = props;
-        console.log("Opening ", product)
-        setCategory(product.category);
-        setName(product.name);
-        setDescription(product.description);
-        setPrice(product.price);
-        setDiscount(product.discount);
-        setSelectedTalles(getPreviousTalles());
-        setImages(product.images);
-        setIsTrending(product.isTrending);
-        setIsVisible(product.visible);
-    }
-    useEffect(() => {
-        setTalles(ProductService.getTalles());
-        if(props.product) {
-            loadStatesFromProduct()
-        }
-    }, [])
-
-    const handleToggleTalle = (idx: number) => {
-        const newValues = selectedTalles;
-        newValues[idx] = !newValues[idx];
-        setSelectedTalles(newValues);
-    }
-
-    const getTallesForRequest = () => talles.filter( (t, i) => selectedTalles[i]);
+    const [category, setCategory] = React.useState(props.product?.category || "");
+    const [name, setName] = React.useState(props.product?.name || "");
+    const [description, setDescription] = React.useState(props.product?.description || "");
+    const [price, setPrice] = React.useState(props.product?.price || 0);
+    const [discount, setDiscount] = React.useState(props.product?.discount || 0);
+    const [selectedTalles, setSelectedTalles] = React.useState(props.product?.talles || []);
+    const [images, setImages] = React.useState<string[]>(props.product?.images || []);
+    const [isTrending, setIsTrending] = React.useState<boolean>(typeof props.product?.isTrending !== 'boolean' ? false : props.product?.isTrending);
+    const [isVisible, setIsVisible] = React.useState<boolean>(typeof props.product?.visible !== 'boolean' ? true : props.product?.visible);
 
     const resetForm = () => {
         setCategory("");
@@ -69,32 +34,50 @@ export default function AddEditModal(props: Props) {
         setDescription("");
         setPrice(0);
         setDiscount(0);
-        setSelectedTalles(new Array(20).fill(false));
+        setSelectedTalles([]);
         setImages([]);
         setIsTrending(false);
         setIsVisible(false);
     }
 
+    const handleAddSubmit = (product) => {
+        ProductService.create(product)
+            .then( () => {
+                ToastUtils.success("Creado!");
+                resetForm();
+                setOpen(false);
+                props.update();
+            })
+    }
+
+    const handleEditSubmit = (product) => {
+        ProductService.update({ ...product, _id: props.product?._id })
+            .then( () => {
+                ToastUtils.success("Actualizado!");
+                resetForm();
+                setOpen(false);
+                props.update();
+            })
+    }
+
     const handleSubmit = () => {
-        const body = {
+        const product = {
             name,
             description,
             price,
             discount,
             images,
-            talles: getTallesForRequest(),
+            talles: selectedTalles,
             category: category,
             isTrending,
             visible: isVisible
         }
-        console.log(body);
-        ProductService.create(body)
-            .then( () => {
-                ToastUtils.success("Created!");
-                resetForm();
-                setOpen(false);
-                props.update();
-            })
+        if( props.product ) {
+            handleEditSubmit(product);
+        }
+        else {
+            handleAddSubmit(product);
+        }
     }
 
     const handleUploadChange = (urls: string[]) => {
@@ -108,7 +91,7 @@ export default function AddEditModal(props: Props) {
         trigger={props.trigger}
         size={"small"}
     >
-        <Modal.Header>Agregar Producto</Modal.Header>
+        <Modal.Header>{props.product ? "Editar" : "Agregar"} Producto</Modal.Header>
         <Modal.Content>
             <Form>
                 <Form.Field>
@@ -121,21 +104,16 @@ export default function AddEditModal(props: Props) {
                 </Form.Field>
                 <Form.Field>
                     <label>Precio</label>
-                    <input type={"number"} value={price} onChange={e => setPrice(e.target.value)} placeholder='Ingresar precio' />
+                    <input type={"number"} value={price} onChange={e => setPrice(Number(e.target.value))} placeholder='Ingresar precio' />
                 </Form.Field>
                 <Form.Field>
                     <label>Descuento</label>
-                    <input type={"number"} value={discount} onChange={e => setDiscount(e.target.value)} placeholder='Ingresar descuento' />
+                    <input type={"number"} value={discount} onChange={e => setDiscount(Number(e.target.value))} placeholder='Ingresar descuento' />
                 </Form.Field>
                 <Divider/>
                 <ImageUploader images={images} onChange={handleUploadChange}/>
                 <Divider/>
-                <Form.Field>
-                    <label>Talles disponibles</label>
-                    <div className={styles.tallesContainer}>
-                        {talles.map((t, idx) => <Checkbox key={t} label={t} value={selectedTalles[idx]} onClick={() => handleToggleTalle(idx)}/>)}
-                    </div>
-                </Form.Field>
+                <TalleSelector onSelect={(talles: string[]) => setSelectedTalles(talles)} talles={selectedTalles}/>
                 <Form.Field>
                     <Divider/>
                     <label>Categoría</label>
@@ -145,8 +123,8 @@ export default function AddEditModal(props: Props) {
                 <Form.Field>
                     <label>Detalles</label>
                     <div className={styles.tallesContainer}>
-                        <Checkbox label={"Es visible"} value={isVisible} onClick={() => setIsVisible(prevState => !prevState)}/>
-                        <Checkbox label={"Es destacado"} value={isTrending} onClick={() => setIsTrending(prevState => !prevState)}/>
+                        <Checkbox label={"Es visible"} checked={isVisible} onClick={() => setIsVisible(prevState => !prevState)}/>
+                        <Checkbox label={"Es destacado"} checked={isTrending} onClick={() => setIsTrending(prevState => !prevState)}/>
                     </div>
                 </Form.Field>
             </Form>
@@ -156,7 +134,7 @@ export default function AddEditModal(props: Props) {
                 Cancelar
             </Button>
             <Button
-                content="Agregar"
+                content={props.product ? "Editar" : "Agregar"}
                 labelPosition='right'
                 icon='checkmark'
                 onClick={handleSubmit}

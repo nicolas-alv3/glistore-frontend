@@ -7,7 +7,7 @@ import {useDispatch} from "react-redux";
 import {setPartialReq} from "../../../slices/filterSlice";
 import ProductService from "../../../service/ProductService";
 
-export default function SortOrFilter( { products }) {
+export default function SortOrFilter() {
     const [visible, setVisible] = React.useState(false);
     const [categories, setCategories] = React.useState([]);
     const [filter, setFilter] = React.useState(false);

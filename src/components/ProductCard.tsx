@@ -1,6 +1,7 @@
-import {Button, Card, Header, Icon, Image} from "semantic-ui-react";
+import {Button, Card, Header, Icon} from "semantic-ui-react";
 import styles from "../../styles/Home.module.css";
 import React from "react";
+import Image from "next/image"
 import {useRouter} from "next/router";
 import {setPartialReq} from "../../slices/filterSlice";
 
@@ -14,7 +15,7 @@ export default function ProductCard({ product } ) {
         router.push({ pathname: "/product", query:  { id: product._id }})
     }
     return <Card as={Button}  className={styles.card} onClick={handleCardClick} >
-            <img id={product._id} src={product.images[0]} className={styles.cardImg} />
+            <Image id={product._id} src={product.images[0]} className={styles.cardImg} />
             <Card.Content>
                 <Card.Header>{product.name}</Card.Header>
                 <Card.Meta className={styles.cardDescription}>{product.description}</Card.Meta>

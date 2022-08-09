@@ -52,7 +52,7 @@ const ProductDetail = () => {
         <Grid stackable>
             <Grid.Row>
                 <Grid.Column width={6}>
-                    <Carrousel urls={product?.images} />
+                    <Carrousel urls={product?.images || []} />
                 </Grid.Column>
                 <Grid.Column width={6}>
                     <Header size={"huge"}>{product?.name}</Header>

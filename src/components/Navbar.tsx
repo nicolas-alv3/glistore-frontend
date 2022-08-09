@@ -8,6 +8,7 @@ import {isAdminLogged} from "../utils/loginUtils";
 import {selectCart, toggle} from "../../slices/sidebarSlice";
 import {useDispatch, useSelector} from "react-redux";
 import {setPartialReq} from "../../slices/filterSlice";
+
 // @ts-ignore
 export default function Navbar() {
     const { companyName } = getConfig();
@@ -36,7 +37,7 @@ export default function Navbar() {
         <nav className={styles.navbar + ` ${router.pathname.includes("admin") && styles.navbarAdmin}`}>
                 <Link href={"/"}>
                     <div style={{cursor: "pointer"}}>
-                        <img className={styles.logo} />
+                        <img alt={""} src={""} className={styles.logo} />
                         <h3 className={styles.companyText}>{ companyName }</h3>
                     </div>
                 </Link>
@@ -53,6 +54,6 @@ export default function Navbar() {
                     </Button>
                 </div>
             </nav>
-        {isUserLogged && !router.pathname.includes("admin") && <Button icon circular size={"large"} color={"orange"} className={styles.configButton} onClick={() => router.push({pathname: "/admin"})}><Icon name={"setting"} /></Button>}
+        {!router.pathname.includes("admin") && <Button icon circular size={"large"} color={"orange"} className={styles.configButton} onClick={() => router.push({pathname: "/admin"})}><Icon name={"setting"} /></Button>}
         </>;
 }

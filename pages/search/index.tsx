@@ -49,7 +49,7 @@ export default function SearchProducts() {
     }, 600)
 
     return <div>
-        <SortOrFilter products={products} updateProducts={getProducts}/>
+        <SortOrFilter/>
         <ProductList title={`Resultados para "${filterState.req.name}"`} products={products} withBackButton/>
     </div>
 }

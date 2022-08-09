@@ -1,17 +1,15 @@
 import {isAdminLogged, login} from "../../src/utils/loginUtils";
 import React, {useEffect} from "react";
 import styles from '../../styles/Admin.module.css';
-import {Button, Checkbox, Container, Divider, Form, Header, Icon, Label, Menu, Table} from "semantic-ui-react";
+import {Button, Checkbox, Container, Divider, Form, Header, Icon, Label, Table} from "semantic-ui-react";
 import ToastUtils from "../../src/utils/toastUtils";
 import {useRouter} from "next/router";
 import ProductService from "../../service/ProductService";
 import { Product } from "../../src/types";
 import {pipePrice} from "../../src/utils/stringUtils";
 import AddEditModal from "../../src/components/Admin/AddEditModal";
-import {useDispatch} from "react-redux";
-import {show} from "../../slices/sidebarSlice";
-import {showDialog} from "../../slices/dialogSlice";
 import DialogComponent from "../../src/components/Utils/DialogComponent";
+import Image from "next/image";
 
 function LoginComponent() {
     const [name, setName] = React.useState("");
@@ -28,7 +26,7 @@ function LoginComponent() {
             <div className={styles.loginForm}>
                 <Container className={styles.loginContainer}>
                     <div className={styles.miniLogoLogin}>
-                        <img src={"https://pomelobebes.web.app/assets/logo.jpeg"}/>
+                        <Image src={"https://pomelobebes.web.app/assets/logo.jpeg"}/>
                         {/*TODO: Here should be the horizontal logo*/}
                     </div>
                     <Header textAlign={"center"} size={"huge"}>Ingreso Admin</Header>
@@ -49,12 +47,11 @@ function LoginComponent() {
                     </Form>
                 </Container>
             </div>
-            <img src={"https://twincitieskidsclub.com/wp-content/uploads/2021/11/childrens-consignment-store.jpg"} className={styles.backgroundImage} />
+            <Image src={"https://twincitieskidsclub.com/wp-content/uploads/2021/11/childrens-consignment-store.jpg"} className={styles.backgroundImage}  alt={""}/>
         </div>;
 }
 
 function ProductsTable({ products, update }) {
-    const dispatch = useDispatch();
 
     const onDeleteConfirm = (p: Product) => {
         ProductService.delete(p)
@@ -80,7 +77,7 @@ function ProductsTable({ products, update }) {
                         {p.name}
                     </Table.Cell>
                     <Table.Cell>
-                        {p.talles.map( t => <Label color={"olive"}>{t}</Label>)}
+                        {p.talles.map( t => <Label key={t} color={"olive"}>{t}</Label>)}
                     </Table.Cell>
                     <Table.Cell><Icon name={"eye"} color={p.visible ? "green" : "orange" } /></Table.Cell>
                     <Table.Cell>{pipePrice(p.price)}</Table.Cell>
