@@ -1,4 +1,4 @@
-import {Button, Container, Divider, Header, Icon, Image, Item, ItemHeader, Menu, Sidebar} from "semantic-ui-react";
+import {Button, Divider, Header, Item, Menu, Sidebar} from "semantic-ui-react";
 import React from "react";
 import styles from '../../styles/Home.module.css';
 import WhatsappService from "../../service/WhatsappService";

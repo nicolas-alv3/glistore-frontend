@@ -9,7 +9,6 @@ import { Product } from "../../src/types";
 import {pipePrice} from "../../src/utils/stringUtils";
 import AddEditModal from "../../src/components/Admin/AddEditModal";
 import DialogComponent from "../../src/components/Utils/DialogComponent";
-import Image from "next/image";
 
 function LoginComponent() {
     const [name, setName] = React.useState("");
@@ -26,7 +25,7 @@ function LoginComponent() {
             <div className={styles.loginForm}>
                 <Container className={styles.loginContainer}>
                     <div className={styles.miniLogoLogin}>
-                        <Image src={"https://pomelobebes.web.app/assets/logo.jpeg"}/>
+                        <img src={"https://pomelobebes.web.app/assets/logo.jpeg"}/>
                         {/*TODO: Here should be the horizontal logo*/}
                     </div>
                     <Header textAlign={"center"} size={"huge"}>Ingreso Admin</Header>
@@ -47,7 +46,7 @@ function LoginComponent() {
                     </Form>
                 </Container>
             </div>
-            <Image src={"https://twincitieskidsclub.com/wp-content/uploads/2021/11/childrens-consignment-store.jpg"} className={styles.backgroundImage}  alt={""}/>
+            <img src={"https://twincitieskidsclub.com/wp-content/uploads/2021/11/childrens-consignment-store.jpg"} className={styles.backgroundImage}  alt={""}/>
         </div>;
 }
 
