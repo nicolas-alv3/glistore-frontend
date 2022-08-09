@@ -1,3 +1,4 @@
+import { Product } from "../src/types";
 import API from "./api";
 
 class ProductService {
@@ -39,6 +40,10 @@ class ProductService {
 
     create(body: any) {
         return API.post(this.path + "/", body)
+    }
+
+    delete(p: Product) {
+        return API.delete(this.path + "/"+ p._id)
     }
 }
 

@@ -8,6 +8,10 @@ import ProductService from "../../service/ProductService";
 import { Product } from "../../src/types";
 import {pipePrice} from "../../src/utils/stringUtils";
 import AddEditModal from "../../src/components/Admin/AddEditModal";
+import {useDispatch} from "react-redux";
+import {show} from "../../slices/sidebarSlice";
+import {showDialog} from "../../slices/dialogSlice";
+import DialogComponent from "../../src/components/Utils/DialogComponent";
 
 function LoginComponent() {
     const [name, setName] = React.useState("");
@@ -50,6 +54,14 @@ function LoginComponent() {
 }
 
 function ProductsTable({ products, update }) {
+    const dispatch = useDispatch();
+
+    const onDeleteConfirm = (p: Product) => {
+        ProductService.delete(p)
+            .then( () => ToastUtils.success("Eliminado!"))
+            .then(update)
+            .catch( () => ToastUtils.error("Ha ocurrido un error"));
+    }
     return <Table>
         <Table.Header>
             <Table.Row>
@@ -74,7 +86,16 @@ function ProductsTable({ products, update }) {
                     <Table.Cell>{pipePrice(p.price)}</Table.Cell>
                     <Table.Cell>
                         <AddEditModal product={p} update={update} trigger={<Button icon basic color={"brown"}><Icon name={"pencil"} /></Button>} />
-                        <Button icon basic color={"red"} ><Icon name={"trash"} /></Button>
+                        <DialogComponent
+                            title={"Eliminar producto"}
+                            message={"¿Estas segur@ que querés eliminar este producto?"}
+                            onConfirm={() => onDeleteConfirm(p)}
+                            trigger={<Button
+                                        icon
+                                        basic
+                                        color={"red"}
+                                        ><Icon name={"trash"} />
+                                    </Button>} />
                     </Table.Cell>
                 </Table.Row>
             })}

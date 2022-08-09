@@ -28,9 +28,9 @@ export default function SelectFilter( props: Props ) {
 
     const options = props.type === SelectFilterType.SELECT_ORDER ? sortOptions : [
         { key:"NEW BORN",value: "NEW BORN", text:"New born"},
-        { key:"Kid",value: "Kid", text:"Kid"},
-        { key:"Baby",value: "Baby", text:"Baby"},
-        { key:"Accesorios",value: "Accesorios", text:"Accesorios"},
+        { key:"KID",value: "KID", text:"Kid"},
+        { key:"BABY",value: "BABY", text:"Baby"},
+        { key:"ACCESORIOS",value: "ACCESORIOS", text:"Accesorios"},
     ];
     return  <Dropdown
         fluid

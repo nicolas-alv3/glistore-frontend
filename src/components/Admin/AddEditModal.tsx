@@ -83,17 +83,18 @@ export default function AddEditModal(props: Props) {
             discount,
             images,
             talles: getTallesForRequest(),
+            category: category,
             isTrending,
             visible: isVisible
         }
         console.log(body);
-        /*ProductService.create(body)
+        ProductService.create(body)
             .then( () => {
                 ToastUtils.success("Created!");
                 resetForm();
                 setOpen(false);
                 props.update();
-            })*/
+            })
     }
 
     const handleUploadChange = (urls: string[]) => {
