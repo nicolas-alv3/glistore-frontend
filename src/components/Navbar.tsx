@@ -7,6 +7,7 @@ import Link from 'next/link';
 import {isAdminLogged} from "../utils/loginUtils";
 import {selectCart, toggle} from "../../slices/sidebarSlice";
 import {useDispatch, useSelector} from "react-redux";
+import {setPartialReq} from "../../slices/filterSlice";
 // @ts-ignore
 export default function Navbar() {
     const { companyName } = getConfig();
@@ -25,11 +26,9 @@ export default function Navbar() {
 
     const submitSearch = (e) => {
         e.preventDefault();
-        router.push({pathname: "/search", query: { searchInput }})
+        router.push({pathname: "/search", query: { name: searchInput }})
             .then( () => {
-                if(router.pathname.includes("search")) {
-                    router.reload();
-                }
+                dispatch(setPartialReq({ name: searchInput }))
             })
     }
 

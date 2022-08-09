@@ -1,5 +1,3 @@
-import {SortType} from "./components/SortAndFilter/SortOrFilter";
-
 export interface Product {
     talles: string[],
     _id: string,
@@ -42,7 +40,9 @@ export interface SearchRequest {
     }
 }
 
-export interface FilterState {
-    req: SearchRequest,
-    lastVisitedId: string
+
+export enum SortType {
+    NONE= "NONE",
+    HIGHER= "HIGHER",
+    LOWER= "LOWER"
 }

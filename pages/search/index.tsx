@@ -1,53 +1,46 @@
 import React, {useEffect} from "react";
-import {Divider, Header} from "semantic-ui-react";
 import ProductList from "../../src/components/ProductList";
 import SearchService from "../../service/SearchService";
 import {Product, SearchRequest, SearchResponse} from "../../src/types";
 import SortOrFilter from "../../src/components/SortAndFilter/SortOrFilter";
 import {useRouter} from "next/router";
-import {parse} from "../../src/utils/parseUtils";
-import {FilterStateContext} from "../_app";
+import {useDispatch, useSelector} from "react-redux";
+import {selectFilterState, setName, setPartialReq, setTalles} from "../../slices/filterSlice";
+import { parse } from "../../src/utils/parseUtils";
 
 export default function SearchProducts() {
     const [products, setProducts] = React.useState<Product[]>([]);
     const router = useRouter();
-    const searchInput = router.query.searchInput as string;
-    const [filterState, setFilterState] = React.useContext(FilterStateContext);
-    const baseReq = filterState?.req || {
-        name: searchInput,
-        pageSize:10,
-        page:1,
-        filter: {
-            talles: parse(router.query.talles) || [],
-            categories: parse(router.query.categories) || []
-        },
-        sort: {
-            price: "NONE"
+    const filterState = useSelector(selectFilterState);
+    const dispatch = useDispatch();
+
+    useEffect( () => {
+        if(router.isReady && filterState.req.name) {
+            getProducts();
         }
-    }
-    const [req, setReq] = React.useState(baseReq);
-
-    useEffect(() => {
-
-    },[])
+    }, [filterState.req])
 
 
     useEffect( () => {
-        setFilterState( { lastVisitedId:"", req} )
-        SearchService.search(req).then( (res: SearchResponse) => {
+        if(router.isReady) {
+            const name = router.query.name as string;
+            const talles = parse(router.query.talles);
+            const categories = parse(router.query.categories);
+            const partialReq :Partial<SearchRequest> = {
+                name,
+                filter: {
+                    talles: talles || filterState.req.filter.talles,
+                    categories: categories || filterState.req.categories
+                }
+            }
+            dispatch(setPartialReq(partialReq));
+        }
+    }, [router.isReady])
+
+    const getProducts = () => {
+        SearchService.search(filterState.req).then( (res: SearchResponse) => {
             setProducts(res.products);
         })
-    }, [req])
-
-    const getProducts = (searchRequest: Partial<SearchRequest>) => {
-        // @ts-ignore
-        const sReq: SearchRequest = {
-            ...searchRequest,
-            name: searchInput,
-            pageSize:10,
-            page:1,
-        }
-        setReq(sReq);
     }
 
     setTimeout( () => {
@@ -57,6 +50,6 @@ export default function SearchProducts() {
 
     return <div>
         <SortOrFilter products={products} updateProducts={getProducts}/>
-        <ProductList title={`Resultados para "${searchInput}"`} products={products} withBackButton/>
+        <ProductList title={`Resultados para "${filterState.req.name}"`} products={products} withBackButton/>
     </div>
 }

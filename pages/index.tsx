@@ -2,15 +2,11 @@ import type { NextPage } from 'next';
 import React, {useEffect} from "react";
 import ProductService from "../service/ProductService";
 import ProductList from '../src/components/ProductList';
-import {FilterStateContext} from "../src/context/Contexts";
-import { useSelector, useDispatch } from 'react-redux'
-import {decrement, increment, selectValue} from "../slices/counterSlice";
+import { useDispatch } from 'react-redux'
+import {resetFilter} from "../slices/filterSlice";
 
 const Home: NextPage = () => {
-    const [filterState, setFilterState] = React.useContext(FilterStateContext);
     const [products, setProducts] = React.useState([]);
-
-    const count = useSelector(selectValue);
     const dispatch = useDispatch()
 
 
@@ -18,27 +14,12 @@ const Home: NextPage = () => {
         ProductService.getVisibleProducts().then( res => {
             setProducts(res);
         });
-        setFilterState(null);
+        dispatch(resetFilter())
     }, []);
 
     return (
     <div>
       <main>
-          <div>
-              <button
-                  aria-label="Increment value"
-                  onClick={() => dispatch(increment())}
-              >
-                  Increment
-              </button>
-              <span>{count}</span>
-              <button
-                  aria-label="Decrement value"
-                  onClick={() => dispatch(decrement())}
-              >
-                  Decrement
-              </button>
-          </div>
           <ProductList title={"Todos nuestros productos"} products={products} withBackButton={false}/>
       </main>
     </div>

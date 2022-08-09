@@ -1,6 +1,6 @@
 import React from "react";
 import {Dropdown} from "semantic-ui-react";
-import {SortType} from "./SortOrFilter";
+import {SortType} from "../../types";
 
 export enum SelectFilterType {
     SELECT_CATEGORY,

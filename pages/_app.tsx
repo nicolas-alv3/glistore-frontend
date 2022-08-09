@@ -8,16 +8,13 @@ import Head from "next/head";
 import {getConfig} from "../src/hooks/getConfig";
 import {Container} from "semantic-ui-react";
 import Footer from "../src/components/Footer";
-import Contexts from "../src/context/Contexts";
 import { store } from './store'
 import { Provider } from 'react-redux'
 
 function MyApp({ Component, pageProps }: AppProps) {
   const { companyName, meta } = getConfig();
 
-  // @ts-ignore
-  return <Contexts>
-      <Provider store={store}>
+  return <Provider store={store}>
             <Head>
               <title>{ companyName } | Store</title>
               <meta name="description" content={meta.description} />
@@ -30,7 +27,6 @@ function MyApp({ Component, pageProps }: AppProps) {
             <Footer />
             <Toaster position="bottom-left"/>
       </Provider>
-  </Contexts>
 }
 
 export default MyApp

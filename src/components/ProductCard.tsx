@@ -1,18 +1,16 @@
 import {Button, Card, Header, Icon, Image} from "semantic-ui-react";
 import styles from "../../styles/Home.module.css";
-import Link from "next/link";
-import React, {Fragment} from "react";
+import React from "react";
 import {useRouter} from "next/router";
-import {FilterStateContext} from "../context/Contexts";
+import {setPartialReq} from "../../slices/filterSlice";
 
 // @ts-ignore
 export default function ProductCard({ product } ) {
     const router = useRouter();
-    const [filterState, setFilterState] = React.useContext(FilterStateContext);
 
     const handleCardClick = () => {
         // @ts-ignore
-        setFilterState(prevState => ({...prevState, lastVisitedId: product._id}));
+        setPartialReq(prevState => ({...prevState, lastVisitedId: product._id}));
         router.push({ pathname: "/product", query:  { id: product._id }})
     }
     return <Card as={Button}  className={styles.card} onClick={handleCardClick} >

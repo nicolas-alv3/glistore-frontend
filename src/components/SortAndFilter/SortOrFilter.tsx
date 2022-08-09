@@ -1,30 +1,24 @@
 import React from "react";
-import {Product, SearchRequest} from "../../types";
+import {Product, SearchRequest, SortType} from "../../types";
 import {Button, Container, Header, Icon, Menu, Segment, Sidebar} from "semantic-ui-react";
 import TallesFilter from "./TallesFilter";
 import SelectFilter, {SelectFilterType} from "./SelectFilter";
+import {useDispatch} from "react-redux";
+import {setPartialReq} from "../../../slices/filterSlice";
+import ProductService from "../../../service/ProductService";
 
-export enum SortType {
-    NONE= "NONE",
-    HIGHER= "HIGHER",
-    LOWER= "LOWER"
-}
-
-export default function SortOrFilter( { products, updateProducts }) {
+export default function SortOrFilter( { products }) {
     const [visible, setVisible] = React.useState(false);
     const [categories, setCategories] = React.useState([]);
     const [filter, setFilter] = React.useState(false);
     const [sort, setSort] = React.useState(SortType.NONE);
     const [activeItems, setActiveItems] = React.useState<string[]>([]);
-    const getTalles: () => string[] = () => Array.from(new Set(products?.reduce( (acc: string[], p:Product) => acc.concat(p.talles),[])))
+    const dispatch = useDispatch();
 
     const [values, setValues] = React.useState(new Array(20).fill(null));
 
-
-    const sortOptions = [{ key:SortType.HIGHER,value: SortType.HIGHER, text:"Más alto primero"}, { key:SortType.LOWER,value: SortType.LOWER, text:"Más bajo primero"}];
-
     const filterItems = [
-        { name: "Talle", children: <TallesFilter talles={getTalles()} values={values} setValues={setValues} />},
+        { name: "Talle", children: <TallesFilter talles={ProductService.getTalles()} values={values} setValues={setValues} />},
         { name: "Categoría", children: <SelectFilter value={categories} setValue={setCategories} type={SelectFilterType.SELECT_CATEGORY} multiple={true}/>}
     ]
 
@@ -40,14 +34,14 @@ export default function SortOrFilter( { products, updateProducts }) {
     const apply = () => {
         const sReq: Partial<SearchRequest> = {
             filter: {
-                talles: getTalles().filter( (t, i) => values[i]),
+                talles: ProductService.getTalles().filter( (t, i) => values[i]),
                 categories: categories
             },
             sort: {
                 price: sort
             }
         }
-        updateProducts(sReq);
+        dispatch(setPartialReq(sReq))
         setVisible(false);
     }
 

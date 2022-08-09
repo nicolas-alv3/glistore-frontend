@@ -4,7 +4,7 @@ import styles from '../../styles/Home.module.css';
 import WhatsappService from "../../service/WhatsappService";
 import {getConfig} from "../hooks/getConfig";
 import {CartItem} from "../types";
-import {hide, selectCart, selectShow} from "../../slices/sidebarSlice";
+import {hide, removeFromIndex, resetCart, selectCart, selectShow} from "../../slices/sidebarSlice";
 import {useDispatch, useSelector} from "react-redux";
 
 
@@ -19,7 +19,7 @@ export default function CartSidebar () {
 
 
     const deleteItem = (idx: number) => {
-        setCart( cart.filter( (i, index) => index !== idx));
+        dispatch(removeFromIndex(idx));
         setEditMode(false);
     }
 
@@ -43,7 +43,7 @@ export default function CartSidebar () {
         Hola ${config.companyName}!, quisiera hacer una compra:\n ${itemsText()}
         *Total:*$ ${cart.reduce( (acc,i) => acc + i.amount * i.product.price,0)}
     `
-        setCart([])
+        dispatch(resetCart());
         console.log(msg);
         WhatsappService.sendMessageToStore(msg);
     }
