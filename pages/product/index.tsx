@@ -61,6 +61,7 @@ const ProductDetail = () => {
                     <Header className={styles.font} size={"large"}>Disponible en talles:</Header>
                     {/* eslint-disable-next-line react/jsx-key */}
                     {product?.talles?.map(t => <Button
+                                key={t}
                                 color={"orange"}
                                 basic={talle !== t}
                                 onClick={ () => setTalle(t)}
@@ -71,7 +72,7 @@ const ProductDetail = () => {
                     <Input type={"number"} value={amount}/>
                     <Button icon={"minus"} onClick={() => setAmount(prevAmount => prevAmount - 1)}/>
                     <Divider/>
-                    <Button color={"brown"} size={"large"} onClick={addToCart}>
+                    <Button color={"brown"} size={"large"} disabled={!Boolean(talle)} onClick={addToCart}>
                         <Icon name={"cart plus"} />
                         Agregar al carrito
                     </Button>
