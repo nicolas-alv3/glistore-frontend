@@ -116,7 +116,6 @@ function AdminPanel() {
         <AddEditModal update={fetchProducts} trigger={<Button circular size={"large"} className={styles.floatingButton} color={"brown"}><Icon name={"plus"}/>Agregar</Button>} />
         <Divider/>
         <ProductsTable products={products} update={fetchProducts} />
-        <ProductsTable products={products} update={fetchProducts} />
     </div>;
 }
 

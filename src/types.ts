@@ -27,16 +27,14 @@ export interface SearchResponse {
 
 export interface SearchRequest {
     name?: string,
-    categories?: string[],
-    talles?: string[]
     pageSize: number,
     page: number,
     sort?: {
       price: SortType
     }
     filter: {
-        talles: string[] | string | never[],
-        categories: string[] | string | never[]
+        talles: string[],
+        categories: string[]
     }
 }
 

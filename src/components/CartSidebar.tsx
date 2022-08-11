@@ -81,7 +81,7 @@ export default function CartSidebar () {
                     </Item.Content>
                 </Item>)}
                     <Item>
-                        <Button color={"brown"} basic fluid onClick={hide}> Seguir mirando 👀 </Button>
+                        <Button color={"brown"} basic fluid onClick={() => dispatch(hide())}> Seguir mirando 👀 </Button>
                     </Item>
                     <Item>
                         <Button color={"brown"} fluid onClick={confirmOrder}> Finalizar compra 🥳</Button>

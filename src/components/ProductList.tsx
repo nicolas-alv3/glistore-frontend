@@ -8,7 +8,7 @@ interface Props {
     products: Product[],
     title: string,
     belowTitle?: any,
-    withBackButton: boolean
+    withBackButton: boolean,
 }
 
 export default function ProductList( props: Props ) {

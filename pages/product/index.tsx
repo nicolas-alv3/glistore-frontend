@@ -9,7 +9,7 @@ import {
     Grid,
     Header,
     Icon,
-    Input
+    Input, Label
 } from "semantic-ui-react";
 import styles from '../../styles/Home.module.css';
 import Carrousel from "../../src/components/Utils/Carrousel";
@@ -55,7 +55,7 @@ const ProductDetail = () => {
                     <Carrousel urls={product?.images || []} />
                 </Grid.Column>
                 <Grid.Column width={6}>
-                    <Header size={"huge"}>{product?.name}</Header>
+                    <Header size={"huge"}>{product?.name} <Label color={"orange"}>{product?.category}</Label></Header>
                     <CardDescription>{product?.description}</CardDescription>
                     <Header className={styles.font} size={"huge"}>${product?.price}</Header>
                     <Header className={styles.font} size={"large"}>Disponible en talles:</Header>
@@ -68,11 +68,12 @@ const ProductDetail = () => {
                                 >{t}
                             </Button>)}
                     <Divider/>
+                    <Header className={styles.font} size={"small"}>Cantidad:</Header>
                     <Button icon={"plus"} onClick={() => setAmount(prevAmount => prevAmount + 1)}/>
-                    <Input type={"number"} value={amount}/>
+                    <Input type={"number"} value={amount} error={amount <= 0} />
                     <Button icon={"minus"} onClick={() => setAmount(prevAmount => prevAmount - 1)}/>
                     <Divider/>
-                    <Button color={"brown"} size={"large"} disabled={!Boolean(talle)} onClick={addToCart}>
+                    <Button color={"brown"} size={"large"} disabled={!Boolean(talle) || amount < 1} onClick={addToCart}>
                         <Icon name={"cart plus"} />
                         Agregar al carrito
                     </Button>

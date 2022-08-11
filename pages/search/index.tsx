@@ -5,8 +5,11 @@ import {Product, SearchRequest, SearchResponse} from "../../src/types";
 import SortOrFilter from "../../src/components/SortAndFilter/SortOrFilter";
 import {useRouter} from "next/router";
 import {useDispatch, useSelector} from "react-redux";
-import {selectFilterState, setName, setPartialReq, setTalles} from "../../slices/filterSlice";
+import {selectFilterState, setPartialReq} from "../../slices/filterSlice";
 import { parse } from "../../src/utils/parseUtils";
+import FilterBadges from "../../src/components/Utils/FilterBadges";
+
+
 
 export default function SearchProducts() {
     const [products, setProducts] = React.useState<Product[]>([]);
@@ -16,8 +19,7 @@ export default function SearchProducts() {
 
     useEffect( () => {
         if(router.isReady && filterState.req.name) {
-            getProducts();
-        }
+            getProducts();        }
     }, [filterState.req])
 
 
@@ -30,7 +32,7 @@ export default function SearchProducts() {
                 name,
                 filter: {
                     talles: talles || filterState.req.filter.talles,
-                    categories: categories || filterState.req.categories
+                    categories: categories || filterState.req.filter.categories
                 }
             }
             dispatch(setPartialReq(partialReq));
@@ -50,6 +52,6 @@ export default function SearchProducts() {
 
     return <div>
         <SortOrFilter/>
-        <ProductList title={`Resultados para "${filterState.req.name}"`} products={products} withBackButton/>
+        <ProductList title={`Resultados para "${filterState.req.name}"`} products={products} withBackButton belowTitle={<FilterBadges filterState={ filterState } />}/>
     </div>
 }

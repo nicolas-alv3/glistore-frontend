@@ -1,4 +1,4 @@
-import {Button, Form, Header, Icon, PlaceholderParagraph} from "semantic-ui-react";
+import {Button, Form, Icon, PlaceholderParagraph} from "semantic-ui-react";
 import React from "react";
 import storage from "../../../firebase.config";
 import {
@@ -10,7 +10,6 @@ import {
 
 export default function ImageUploader({onChange, images} ) {
     const [loading, setLoading] = React.useState(false);
-    const [loaded, setLoaded] = React.useState(false);
     const [files, setFiles] = React.useState<File[]>([]);
 
     const handleFileChange = (e) => {
@@ -24,7 +23,7 @@ export default function ImageUploader({onChange, images} ) {
 
             uploadTask.on(
                 "state_changed",
-                (snapshot) => {
+                () => {
                     setLoading(true);
                 },
                 (err) => reject(err),
@@ -53,17 +52,16 @@ export default function ImageUploader({onChange, images} ) {
 
         Promise.all(promises).then((res) => {
             onChange(res);
-            setLoaded(true)
         })
     }
 
     return <Form.Field >
         <label>Imágenes</label>
         {
-            images.length ? <PlaceholderParagraph> {images?.length} imagenes cargadas</PlaceholderParagraph>
+            images.length ? <PlaceholderParagraph> {images?.length} imagenes cargadas <Icon name={"check"} color={"green"}/></PlaceholderParagraph>
                 :<>
                     <input type={"file"} accept="image/*" multiple onChange={handleFileChange} placeholder='Ingresar descuento' />
-                    {loaded ? <Icon name={"check"} color={"green"}/> : <Button loading={loading} onClick={upload}>Subir</Button>}
+                    { files.length > 0 && <Button loading={loading} color={"orange"} onClick={upload}><Icon name={"cloud upload"} />Subir a la nube</Button>}
                 </>
         }
     </Form.Field>
