@@ -1,6 +1,8 @@
 import React from "react";
 import styles from '../../styles/Home.module.css';
 import {Container, Divider, Grid, Header, Icon, List, Segment, TextArea} from "semantic-ui-react";
+import {getConfig} from "../hooks/getConfig";
+import WhatsappService from "../../service/WhatsappService";
 
 export default function Footer() {
     // @ts-ignore
@@ -21,11 +23,11 @@ export default function Footer() {
                             <Header size={"small"}> Contactanos!</Header>
                         </List>
                         <List link size='big'>
-                            <List.Item as='a' href='https://linktr.ee/nicolas_alvarez'>
+                            <List.Item as='a' href={getConfig().instagramLink}>
                                 <Icon name={"instagram"} />
                                 Instagram
                             </List.Item>
-                            <List.Item as='a' href='https://linktr.ee/nicolas_alvarez'>
+                            <List.Item as='a' href={WhatsappService.getWhatsappLink()}>
                                 <Icon name={"whatsapp"} />
                                 Whatsapp
                             </List.Item>

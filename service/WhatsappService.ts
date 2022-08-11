@@ -19,6 +19,10 @@ class WhatsappService {
             window.open(encodeURI(`https://web.whatsapp.com/send/?phone=${phoneNumber}&text=${msg}`), '_blank');
         }
     }
+
+    getWhatsappLink() {
+        return `https://web.whatsapp.com/send/?phone=${configJSON.phoneNumber}&text=Hola!`;
+    }
 }
 
 export default new WhatsappService();
