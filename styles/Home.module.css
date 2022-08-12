@@ -99,7 +99,7 @@
 }
 
 .cartButton {
-  background: transparent;
+  background: transparent !important;
 }
 
 .card h2 {

@@ -7,11 +7,13 @@ import {resetFilter} from "../slices/filterSlice";
 
 const Home: NextPage = () => {
     const [products, setProducts] = React.useState([]);
+    const [loading, setLoading] = React.useState(true);
     const dispatch = useDispatch()
 
 
     useEffect( () => {
         ProductService.getVisibleProducts().then( res => {
+            setLoading(false);
             setProducts(res);
         });
         dispatch(resetFilter())
@@ -20,7 +22,7 @@ const Home: NextPage = () => {
     return (
     <div>
       <main>
-          <ProductList title={"Todos nuestros productos"} products={products} withBackButton={false}/>
+          <ProductList loading={loading} title={"Todos nuestros productos"} products={products} withBackButton={false}/>
       </main>
     </div>
   )

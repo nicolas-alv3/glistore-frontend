@@ -13,13 +13,17 @@ import FilterBadges from "../../src/components/Utils/FilterBadges";
 
 export default function SearchProducts() {
     const [products, setProducts] = React.useState<Product[]>([]);
+    const [loading, setLoading] = React.useState(true);
+
     const router = useRouter();
     const filterState = useSelector(selectFilterState);
     const dispatch = useDispatch();
 
     useEffect( () => {
         if(router.isReady && filterState.req.name) {
-            getProducts();        }
+            setLoading(true);
+            getProducts();
+        }
     }, [filterState.req])
 
 
@@ -42,6 +46,7 @@ export default function SearchProducts() {
     const getProducts = () => {
         SearchService.search(filterState.req).then( (res: SearchResponse) => {
             setProducts(res.products);
+            setLoading(false);
         })
     }
 
@@ -52,6 +57,6 @@ export default function SearchProducts() {
 
     return <div>
         <SortOrFilter/>
-        <ProductList title={`Resultados para "${filterState.req.name}"`} products={products} withBackButton belowTitle={<FilterBadges filterState={ filterState } />}/>
+        <ProductList loading={loading} title={`Resultados para "${filterState.req.name}"`} products={products} withBackButton belowTitle={<FilterBadges filterState={ filterState } />}/>
     </div>
 }
