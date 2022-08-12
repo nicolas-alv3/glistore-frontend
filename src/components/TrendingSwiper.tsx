@@ -22,7 +22,7 @@ export default function TrendingSwiper() {
                  spaceBetween={5}
                  className="mySwiper">
             {products.map( (p: Product) => <SwiperSlide style={{width:"40%"}} key={p._id} >
-                    <ProductCard product={p} />
+                    <ProductCard product={p} loading={false}/>
             </SwiperSlide>)}
         </Swiper>
     </>
