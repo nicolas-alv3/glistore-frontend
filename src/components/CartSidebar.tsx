@@ -69,10 +69,10 @@ export default function CartSidebar () {
                     <Item.Image size='tiny' src={i.product.images[0]} />
                     <Item.Content>
                         <Item.Header as='a'>{i.product.name}</Item.Header>
-                        <Item.Meta>{i.amount}u.</Item.Meta>
                         <Item.Description>
                             {i.product.description}
                         </Item.Description>
+                        <Item.Meta>{i.amount}u.</Item.Meta>
                         <div style={{display:"flex", justifyContent: "space-between"}}>
                             <Item.Extra>{`Talle ${i.talle}`}</Item.Extra>
                             <Item.Header as={Header}>${i.product.price}</Item.Header>

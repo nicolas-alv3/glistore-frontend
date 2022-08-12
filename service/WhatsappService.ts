@@ -21,7 +21,7 @@ class WhatsappService {
     }
 
     getWhatsappLink() {
-        return `https://web.whatsapp.com/send/?phone=${configJSON.phoneNumber}&text=Hola!`;
+        return `https://wa.me/${configJSON.phoneNumber}`;
     }
 }
 

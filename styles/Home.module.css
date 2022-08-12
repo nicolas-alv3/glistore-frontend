@@ -86,12 +86,6 @@
   color: var(--col-font) !important;
 }
 
-.cardDescription {
-  overflow: hidden;
-  height: 32px;
-  text-overflow: ellipsis;
-}
-
 .card:hover {
   box-shadow: -1px 1px 20px 0px lightgrey !important;
 }
@@ -103,6 +97,37 @@
   left: 16px;
   z-index: 2;
 }
+
+.cartButton {
+  background: transparent;
+}
+
+.card h2 {
+  font-size: 16px;
+  text-align: left;
+  color: var(--col-font);
+}
+
+.card h3 {
+  font-size: 14px;
+  text-align: left;
+  color: var(--col-secondary-font);
+  font-weight: normal;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 140px;
+  height: 35px;
+}
+
+.card h4 {
+  text-align: left;
+  font-size: 16px;
+  font-weight: bold;
+}
+
 
 /* On screens that are 992px or less, set the background color to blue */
 @media screen and (min-width: 992px) {

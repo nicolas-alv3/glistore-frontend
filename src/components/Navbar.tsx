@@ -48,8 +48,8 @@ export default function Navbar() {
                     </Input>
                 </form>
                 <div className={styles.cartContainer}>
-                    <Button icon basic onClick={() => dispatch(toggle())}>
-                        <Icon name='cart' size={"big"} />
+                    <Button icon onClick={() => dispatch(toggle())} className={styles.cartButton}>
+                        <Icon name='cart' size={"big"}  />
                         <b>{cart.length > 0 && cart.length}</b>
                     </Button>
                 </div>

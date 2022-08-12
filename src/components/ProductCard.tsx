@@ -16,11 +16,9 @@ export default function ProductCard({ product } ) {
     return <Card as={Button}  className={styles.card} onClick={handleCardClick} >
             <img id={product._id} src={product.images[0]} className={styles.cardImg} />
             <Card.Content>
-                <Card.Header>{product.name}</Card.Header>
-                <Card.Meta className={styles.cardDescription}>{product.description}</Card.Meta>
-                <Card.Description textAlign={"right"}>
-                    <Header>${product.price}</Header>
-                </Card.Description>
+                <h2>{product.name}</h2>
+                <h3>{product.description}</h3>
+                <h4>${product.price}</h4>
             </Card.Content>
             <Card.Content extra>
                 <a>
