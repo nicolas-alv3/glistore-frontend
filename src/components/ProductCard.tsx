@@ -1,11 +1,11 @@
 import {Button, Card, Icon} from "semantic-ui-react";
 import styles from "../../styles/Home.module.css";
-import React from "react";
+import React, {Fragment} from "react";
 import {useRouter} from "next/router";
 import {setPartialReq} from "../../slices/filterSlice";
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
-import {height} from "dom7";
+import Image from "next/image";
 
 function ProductSkeleton() {
     return <div style={{height: "100%", width: "100%"}}>
@@ -22,6 +22,7 @@ function ProductSkeleton() {
 
 // @ts-ignore
 export default function ProductCard({product, loading}) {
+    const [loadingPicture, setLoadingPicture] = React.useState(false);
     const router = useRouter();
 
     const handleCardClick = () => {
@@ -29,12 +30,20 @@ export default function ProductCard({product, loading}) {
         setPartialReq(prevState => ({...prevState, lastVisitedId: product._id}));
         router.push({pathname: "/product", query: {id: product._id}})
     }
+
+    const handleImageLoaded = () => {
+        setLoadingPicture(false);
+        console.log("Image loaded")
+    }
+
     return <Card as={Button} className={styles.card} onClick={handleCardClick}>
         {
             loading ? <ProductSkeleton/>
                 :
                 <>
-                    <img id={product._id} src={product.images[0]} className={styles.cardImg}/>
+                    {
+                        product.images[0]  && <Image id={product._id} src={product.images[0] || "..."} blurDataURL={"http://www.proedsolutions.com/wp-content/themes/micron/images/placeholders/placeholder_small.jpg"} height={180} width={222} className={styles.cardImg}  placeholder="blur" alt={""}/>
+                    }
                     <Card.Content>
                         <h2>{product.name}</h2>
                         <h3>{product.description}</h3>
