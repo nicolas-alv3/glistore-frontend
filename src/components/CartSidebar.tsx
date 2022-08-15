@@ -66,15 +66,17 @@ export default function CartSidebar () {
         {
             cart.length ? <Item.Group>
                 {cart?.map( (i,idx) => <Item key={i.product._id} className={styles.item}>
-                    <Item.Image size='tiny' src={i.product.images[0]} />
+                    <div style={{marginBottom:24}}>
+                        <Item.Image size='small' src={i.product.images[0]} />
+                    </div>
                     <Item.Content>
                         <Item.Header as='a'>{i.product.name}</Item.Header>
                         <Item.Description>
                             {i.product.description}
                         </Item.Description>
                         <Item.Meta>{i.amount}u.</Item.Meta>
-                        <div style={{display:"flex", justifyContent: "space-between"}}>
-                            <Item.Extra>{`Talle ${i.talle}`}</Item.Extra>
+                        <Item.Extra>{`Talle ${i.talle}`}</Item.Extra>
+                        <div style={{display:"flex", justifyContent: "flex-end"}}>
                             <Item.Header as={Header}>${i.product.price}</Item.Header>
                         </div>
                         {editMode && <Button icon="delete" color={"red"} basic onClick={() => deleteItem(idx)}>Eliminar item</Button>}
@@ -87,7 +89,7 @@ export default function CartSidebar () {
                         <Button color={"brown"} fluid onClick={confirmOrder}> Finalizar compra 🥳</Button>
                     </Item>
             </Item.Group> :
-                <Header> Aún no has comprado nada... 😞</Header>
+                <Header> Aún no has agregado nada...</Header>
         }
         </Sidebar>
 }

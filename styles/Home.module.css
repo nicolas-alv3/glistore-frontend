@@ -65,11 +65,7 @@
   padding: 16px !important;
   flex-direction: row !important;
   align-items: center;
-}
-
-.item img {
-  object-fit: cover;
-  width: min(20%, 100px) ;
+  gap: 8px;
 }
 
 .footer {
@@ -109,6 +105,7 @@
 }
 
 .card h3 {
+  margin: 0;
   font-size: 14px;
   text-align: left;
   color: var(--col-secondary-font);
@@ -123,6 +120,7 @@
 }
 
 .card h4 {
+  margin-top: 8px;
   text-align: left;
   font-size: 16px;
   font-weight: bold;

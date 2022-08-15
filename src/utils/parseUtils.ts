@@ -10,3 +10,6 @@ export const parse: (s: string | string[] | undefined) => any = (text: string) =
     }
     return "";
 }
+
+export const splitURL = (s: string) => s.split(",").filter( c => c!== "")
+

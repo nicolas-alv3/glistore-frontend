@@ -9,13 +9,13 @@ import Image from "next/image";
 
 function ProductSkeleton() {
     return <div style={{height: "100%", width: "100%"}}>
-        <Skeleton width={"90%"} height={120} style={{marginTop:10}} />
+        <Skeleton width={"90%"} height={120} style={{marginTop: 10}}/>
         <br/>
-        <Skeleton height={16}  width={"90%"} />
+        <Skeleton height={16} width={"90%"}/>
         <br/>
-        <Skeleton count={3} height={10} width={"90%"} />
+        <Skeleton count={3} height={10} width={"90%"}/>
         <br/>
-        <Skeleton width={50} height={14} style={{marginLeft:-135}} />
+        <Skeleton width={50} height={14} style={{marginLeft: "-6em"}}/>
         <br/>
     </div>;
 }
@@ -42,9 +42,14 @@ export default function ProductCard({product, loading}) {
                 :
                 <>
                     {
-                        product.images[0]  && <Image id={product._id} src={product.images[0] || "..."} blurDataURL={"http://www.proedsolutions.com/wp-content/themes/micron/images/placeholders/placeholder_small.jpg"} height={180} width={222} className={styles.cardImg}  placeholder="blur" alt={""}/>
+                        product.images[0]
+                        &&
+                        <Image
+                            id={product._id} src={product.images[0] || "..."}
+                            blurDataURL={"http://www.proedsolutions.com/wp-content/themes/micron/images/placeholders/placeholder_small.jpg"}
+                            height={222} width={222} className={styles.cardImg} placeholder="blur" alt={""}/>
                     }
-                    <Card.Content>
+                    <Card.Content className={styles.cardContent}>
                         <h2>{product.name}</h2>
                         <h3>{product.description}</h3>
                         <h4>${product.price}</h4>

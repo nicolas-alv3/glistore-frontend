@@ -6,8 +6,7 @@ import SortOrFilter from "../../src/components/SortAndFilter/SortOrFilter";
 import {useRouter} from "next/router";
 import {useDispatch, useSelector} from "react-redux";
 import {selectFilterState, setPartialReq} from "../../slices/filterSlice";
-import { parse } from "../../src/utils/parseUtils";
-import FilterBadges from "../../src/components/Utils/FilterBadges";
+import {parse, splitURL} from "../../src/utils/parseUtils";
 
 
 
@@ -30,8 +29,8 @@ export default function SearchProducts() {
     useEffect( () => {
         if(router.isReady) {
             const name = router.query.name as string;
-            const talles = parse(router.query.talles);
-            const categories = parse(router.query.categories);
+            const talles = splitURL((router.query.talles || "") as string);
+            const categories = splitURL((router.query.categories || "") as string);
             const partialReq :Partial<SearchRequest> = {
                 name,
                 filter: {
@@ -57,6 +56,6 @@ export default function SearchProducts() {
 
     return <div>
         <SortOrFilter/>
-        <ProductList loading={loading} title={`Resultados para "${filterState.req.name}"`} products={products} withBackButton belowTitle={<FilterBadges filterState={ filterState } />}/>
+        <ProductList loading={loading} products={products} withBackButton={false}/>
     </div>
 }

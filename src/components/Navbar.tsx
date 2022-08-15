@@ -27,10 +27,13 @@ export default function Navbar() {
 
     const submitSearch = (e) => {
         e.preventDefault();
-        router.push({pathname: "/search", query: { name: searchInput }})
-            .then( () => {
-                dispatch(setPartialReq({ name: searchInput }))
-            })
+        console.log("Serarching ", searchInput)
+        if(searchInput.length > 0) {
+            router.push({pathname: "/search", query: { name: searchInput }})
+                .then( () => {
+                    dispatch(setPartialReq({ name: searchInput }))
+                })
+        }
     }
 
     return <>

@@ -54,11 +54,15 @@ export const filterSlice = createSlice({
         removeTalle: (state, talle: PayloadAction<string>) => {
             state.req.filter.talles = state.req.filter.talles.filter(c => c!== talle.payload);
         },
+        cleanFilter: (state) => {
+            state.req.filter.categories = [];
+            state.req.filter.talles = [];
+        }
     },
 })
 
 // Action creators are generated for each case reducer function
-export const {setPartialReq, resetFilter, removeCategory, removeTalle} = filterSlice.actions
+export const {setPartialReq, resetFilter, removeCategory, removeTalle, cleanFilter} = filterSlice.actions
 
 //Selectors
 export const selectFilterState = (state: RootState) => state.filter;

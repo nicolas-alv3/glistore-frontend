@@ -8,7 +8,7 @@ import Array = util.Array;
 
 interface Props {
     products: Product[],
-    title: string,
+    title?: string,
     belowTitle?: any,
     withBackButton: boolean,
     loading: boolean
@@ -28,7 +28,7 @@ export default function ProductList( props: Props ) {
         {
             props.products?.length > 0 || props.loading?
                 <>
-                    <Title title={props.title} withBackButton={props.withBackButton}/>
+                    { props.title && <Title title={props.title} withBackButton={props.withBackButton}/>}
                     {props.belowTitle && props.belowTitle}
                     <Card.Group itemsPerRow={5} doubling={true} >
                         {/* eslint-disable-next-line react/jsx-key */}
