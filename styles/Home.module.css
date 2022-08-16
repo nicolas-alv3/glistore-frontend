@@ -97,6 +97,7 @@
 }
 
 .cartButton {
+  margin-top: 8px !important;
   background: transparent !important;
 }
 

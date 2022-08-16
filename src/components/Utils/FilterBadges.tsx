@@ -9,8 +9,8 @@ function FilterBadge(props: { text: string, onDelete: Function, value: string}) 
 
 export default function FilterBadges(props: { filterState: FilterState}) {
     const dispatch = useDispatch();
-    const handleCategoryDelete = (cat: string) => dispatch(removeCategory(cat))
-    const handleTalleDelete = (t: string) => dispatch(removeTalle(t))
+    const handleCategoryDelete = (cat: string) => dispatch(removeCategory(cat));
+    const handleTalleDelete = (t: string) => dispatch(removeTalle(t));
 
     return <LabelGroup>
         {props.filterState.req.filter.categories.map(cat => <FilterBadge key={cat}  value={cat} text={cat} onDelete={ handleCategoryDelete } />)}
