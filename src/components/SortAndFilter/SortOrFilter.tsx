@@ -1,5 +1,5 @@
-import React from "react";
-import {Product, SearchRequest, SortType} from "../../types";
+import React, {useEffect} from "react";
+import {SearchRequest, SortType} from "../../types";
 import {Button, Container, Header, Icon, Menu, Segment, Sidebar} from "semantic-ui-react";
 import TallesFilter from "./TallesFilter";
 import SelectFilter, {SelectFilterType} from "./SelectFilter";
@@ -18,12 +18,16 @@ export default function SortOrFilter() {
     const filterState = useSelector(selectFilterState);
 
 
-    const [values, setValues] = React.useState(new Array(20).fill(null));
+    const [talles, setTalles] = React.useState([]);
+
+    useEffect(() => {
+        setTalles([]);
+    }, [filterState.req])
 
     const filterItems = [
         {
             name: "Talle",
-            children: <TallesFilter talles={ProductService.getTalles()} values={values} setValues={setValues}/>
+            children: <TallesFilter onChange={setTalles}/>
         },
         {
             name: "Categoría",
@@ -48,7 +52,7 @@ export default function SortOrFilter() {
     const apply = () => {
         const sReq: Partial<SearchRequest> = {
             filter: {
-                talles: ProductService.getTalles().filter((t, i) => values[i]),
+                talles: talles,
                 categories: categories
             },
             sort: {
@@ -64,7 +68,10 @@ export default function SortOrFilter() {
     const someFilterIsApplied = filterState.req.filter.talles.length > 0 || filterState.req.filter.categories.length > 0
 
     const cleanFilters = () => {
-        dispatch(cleanFilter())
+        dispatch(cleanFilter());
+        setCategories([]);
+        setActiveItems([]);
+        setSort(SortType.NONE);
     }
 
     return <div style={{marginBottom: 16}}>

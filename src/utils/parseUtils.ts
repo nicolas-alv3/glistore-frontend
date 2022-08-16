@@ -13,3 +13,8 @@ export const parse: (s: string | string[] | undefined) => any = (text: string) =
 
 export const splitURL = (s: string) => s.split(",").filter( c => c!== "")
 
+export function withoutDuplicates<T>(array:T[]): T[] {
+    return Array.from(new Set(array));
+
+}
+
