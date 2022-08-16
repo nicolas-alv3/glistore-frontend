@@ -1,11 +1,17 @@
-.logo {
-  background: url("https://http2.mlstatic.com/frontend-assets/ml-web-navigation/ui-navigation/5.19.0/mercadolibre/logo__small@2x.png");
-  background-size: 44px 31px;
-  width: 44px;
-  height: 32px;
-  top: 8px;
-  left: 8px;
-  position: relative;
+.smallLogo {
+  display: block !important;
+}
+
+.smallLogo span {
+  display: block !important;
+}
+
+.largeLogo span {
+  display: none !important;
+}
+
+.largeLogo {
+  display: none !important;
 }
 
 .input {
@@ -18,10 +24,6 @@
   justify-content: left;
 }
 
-.companyText {
-  display: none;
-}
-
 .navbar {
   margin-top: -70px;
   box-shadow: -1px 1px 20px 0px lightgrey;
@@ -29,7 +31,7 @@
   z-index: 10;
   margin-bottom: 16px;
   background: var(--col-secondary);
-  height: 50px;
+  height: 60px;
   width: 100vw;
   display: flex;
   justify-content: space-between;
@@ -127,14 +129,26 @@
 }
 
 
-/* On screens that are 992px or less, set the background color to blue */
+/* On screens that are 992px or more */
 @media screen and (min-width: 992px) {
   .input {
     width: 500px;
   }
-  .companyText {
-    display: inline;
-    margin-left: 20px;
+
+  .smallLogo {
+    display: none !important;
+  }
+
+  .smallLogo span {
+    display: none !important;
+  }
+
+  .largeLogo span {
+    display: block !important;
+  }
+
+  .largeLogo {
+    display: block !important;
   }
 
   .cartContainer {

@@ -81,7 +81,7 @@ const ProductDetail = () => {
                                 <Header size={"huge"}>{product?.name} <Label color={"orange"}>{product?.category}</Label></Header>
                                 <CardDescription>{product?.description}</CardDescription>
                                 <Header className={styles.font} size={"huge"}>${product?.price}</Header>
-                                <Header className={styles.font} size={"large"}>Disponible en talles:</Header>
+                                <Header className={styles.font} size={"medium"}>Disponible en talles:</Header>
                                 {/* eslint-disable-next-line react/jsx-key */}
                                 {product?.talles?.map(t => <Button
                                     key={t}
