@@ -26,6 +26,9 @@ export const sidebarSlice = createSlice({
         toggle: (state) => {
             state.show = !state.show;
         },
+        setCart: (state, cart: PayloadAction<CartItem[]>) => {
+            state.cart = cart.payload;
+        },
         addItem: (state, item: PayloadAction<CartItem>) => {
             state.cart = state.cart.concat([item.payload])
         },
@@ -39,7 +42,7 @@ export const sidebarSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const {show, hide, toggle, addItem, removeFromIndex, resetCart} = sidebarSlice.actions
+export const {show, hide, toggle, addItem, removeFromIndex, resetCart, setCart} = sidebarSlice.actions
 
 //Selectors
 export const selectShow = (state: RootState) => state.sidebar.show;

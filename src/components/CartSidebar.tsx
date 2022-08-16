@@ -1,11 +1,12 @@
 import {Button, Divider, Header, Item, Menu, Sidebar} from "semantic-ui-react";
-import React from "react";
+import React, {useEffect} from "react";
 import styles from '../../styles/Home.module.css';
 import WhatsappService from "../../service/WhatsappService";
 import {getConfig} from "../hooks/getConfig";
 import {CartItem} from "../types";
 import {hide, removeFromIndex, resetCart, selectCart, selectShow} from "../../slices/sidebarSlice";
 import {useDispatch, useSelector} from "react-redux";
+import {getCartFromReload, saveCartOnReload} from "../utils/windowUtils";
 
 
 // @ts-ignore
@@ -14,8 +15,12 @@ export default function CartSidebar () {
     const [editMode, setEditMode] = React.useState(false);
     const config = getConfig();
     const show = useSelector(selectShow);
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
 
+    useEffect(() => {
+        saveCartOnReload();
+        getCartFromReload();
+    },[])
 
 
     const deleteItem = (idx: number) => {
@@ -60,11 +65,11 @@ export default function CartSidebar () {
             >
         <div style={{display:"flex", justifyContent: "space-between", alignItems:"center"}}>
             <Header>Tu carrito</Header>
-            {cart.length > 0 && <Button color={"instagram"} icon={"pencil"} onClick={ () => setEditMode(prevState => !prevState)}/>}
+            {cart?.length > 0 && <Button color={"instagram"} icon={"pencil"} onClick={ () => setEditMode(prevState => !prevState)}/>}
         </div>
         <Divider />
         {
-            cart.length ? <Item.Group>
+            cart?.length ? <Item.Group>
                 {cart?.map( (i,idx) => <Item key={i.product._id} className={styles.item}>
                     <div style={{marginBottom:24}}>
                         <Item.Image size='small' src={i.product.images[0]} />

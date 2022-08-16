@@ -64,7 +64,7 @@ export default function Navbar() {
             <div className={styles.cartContainer}>
                 <Button icon onClick={() => dispatch(toggle())} className={styles.cartButton}>
                     <Icon name='cart' size={"big"}/>
-                    <b>{cart.length > 0 && cart.length}</b>
+                    <b>{cart?.length > 0 && cart.length}</b>
                 </Button>
             </div>
         </nav>
