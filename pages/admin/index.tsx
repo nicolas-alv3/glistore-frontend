@@ -9,6 +9,13 @@ import { Product } from "../../src/types";
 import {pipePrice} from "../../src/utils/stringUtils";
 import AddEditModal from "../../src/components/Admin/AddEditModal";
 import DialogComponent from "../../src/components/Utils/DialogComponent";
+import storage from "../../firebase.config";
+import {
+    ref,
+    deleteObject,
+    listAll
+} from "firebase/storage";
+import {log} from "util";
 
 function LoginComponent() {
     const [name, setName] = React.useState("");
@@ -52,10 +59,19 @@ function LoginComponent() {
 
 function ProductsTable({ products, update }) {
 
+    const removeFromFirestore = (p: Product) => {
+        p.images.forEach( imageUrl => {
+            const storageRef = ref(storage, imageUrl )
+            deleteObject(storageRef).then(res => console.log("Firestore image deleted", res))
+                .catch(err => ToastUtils.error("Error eliminando imagen"));
+        })
+    }
+
     const onDeleteConfirm = (p: Product) => {
         ProductService.delete(p)
             .then( () => ToastUtils.success("Eliminado!"))
             .then(update)
+            .then(() => removeFromFirestore(p))
             .catch( () => ToastUtils.error("Ha ocurrido un error"));
     }
     return <Table>

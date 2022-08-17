@@ -1,14 +1,16 @@
 import React from "react";
 // Import Swiper React components
-import { Swiper, SwiperSlide } from "swiper/react";
+import {Swiper, SwiperSlide, useSwiper} from "swiper/react";
 import styles from '../../../styles/Home.module.css';
 
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/navigation";
-
-// import required modules
+import "swiper/css/zoom";
 import { Navigation } from "swiper";
+import Image from "next/image";
+import Zoom from 'react-medium-image-zoom'
+import 'react-medium-image-zoom/dist/styles.css'
 
 
 interface Props {
@@ -16,10 +18,15 @@ interface Props {
     width?: string
 }
 export default function Carrousel(props: Props) {
+
     return (
         <div style={{width:props.width || "min(400px, 100%)"}}>
             <Swiper navigation={true} modules={[Navigation]} className="mySwiper">
-                {props.urls?.map( url => <SwiperSlide key={url} ><img src={url} className={styles.productDetailsImg}/></SwiperSlide>)}
+                {props.urls?.map( url => <SwiperSlide key={url}>
+                    <Zoom>
+                        <Image width={400} height={500} quality={100} src={url} className={styles.productDetailsImg}/>
+                    </Zoom>
+                </SwiperSlide>)}
             </Swiper>
         </div>
     );

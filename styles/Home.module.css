@@ -2,14 +2,6 @@
   display: block !important;
 }
 
-.smallLogo span {
-  display: block !important;
-}
-
-.largeLogo span {
-  display: none !important;
-}
-
 .largeLogo {
   display: none !important;
 }
@@ -57,7 +49,6 @@
 }
 
 .productDetailsImg {
-  object-position: 0 -20px;
   object-fit: cover;
   width: 100%;
   overflow: hidden;
@@ -138,14 +129,6 @@
 
   .smallLogo {
     display: none !important;
-  }
-
-  .smallLogo span {
-    display: none !important;
-  }
-
-  .largeLogo span {
-    display: block !important;
   }
 
   .largeLogo {

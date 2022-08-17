@@ -49,7 +49,6 @@ export default function Navbar() {
                     </span>
                     <span  className={styles.smallLogo}>
                         <Image src={smallLogo} width={64} layout={"intrinsic"}
-                               style={{marginTop: "-0px !important", zIndex:"3000 !important"}}
                                height={64}/>
                     </span>
 
