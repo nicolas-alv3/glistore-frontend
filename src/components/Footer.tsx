@@ -15,14 +15,13 @@ export default function Footer() {
                 <Grid.Column width={4}>
                         <span className={styles.largeLogoFooter}>
                         <Image src={largeLogo} width={200}
-                               style={{marginTop: "-55px !important", marginLeft: "4px !important"}}
                                layout={"intrinsic"} alt={"logo"}
                                objectFit={"cover"}
-                               height={100}/>
+                               height={100} objectPosition={"center"}/>
                     </span>
                     <span className={styles.smallLogoFooter}>
                         <Image src={smallLogo} width={150} layout={"intrinsic"}
-                               height={150} alt={"logo"}/>
+                               height={150} alt={"logo"} />
                     </span>
                 </Grid.Column>
                 <Grid.Column width={6}>

@@ -78,6 +78,20 @@ const ProductDetail = () => {
 
     const isInvalidTalle = !talle && formSubmitted
 
+    const shareProduct = () => {
+        if (navigator.share) {
+            navigator.share({
+                title: "Mira este producto! " + product?.name,
+                url: window.location.href
+            }).then(() => {
+                ToastUtils.success("¡Gracias por ayudarnos!")
+            })
+                .catch(console.error);
+        } else {
+            ToastUtils.error("Parece que no puedes hacerlo en este navegador :(")
+        }
+    }
+
     return <>
         <Container>
             <Title title={"Ver producto"} withBackButton/>
@@ -95,7 +109,7 @@ const ProductDetail = () => {
                                     <CardDescription>{product?.description}</CardDescription>
                                     <Header className={styles.font} size={"huge"}>${product?.price}</Header>
                                     <Header className={styles.font} size={"medium"}>Disponible en talles:</Header>
-                                    {isInvalidTalle && <div style={{color:"red"}}>Debes elegir un talle</div>}
+                                    {isInvalidTalle && <div style={{color: "red"}}>Debes elegir un talle</div>}
                                     {product?.talles?.map(t => <Button
                                         key={t}
                                         color={"orange"}
@@ -105,7 +119,8 @@ const ProductDetail = () => {
                                     </Button>)}
                                     <Divider/>
                                     <Header className={styles.font} size={"small"}>Cantidad:</Header>
-                                    {isInvalidAmount && <div style={{color:"red"}}>La cantidad debe ser mayor a cero</div>}
+                                    {isInvalidAmount &&
+                                        <div style={{color: "red"}}>La cantidad debe ser mayor a cero</div>}
                                     <Button icon={"plus"} onClick={() => setAmount(prevAmount => prevAmount + 1)}/>
                                     <Input type={"number"} value={amount} error={amount <= 0}/>
                                     <Button icon={"minus"} onClick={() => setAmount(prevAmount => prevAmount - 1)}/>
@@ -114,6 +129,8 @@ const ProductDetail = () => {
                                         <Icon name={"cart plus"}/>
                                         Agregar al carrito
                                     </Button>
+                                    <Divider/>
+                                    <Button color={"orange"} icon onClick={shareProduct}><Icon name={"share alternate"}/> Compartir</Button>
                                 </Grid.Column>
                             </>
                     }
