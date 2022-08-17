@@ -1,6 +1,5 @@
 import styles from '../../styles/Home.module.css';
 import {Button, Icon, Input} from "semantic-ui-react";
-import {getConfig} from "../hooks/getConfig";
 import React, {useEffect} from "react";
 import {useRouter} from "next/router";
 import Link from 'next/link';
@@ -42,16 +41,15 @@ export default function Navbar() {
             <Link href={"/"}>
                 <div style={{cursor: "pointer", position: "relative"}}>
                     <span className={styles.largeLogo}>
-                        <Image src={largeLogo} width={170}
+                        <Image src={largeLogo} width={170} alt={"logo"}
                                style={{marginTop: "-55px !important", marginLeft: "4px !important"}}
                                layout={"intrinsic"}
                                height={170}/>
                     </span>
                     <span  className={styles.smallLogo}>
                         <Image src={smallLogo} width={64} layout={"intrinsic"}
-                               height={64}/>
+                               height={64} alt={"logo"}/>
                     </span>
-
                 </div>
             </Link>
             <form onSubmit={submitSearch} style={{marginTop:8}}>
