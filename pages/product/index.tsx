@@ -20,6 +20,7 @@ import Title from "../../src/components/Utils/Title";
 import {show, addItem} from "../../slices/sidebarSlice";
 import {useDispatch} from "react-redux";
 import Skeleton from "react-loading-skeleton";
+import Head from "next/head";
 
 function ShowProductSkeleton() {
     return <>
@@ -93,6 +94,11 @@ const ProductDetail = () => {
     }
 
     return <>
+        <Head>
+            <title>{product?.name} | Pomelo Store</title>
+            <meta name="description" content={product?.description}/>
+            <link rel="icon" href="/favicon.ico"/>
+        </Head>
         <Container>
             <Title title={"Ver producto"} withBackButton/>
             <Grid stackable>
