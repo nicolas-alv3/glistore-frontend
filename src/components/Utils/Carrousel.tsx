@@ -1,6 +1,6 @@
 import React from "react";
 // Import Swiper React components
-import {Swiper, SwiperSlide, useSwiper} from "swiper/react";
+import {Swiper, SwiperSlide} from "swiper/react";
 import styles from '../../../styles/Home.module.css';
 
 // Import Swiper styles
@@ -24,7 +24,7 @@ export default function Carrousel(props: Props) {
             <Swiper navigation={true} modules={[Navigation]} className="mySwiper">
                 {props.urls?.map( url => <SwiperSlide key={url}>
                     <Zoom>
-                        <Image width={400} height={500} quality={100} src={url} className={styles.productDetailsImg}/>
+                        <Image alt={""} width={400} height={500} quality={75} src={url} priority className={styles.productDetailsImg}/>
                     </Zoom>
                 </SwiperSlide>)}
             </Swiper>

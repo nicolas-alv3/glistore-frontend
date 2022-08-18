@@ -57,12 +57,15 @@ export const filterSlice = createSlice({
         cleanFilter: (state) => {
             state.req.filter.categories = [];
             state.req.filter.talles = [];
+        },
+        setPagination: (state, params) => {
+            state.req.page = params.payload.pages;
         }
     },
 })
 
 // Action creators are generated for each case reducer function
-export const {setPartialReq, resetFilter, removeCategory, removeTalle, cleanFilter} = filterSlice.actions
+export const {setPartialReq, resetFilter, removeCategory, removeTalle, cleanFilter, setPagination} = filterSlice.actions
 
 //Selectors
 export const selectFilterState = (state: RootState) => state.filter;

@@ -1,6 +1,6 @@
 import {Button, Card, Icon} from "semantic-ui-react";
 import styles from "../../styles/Home.module.css";
-import React, {Fragment} from "react";
+import React from "react";
 import {useRouter} from "next/router";
 import {setPartialReq} from "../../slices/filterSlice";
 import Skeleton from 'react-loading-skeleton'
@@ -22,18 +22,12 @@ function ProductSkeleton() {
 
 // @ts-ignore
 export default function ProductCard({product, loading}) {
-    const [loadingPicture, setLoadingPicture] = React.useState(false);
     const router = useRouter();
 
     const handleCardClick = () => {
         // @ts-ignore
         setPartialReq(prevState => ({...prevState, lastVisitedId: product._id}));
         router.push({pathname: "/product", query: {id: product._id}})
-    }
-
-    const handleImageLoaded = () => {
-        setLoadingPicture(false);
-        console.log("Image loaded")
     }
 
     return <Card as={Button} className={styles.card} onClick={handleCardClick}>
@@ -46,7 +40,8 @@ export default function ProductCard({product, loading}) {
                         &&
                         <Image
                             id={product._id} src={product.images[0] || "..."}
-                            blurDataURL={"http://www.proedsolutions.com/wp-content/themes/micron/images/placeholders/placeholder_small.jpg"}
+                            quality={30} priority
+                            blurDataURL={"/logo_pomelo_largo.png"}
                             height={222} width={222} className={styles.cardImg} placeholder="blur" alt={""}/>
                     }
                     <Card.Content className={styles.cardContent}>

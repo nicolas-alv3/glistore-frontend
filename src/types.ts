@@ -35,7 +35,7 @@ export interface SearchRequest {
     filter: {
         talles: string[],
         categories: string[]
-    }
+    },
 }
 
 

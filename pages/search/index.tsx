@@ -5,8 +5,9 @@ import {Product, SearchRequest, SearchResponse} from "../../src/types";
 import SortOrFilter from "../../src/components/SortAndFilter/SortOrFilter";
 import {useRouter} from "next/router";
 import {useDispatch, useSelector} from "react-redux";
-import {selectFilterState, setPartialReq} from "../../slices/filterSlice";
-import {parse, splitURL} from "../../src/utils/parseUtils";
+import {selectFilterState, setPagination, setPartialReq} from "../../slices/filterSlice";
+import {splitURL} from "../../src/utils/parseUtils";
+import GPagination from "../../src/utils/GPagination";
 
 
 
@@ -17,6 +18,8 @@ export default function SearchProducts() {
     const router = useRouter();
     const filterState = useSelector(selectFilterState);
     const dispatch = useDispatch();
+
+    const [totalPages, setTotalPages] = React.useState<number>(1);
 
     useEffect( () => {
         if(router.isReady && filterState.req.name) {
@@ -42,10 +45,15 @@ export default function SearchProducts() {
         }
     }, [router.isReady])
 
+    const fetchProductsWithPage = (page) => {
+        dispatch(setPagination(page));
+    }
+
     const getProducts = () => {
         SearchService.search(filterState.req).then( (res: SearchResponse) => {
             setProducts(res.products);
             setLoading(false);
+            setTotalPages(res.totalPages);
         })
     }
 
@@ -57,5 +65,6 @@ export default function SearchProducts() {
     return <div>
         <SortOrFilter/>
         <ProductList loading={loading} products={products} withBackButton={false}/>
+        <GPagination onPageChange={(page) => fetchProductsWithPage(page) } totalPages={totalPages} />
     </div>
 }
