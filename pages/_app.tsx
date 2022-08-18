@@ -22,10 +22,12 @@ function MyApp({Component, pageProps}: AppProps) {
         if (typeof window !== 'undefined' && router.isReady && router.pathname == "/") {
             const loader = document.getElementById('globalLoader');
             if (loader){
-                loader.className = "hidden";
+                setTimeout(() => {
+                    loader.className = "hidden"
+                },2000);
                 setTimeout( () => {
                     loader.style.display = 'none';
-                }, 2000)
+                }, 3000)
             }
         }
     }, [router.isReady]);
