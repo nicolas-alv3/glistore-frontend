@@ -10,6 +10,7 @@ import {setPartialReq} from "../../slices/filterSlice";
 import Image from "next/image";
 import largeLogo from '../../public/logo_pomelo_largo.png';
 import smallLogo from '../../public/logo_pomelo_cuadrado.png';
+import GButton, {ButtonType} from "./Utils/GButton";
 
 // @ts-ignore
 export default function Navbar() {
@@ -55,7 +56,8 @@ export default function Navbar() {
             <form onSubmit={submitSearch} style={{marginTop:8}}>
                 <Input placeholder='Estoy buscando...' className={styles.input}>
                     <input value={searchInput} onChange={handleSearchChange}/>
-                    <Button icon={"search"} color={"brown"}/>
+                    <GButton type={ButtonType.PRIMARY} icon={"search"}
+                             onClick={() => {}}/>
                 </Input>
             </form>
             <div className={styles.cartContainer}>

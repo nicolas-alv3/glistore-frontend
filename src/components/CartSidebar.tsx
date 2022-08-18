@@ -1,4 +1,4 @@
-import {Button, Divider, Header, Item, Menu, Sidebar} from "semantic-ui-react";
+import {Divider, Header, Item, Menu, Sidebar} from "semantic-ui-react";
 import React, {useEffect} from "react";
 import styles from '../../styles/Home.module.css';
 import WhatsappService from "../../service/WhatsappService";
@@ -7,6 +7,7 @@ import {CartItem} from "../types";
 import {hide, removeFromIndex, resetCart, selectCart, selectShow} from "../../slices/sidebarSlice";
 import {useDispatch, useSelector} from "react-redux";
 import {getCartFromReload, saveCartOnReload} from "../utils/windowUtils";
+import GButton, {ButtonType} from "./Utils/GButton";
 
 
 // @ts-ignore
@@ -65,7 +66,7 @@ export default function CartSidebar () {
             >
         <div style={{display:"flex", justifyContent: "space-between", alignItems:"center"}}>
             <Header>Tu carrito</Header>
-            {cart?.length > 0 && <Button color={"instagram"} icon={"pencil"} onClick={ () => setEditMode(prevState => !prevState)}/>}
+            {cart?.length > 0 && <GButton icon={"pencil"} type={ButtonType.TERTIARY} text={"Editar"} onClick={ () => setEditMode(prevState => !prevState)}/>}
         </div>
         <Divider />
         {
@@ -84,14 +85,14 @@ export default function CartSidebar () {
                         <div style={{display:"flex", justifyContent: "flex-end"}}>
                             <Item.Header as={Header}>${i.product.price}</Item.Header>
                         </div>
-                        {editMode && <Button icon="delete" color={"red"} basic onClick={() => deleteItem(idx)}>Eliminar item</Button>}
+                        {editMode && <GButton icon="delete" type={ButtonType.DANGER} onClick={() => deleteItem(idx)}>Eliminar item</GButton>}
                     </Item.Content>
                 </Item>)}
                     <Item>
-                        <Button color={"brown"} basic fluid onClick={() => dispatch(hide())}> Seguir mirando 👀 </Button>
+                        <GButton type={ButtonType.SECONDARY} fluid onClick={() => dispatch(hide())}> Seguir mirando 👀 </GButton>
                     </Item>
                     <Item>
-                        <Button color={"brown"} fluid onClick={confirmOrder}> Finalizar compra 🥳</Button>
+                        <GButton type={ButtonType.PRIMARY} fluid onClick={confirmOrder}> Finalizar compra 🥳</GButton>
                     </Item>
             </Item.Group> :
                 <Header> Aún no has agregado nada...</Header>

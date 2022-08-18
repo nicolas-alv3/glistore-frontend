@@ -31,12 +31,15 @@ a {
     --col-font: #585A66;
     --col-secondary-font: #838383;
     --col-primary: #C67F4E;
-    --col-primary2: #CBD4A5;
-    --col-primary3: #585A66;
-    --col-secondary: #DBBC74;
+    --col-secondary: #CBD4A5;
+    --col-tertiary: #585A66;
+    --col-primary2: #DBBC74;
     --col-secondary2: #D2A78F;
-    --col-secondary3: #F5ECD8;
-    --col-tertiary: #E6E7E3;
-    --col-tertiary2: #F8EDE7;
+    --col-tertiary2: #F5ECD8;
+    --col-primary3: #E6E7E3;
+    --col-secondary3: #F8EDE7;
     --col-tertiary3: #E7CDB4;
+    --col-orange: #FF8000;
+    --col-danger: #7E191B;
+    --col-white: #FFFF;
 }

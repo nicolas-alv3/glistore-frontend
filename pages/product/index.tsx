@@ -1,26 +1,18 @@
 import {useRouter} from 'next/router'
 import React, {useEffect} from "react";
 import ProductService from "../../service/ProductService";
-import {
-    Button,
-    CardDescription,
-    Container,
-    Divider,
-    Grid,
-    Header,
-    Icon,
-    Input, Label
-} from "semantic-ui-react";
+import {Button, CardDescription, Container, Divider, Grid, Header, Input, Label} from "semantic-ui-react";
 import styles from '../../styles/Home.module.css';
 import Carrousel from "../../src/components/Utils/Carrousel";
 import TrendingSwiper from '../../src/components/TrendingSwiper';
 import {CartItem, Product} from "../../src/types";
 import ToastUtils from "../../src/utils/toastUtils";
 import Title from "../../src/components/Utils/Title";
-import {show, addItem} from "../../slices/sidebarSlice";
+import {addItem, show} from "../../slices/sidebarSlice";
 import {useDispatch} from "react-redux";
 import Skeleton from "react-loading-skeleton";
 import Head from "next/head";
+import GButton, {ButtonType} from "../../src/components/Utils/GButton";
 
 function ShowProductSkeleton() {
     return <>
@@ -116,13 +108,13 @@ const ProductDetail = () => {
                                     <Header className={styles.font} size={"huge"}>${product?.price}</Header>
                                     <Header className={styles.font} size={"medium"}>Disponible en talles:</Header>
                                     {isInvalidTalle && <div style={{color: "red"}}>Debes elegir un talle</div>}
-                                    {product?.talles?.map(t => <Button
+                                    {product?.talles?.map(t => <GButton
                                         key={t}
-                                        color={"orange"}
                                         basic={talle !== t}
                                         onClick={() => setTalle(t)}
+                                        type={ButtonType.ORANGE}
                                     >{t}
-                                    </Button>)}
+                                    </GButton>)}
                                     <Divider/>
                                     <Header className={styles.font} size={"small"}>Cantidad:</Header>
                                     {isInvalidAmount &&
@@ -131,12 +123,14 @@ const ProductDetail = () => {
                                     <Input type={"number"} value={amount} error={amount <= 0}/>
                                     <Button icon={"minus"} onClick={() => setAmount(prevAmount => prevAmount - 1)}/>
                                     <Divider/>
-                                    <Button color={"brown"} size={"large"} onClick={addToCart}>
+                                    {/*<Button color={"brown"} size={"large"} onClick={addToCart}>
                                         <Icon name={"cart plus"}/>
                                         Agregar al carrito
-                                    </Button>
+                                    </Button>*/}
+                                    <GButton text={"Agregar al carrito"} type={ButtonType.PRIMARY} onClick={addToCart}
+                                             icon={"cart plus"}/>
                                     <Divider/>
-                                    <Button color={"orange"} icon onClick={shareProduct}><Icon name={"share alternate"}/> Compartir</Button>
+                                    <GButton type={ButtonType.SECONDARY} icon={"share alternate"} onClick={shareProduct}>Compartir</GButton>
                                 </Grid.Column>
                             </>
                     }
