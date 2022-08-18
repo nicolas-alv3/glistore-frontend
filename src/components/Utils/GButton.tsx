@@ -19,7 +19,8 @@ interface Props {
     icon?: SemanticICONS,
     basic?: boolean,
     children?: ReactNode,
-    fluid?: boolean
+    fluid?: boolean,
+    circular?: boolean
 }
 
 export default function GButton(props: Props) {
@@ -42,6 +43,7 @@ export default function GButton(props: Props) {
             onClick={props.onClick}
             basic={props.basic}
             fluid={props.fluid}
+            circular={props.circular}
         >
             {props.icon && <Icon name={props.icon}/>}
             {props.children}

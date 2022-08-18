@@ -1,7 +1,7 @@
 import {useRouter} from 'next/router'
 import React, {useEffect} from "react";
 import ProductService from "../../service/ProductService";
-import {Button, CardDescription, Container, Divider, Grid, Header, Input, Label} from "semantic-ui-react";
+import {CardDescription, Container, Divider, Grid, Header, Label} from "semantic-ui-react";
 import styles from '../../styles/Home.module.css';
 import Carrousel from "../../src/components/Utils/Carrousel";
 import TrendingSwiper from '../../src/components/TrendingSwiper';
@@ -13,6 +13,7 @@ import {useDispatch} from "react-redux";
 import Skeleton from "react-loading-skeleton";
 import Head from "next/head";
 import GButton, {ButtonType} from "../../src/components/Utils/GButton";
+import AmountPicker from "../../src/components/Utils/AmountPicker";
 
 function ShowProductSkeleton() {
     return <>
@@ -118,12 +119,7 @@ const ProductDetail = () => {
                                     >{t}
                                     </GButton>)}
                                     <Divider/>
-                                    <Header className={styles.font} size={"small"}>Cantidad:</Header>
-                                    {isInvalidAmount &&
-                                        <div style={{color: "red"}}>La cantidad debe ser mayor a cero</div>}
-                                    <Button icon={"plus"} onClick={() => setAmount(prevAmount => prevAmount + 1)}/>
-                                    <Input type={"number"} value={amount} error={amount <= 0}/>
-                                    <Button icon={"minus"} onClick={() => setAmount(prevAmount => prevAmount - 1)}/>
+                                    <AmountPicker isInvalidAmount={isInvalidAmount} onAmountChange={(n: number) => setAmount(n)} />
                                     <Divider/>
                                     {/*<Button color={"brown"} size={"large"} onClick={addToCart}>
                                         <Icon name={"cart plus"}/>

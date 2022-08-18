@@ -33,3 +33,14 @@
 .gButtonText {
     margin-left: 4px;
 }
+
+
+.numberInput {
+    width: 50px;
+    margin: 0 8px;
+}
+
+.numberInput input {
+    text-align: center !important;
+    font-weight: 800;
+}
