@@ -28,10 +28,9 @@ export default function ImageUploader({onChange, images} ) {
                 },
                 (err) => reject(err),
                 () => {
-                    setLoading(false);
                     // download url
                     getDownloadURL(uploadTask.snapshot.ref).then((url) => {
-                        resolve(url)
+                        resolve(url);
                     });
                 }
             );
@@ -52,6 +51,7 @@ export default function ImageUploader({onChange, images} ) {
 
         Promise.all(promises).then((res) => {
             onChange(res);
+            setLoading(false);
         })
     }
 
