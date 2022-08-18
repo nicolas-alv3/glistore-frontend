@@ -24,7 +24,7 @@ function MyApp({Component, pageProps}: AppProps) {
             if (loader){
                 setTimeout(() => {
                     loader.className = "hidden"
-                },2000);
+                },1500);
                 setTimeout( () => {
                     loader.style.display = 'none';
                 }, 3000)

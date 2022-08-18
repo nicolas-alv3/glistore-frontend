@@ -23,6 +23,8 @@ display: block;
 }
 
 .hidden {
+  width: 22em;
+  height: 22em;
   visibility: hidden;
   opacity: 0;
   transition: visibility 0s 2s, opacity 2s ease;

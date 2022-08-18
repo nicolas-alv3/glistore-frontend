@@ -15,7 +15,7 @@ class MyDocument extends Document {
                 <body>
                 <div id={'globalLoader'}>
                     <div className="loader">
-                        <img src={"https://firebasestorage.googleapis.com/v0/b/pomelo-bebes.appspot.com/o/fijo%2FLogo_pomelo_largo_blanco.png?alt=media&token=6f040352-90a4-41ed-b3b0-d965d7084421"}/>
+                        <img src={"/logo_pomelo_largo.png"}/>
                         <div/>
                     </div>
                 </div>
