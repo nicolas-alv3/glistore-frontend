@@ -11,15 +11,13 @@ import {Container} from "semantic-ui-react";
 import Footer from "../src/components/Footer";
 import {store} from '../slices/store'
 import {Provider} from 'react-redux'
-import {useRouter} from "next/router";
 
 function MyApp({Component, pageProps}: AppProps) {
     const {companyName, meta} = getConfig();
-    const router = useRouter();
 
     // Hide splash screen when we are server side
     useEffect(() => {
-        if (typeof window !== 'undefined' && router.isReady && router.pathname == "/") {
+        if (typeof window !== 'undefined') {
             const loader = document.getElementById('globalLoader');
             if (loader){
                 setTimeout(() => {
@@ -30,7 +28,7 @@ function MyApp({Component, pageProps}: AppProps) {
                 }, 3000)
             }
         }
-    }, [router.isReady]);
+    }, []);
 
     return <Provider store={store}>
         <Head>
