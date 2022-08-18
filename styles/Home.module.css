@@ -30,7 +30,7 @@
   position: fixed;
   z-index: 10;
   margin-bottom: 16px;
-  background: var(--col-secondary);
+  background: var(--col-secondary3);
   height: 60px;
   width: 100vw;
   display: flex;
@@ -72,11 +72,11 @@
 .footer {
   margin-top: 16px;
   padding: 16px;
-  background: var(--col-secondary) !important;
+  background: var(--col-tertiary3) !important;
 }
 
 .footerMeta {
-  color: var(--col-secondary-accent)
+  color: var(--col-secondary)
 }
 
 .font {

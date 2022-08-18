@@ -2,37 +2,41 @@
 
 html,
 body, #root {
-  color: var(--col-font) !important;
-  padding: 0;
-  margin-top: 70px;
-  font-family: 'Barlow', serif !important;
+    color: var(--col-font) !important;
+    padding: 0;
+    margin-top: 70px;
+    font-family: 'Barlow', serif !important;
 }
+
 body::-webkit-scrollbar {
-  display: none;
+    display: none;
 }
 
 a {
-  color: inherit;
-  text-decoration: none;
+    color: inherit;
+    text-decoration: none;
 }
 
 * {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 .header {
-  font-family: 'Barlow', serif !important;
-  font-weight: 600 !important;
+    font-family: 'Barlow', serif !important;
+    font-weight: 600 !important;
 }
 
 
 :root {
-  --col-font: #585A66;
-  --col-secondary-font: #838383;
-  --col-primary-accent: #75cfb8;
-  --col-primary: #caf7e3;
-  --col-secondary:#F5ECD8;
-  --col-secondary-accent: #DBBC74;
-  --col-tertiary: #ffc107;
-  --col-orange: #C67F4E
+    --col-font: #585A66;
+    --col-secondary-font: #838383;
+    --col-primary: #C67F4E;
+    --col-primary2: #CBD4A5;
+    --col-primary3: #585A66;
+    --col-secondary: #DBBC74;
+    --col-secondary2: #D2A78F;
+    --col-secondary3: #F5ECD8;
+    --col-tertiary: #E6E7E3;
+    --col-tertiary2: #F8EDE7;
+    --col-tertiary3: #E7CDB4;
 }
