@@ -2,7 +2,7 @@ import '../styles/globals.css'
 import "react-loading-skeleton/dist/skeleton.css";
 import type {AppProps} from 'next/app';
 import 'semantic-ui-css/semantic.min.css';
-import React from "react";
+import React, {useEffect} from "react";
 import {Toaster} from "react-hot-toast";
 import PageHeader from "../src/components/PageHeader";
 import Head from "next/head";
@@ -11,9 +11,24 @@ import {Container} from "semantic-ui-react";
 import Footer from "../src/components/Footer";
 import {store} from '../slices/store'
 import {Provider} from 'react-redux'
+import {useRouter} from "next/router";
 
 function MyApp({Component, pageProps}: AppProps) {
     const {companyName, meta} = getConfig();
+    const router = useRouter();
+
+    // Hide splash screen when we are server side
+    useEffect(() => {
+        if (typeof window !== 'undefined' && router.isReady && router.pathname == "/") {
+            const loader = document.getElementById('globalLoader');
+            if (loader){
+                loader.className = "hidden";
+                setTimeout( () => {
+                    loader.style.display = 'none';
+                }, 2000)
+            }
+        }
+    }, [router.isReady]);
 
     return <Provider store={store}>
         <Head>

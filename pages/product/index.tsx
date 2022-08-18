@@ -41,11 +41,13 @@ const ProductDetail = () => {
 
 
     useEffect(() => {
-        ProductService.getProductById(String(id)).then(p => {
-            setProduct(p);
-            setLoading(false);
-        })
-    }, [id]);
+        if(router.isReady){
+            ProductService.getProductById(String(id)).then(p => {
+                setProduct(p);
+                setLoading(false);
+            })
+        }
+    }, [id, router.isReady]);
 
     const addCorrect = () => {
         const cartItem = {

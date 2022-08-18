@@ -24,6 +24,12 @@
     color: var(--col-white) !important;
 }
 
+.gButtonPrimaryBasic {
+    background-color: transparent !important;
+    color: var(--col-primary) !important;
+    border: 1px solid var(--col-primary) !important
+}
+
 .gButtonText {
     margin-left: 4px;
 }

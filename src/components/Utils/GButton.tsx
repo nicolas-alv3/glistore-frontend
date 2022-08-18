@@ -8,7 +8,8 @@ export enum ButtonType {
     SECONDARY,
     TERTIARY,
     ORANGE,
-    DANGER
+    DANGER,
+    PRIMARY_BASIC,
 }
 
 interface Props {
@@ -26,6 +27,7 @@ export default function GButton(props: Props) {
     const getClass = () => {
         const classes = {
             [ButtonType.PRIMARY]: styles.gButtonPrimary,
+            [ButtonType.PRIMARY_BASIC]: styles.gButtonPrimaryBasic,
             [ButtonType.SECONDARY]: styles.gButtonSecondary,
             [ButtonType.TERTIARY]: styles.gButtonTertiary,
             [ButtonType.ORANGE]: styles.gButtonOrange,
