@@ -36,8 +36,20 @@
 
 
 .numberInput {
-    width: 50px;
+    width: 60px;
     margin: 0 8px;
+}
+
+/* Chrome, Safari, Edge, Opera */
+.numberInput input::-webkit-outer-spin-button,
+.numberInput input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+.numberInput input[type=number] {
+    -moz-appearance: textfield;
 }
 
 .numberInput input {

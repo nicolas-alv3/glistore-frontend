@@ -11,9 +11,9 @@ import Title from "../../src/components/Utils/Title";
 import {addItem, show} from "../../slices/sidebarSlice";
 import {useDispatch} from "react-redux";
 import Skeleton from "react-loading-skeleton";
-import Head from "next/head";
 import GButton, {ButtonType} from "../../src/components/Utils/GButton";
 import AmountPicker from "../../src/components/Utils/AmountPicker";
+import {NextSeo} from "next-seo";
 
 function ShowProductSkeleton() {
     return <>
@@ -89,11 +89,10 @@ const ProductDetail = () => {
     }
 
     return <>
-        <Head>
-            <title>{product?.name} | Pomelo Store</title>
-            <meta name="description" content={product?.description}/>
-            <link rel="icon" href="/favicon.ico"/>
-        </Head>
+        <NextSeo
+            title={(product?.name || "Mira este producto! ") + " | Pomelo store"}
+            description={product?.description}
+        />
         <Container>
             <Title title={"Ver producto"} withBackButton/>
             <Grid stackable>
@@ -110,7 +109,6 @@ const ProductDetail = () => {
                                     <CardDescription>{product?.description}</CardDescription>
                                     <Header className={styles.font} size={"huge"}>${product?.price}</Header>
                                     <Header className={styles.font} size={"medium"}>Disponible en talles:</Header>
-                                    {isInvalidTalle && <div style={{color: "red"}}>Debes elegir un talle</div>}
                                     {product?.talles?.map(t => <GButton
                                         key={t}
                                         basic={talle !== t}
@@ -118,13 +116,10 @@ const ProductDetail = () => {
                                         type={ButtonType.ORANGE}
                                     >{t}
                                     </GButton>)}
+                                    {isInvalidTalle && <div style={{color: "red"}}>Debes elegir un talle</div>}
                                     <Divider/>
                                     <AmountPicker isInvalidAmount={isInvalidAmount} onAmountChange={(n: number) => setAmount(n)} />
                                     <Divider/>
-                                    {/*<Button color={"brown"} size={"large"} onClick={addToCart}>
-                                        <Icon name={"cart plus"}/>
-                                        Agregar al carrito
-                                    </Button>*/}
                                     <GButton text={"Agregar al carrito"} type={ButtonType.PRIMARY} onClick={addToCart}
                                              icon={"cart plus"}/>
                                     <Divider/>
