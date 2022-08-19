@@ -19,7 +19,7 @@ export default function AmountPicker(props: Props) {
         props.onAmountChange(amount - 1)
         setAmount(amount - 1);
     }
-    return <>
+    return <div className={styles.amountPicker}>
         <Header className={styles.font} size={"small"}>Cantidad:</Header>
         <GButton type={ButtonType.TERTIARY} circular icon={"minus"} onClick={handleAmountChangeMinus}/>
         <Input className={styles.numberInput} type={"number"} value={amount} error={amount <= 0}/>
@@ -28,5 +28,5 @@ export default function AmountPicker(props: Props) {
             props.isInvalidAmount &&
             <div style={{color: "red"}}>La cantidad debe ser mayor a cero</div>
         }
-    </>
+    </div>
 }
