@@ -9,12 +9,10 @@ import {pipePrice} from "../../src/utils/stringUtils";
 import ProductService from "../../service/ProductService";
 import AddEditModal from "../../src/components/Admin/AddEditModal";
 import DialogComponent from "../../src/components/Utils/DialogComponent";
-import {deleteObject} from "@firebase/storage";
-import {ref} from "firebase/storage";
-import storage from "../../firebase.config";
 import {Product} from "../../src/types";
 import Image from "next/image";
 import largeLogo from "../../public/logo_pomelo_largo.png";
+import FirebaseService from "../../service/FirebaseService";
 
 function LoginComponent() {
     const [name, setName] = React.useState("");
@@ -63,19 +61,16 @@ function LoginComponent() {
 
 function ProductsTable({products, update}) {
 
-    const removeFromFirestore = (p: Product) => {
-        p.images.forEach(imageUrl => {
-            const storageRef = ref(storage, imageUrl)
-            deleteObject(storageRef).then(res => console.log("Firestore image deleted", res))
-                .catch(() => ToastUtils.error("Error eliminando imagen"));
-        })
+    const removeImages = (p) => {
+        FirebaseService.removeFromFirestore(p.images).then(() => ToastUtils.success("Imagenes eliminadas!"))
+            .catch( () => ToastUtils.error("Hubo un problema eliminando las imagenes"));
     }
 
     const onDeleteConfirm = (p: Product) => {
         ProductService.delete(p)
             .then(() => ToastUtils.success("Eliminado!"))
             .then(update)
-            .then(() => removeFromFirestore(p))
+            .then(() => removeImages(p))
             .catch(() => ToastUtils.error("Ha ocurrido un error"));
     }
     return <Table>

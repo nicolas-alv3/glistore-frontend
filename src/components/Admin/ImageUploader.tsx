@@ -1,12 +1,11 @@
 import {Button, Form, Icon, PlaceholderParagraph} from "semantic-ui-react";
 import React from "react";
 import storage from "../../../firebase.config";
-import {
-    ref,
-    uploadBytesResumable,
-    getDownloadURL
-} from "firebase/storage";
+import {getDownloadURL, ref, uploadBytesResumable} from "firebase/storage";
 import Compressor from 'compressorjs';
+import GButton, {ButtonType} from "../Utils/GButton";
+import FirebaseService from "../../../service/FirebaseService";
+import ToastUtils from "../../utils/toastUtils";
 
 
 export default function ImageUploader({onChange, images}) {
@@ -62,11 +61,23 @@ export default function ImageUploader({onChange, images}) {
         })
     }
 
+    const deleteImages = () => {
+        FirebaseService.removeFromFirestore(images)
+            .then(() => {
+                ToastUtils.success("Imagenes eliminadas!");
+                onChange([]);
+            })
+            .catch( () => ToastUtils.error("Hubo un problema eliminando las imagenes"))
+    }
+
     return <Form.Field>
         <label>Imágenes</label>
         {
             images.length ? <PlaceholderParagraph> {images?.length} imagenes cargadas <Icon name={"check"}
-                                                                                            color={"green"}/></PlaceholderParagraph>
+                                                                                            color={"green"}/>
+                <br/>
+                <GButton icon={"delete"} type={ButtonType.PRIMARY_BASIC} text={"Borrar"} onClick={deleteImages} />
+                </PlaceholderParagraph>
                 : <>
                     <input type={"file"} accept="image/*" multiple onChange={handleFileChange}
                            placeholder='Ingresar descuento'/>
