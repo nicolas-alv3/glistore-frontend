@@ -11,6 +11,7 @@ import {store} from '../slices/store'
 import {Provider} from 'react-redux'
 import {NextSeo} from "next-seo";
 import {getSEOConfig} from "../src/utils/SEOUtils";
+import Head from "next/head";
 
 function MyApp({Component, pageProps}: AppProps) {
 
@@ -30,6 +31,9 @@ function MyApp({Component, pageProps}: AppProps) {
     }, []);
 
     return <Provider store={store}>
+        <Head>
+            <link rel="icon" href="/favicon.ico"/>
+        </Head>
         <NextSeo
             openGraph={getSEOConfig()}
         />
