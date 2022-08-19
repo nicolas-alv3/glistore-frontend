@@ -9,6 +9,9 @@ import {useDispatch, useSelector} from "react-redux";
 import {getCartFromReload, saveCartOnReload} from "../utils/windowUtils";
 import GButton, {ButtonType} from "./Utils/GButton";
 import Image from "next/image";
+import PostBuyModal from "./PostBuyModal";
+import GModal from "./GModal";
+import ToastUtils from "../utils/toastUtils";
 
 
 // @ts-ignore
@@ -50,13 +53,13 @@ export default function CartSidebar() {
         Hola ${config.companyName}!, quisiera hacer una compra:\n ${itemsText()}
         *Total:*$ ${cart.reduce((acc, i) => acc + i.amount * i.product.price, 0)}
     `
-        dispatch(resetCart());
         console.log(msg);
         WhatsappService.sendMessageToStore(msg);
     }
     const deleteAll = () => {
         setCart([]);
-        dispatch(setCart([]))
+        dispatch(setCart([]));
+        ToastUtils.success("Carrito vacío!");
     }
 
     const hideSidebar = () => dispatch(hide())
@@ -108,7 +111,13 @@ export default function CartSidebar() {
                             👀 </GButton>
                     </Item>
                     <Item>
-                        <GButton type={ButtonType.PRIMARY} fluid onClick={confirmOrder}> Finalizar compra 🥳</GButton>
+                        <GModal trigger={<GButton type={ButtonType.PRIMARY} fluid onClick={confirmOrder}> Finalizar compra 🥳</GButton>}
+                                id={"Post buy modal"}
+                                title={"¿Pudiste terminar la compra?"}
+                                handleSubmit={deleteAll}
+                        >
+                            Si finalizaste la compra eliminaremos el contenido de tu carrito, si no, lo dejamos como está!
+                        </GModal>
                     </Item>
                 </Item.Group> :
                 <>

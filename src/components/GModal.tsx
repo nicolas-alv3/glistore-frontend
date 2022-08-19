@@ -12,7 +12,7 @@ interface Props {
     handleSubmit?: () => void,
     withoutButtons?: boolean,
     size? : 'mini' | 'tiny' | 'small' | 'large' | 'fullscreen',
-    id: string
+    id: string;
 }
 
 export default function GModal(props: Props) {
@@ -53,7 +53,10 @@ export default function GModal(props: Props) {
                     <GButton
                         text={props.confirmText || "Aceptar"}
                         icon='checkmark'
-                        onClick={props.handleSubmit}
+                        onClick={() => {
+                            props.handleSubmit && props.handleSubmit();
+                            setOpen(false);
+                        }}
                         type={ButtonType.PRIMARY}
                     />
                 </>
