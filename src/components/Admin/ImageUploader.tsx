@@ -6,9 +6,10 @@ import {
     uploadBytesResumable,
     getDownloadURL
 } from "firebase/storage";
+import Compressor from 'compressorjs';
 
 
-export default function ImageUploader({onChange, images} ) {
+export default function ImageUploader({onChange, images}) {
     const [loading, setLoading] = React.useState(false);
     const [files, setFiles] = React.useState<File[]>([]);
 
@@ -17,23 +18,29 @@ export default function ImageUploader({onChange, images} ) {
     }
 
     const getPromiseFrom = (file) => {
-        return new Promise( (resolve, reject) => {
-            const storageRef = ref(storage,`/files/${file.name}`)
-            const uploadTask = uploadBytesResumable(storageRef, file);
+        return new Promise((resolve, reject) => {
 
-            uploadTask.on(
-                "state_changed",
-                () => {
-                    setLoading(true);
-                },
-                (err) => reject(err),
-                () => {
-                    // download url
-                    getDownloadURL(uploadTask.snapshot.ref).then((url) => {
-                        resolve(url);
-                    });
+            new Compressor(file, {
+                quality: 0.4,
+                success(fileC: File | Blob) {
+                    const storageRef = ref(storage, `/files/${file.name}`)
+                    const uploadTask = uploadBytesResumable(storageRef, fileC);
+
+                    uploadTask.on(
+                        "state_changed",
+                        () => {
+                            setLoading(true);
+                        },
+                        (err) => reject(err),
+                        () => {
+                            // download url
+                            getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+                                resolve(url);
+                            });
+                        }
+                    );
                 }
-            );
+            })
         })
     }
 
@@ -55,13 +62,17 @@ export default function ImageUploader({onChange, images} ) {
         })
     }
 
-    return <Form.Field >
+    return <Form.Field>
         <label>Imágenes</label>
         {
-            images.length ? <PlaceholderParagraph> {images?.length} imagenes cargadas <Icon name={"check"} color={"green"}/></PlaceholderParagraph>
-                :<>
-                    <input type={"file"} accept="image/*" multiple onChange={handleFileChange} placeholder='Ingresar descuento' />
-                    { files.length > 0 && <Button loading={loading} color={"orange"} onClick={upload}><Icon name={"cloud upload"} />Subir a la nube</Button>}
+            images.length ? <PlaceholderParagraph> {images?.length} imagenes cargadas <Icon name={"check"}
+                                                                                            color={"green"}/></PlaceholderParagraph>
+                : <>
+                    <input type={"file"} accept="image/*" multiple onChange={handleFileChange}
+                           placeholder='Ingresar descuento'/>
+                    {files.length > 0 &&
+                        <Button loading={loading} color={"orange"} onClick={upload}><Icon name={"cloud upload"}/>Subir a la
+                            nube</Button>}
                 </>
         }
     </Form.Field>
