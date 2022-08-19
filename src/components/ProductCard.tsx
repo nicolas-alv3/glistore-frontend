@@ -1,4 +1,4 @@
-import {Button, Card, Icon} from "semantic-ui-react";
+import {Button, Card, Header, Icon} from "semantic-ui-react";
 import styles from "../../styles/Home.module.css";
 import React from "react";
 import {useRouter} from "next/router";
@@ -6,6 +6,8 @@ import {setPartialReq} from "../../slices/filterSlice";
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import Image from "next/image";
+import GModal from "./GModal";
+import AddToCart from "./AddToCart";
 
 function ProductSkeleton() {
     return <div style={{height: "100%", width: "100%"}}>
@@ -50,10 +52,16 @@ export default function ProductCard({product, loading}) {
                         <h4>${product.price}</h4>
                     </Card.Content>
                     <Card.Content extra>
-                        <a>
-                            <Icon name='plus'/>
-                            Ver más
-                        </a>
+                        <GModal withoutButtons size={"mini"} title={"Agregar al carrito"}
+                                trigger={<a style={{color: "var(--col-primary)"}} onClick={(e) => e.stopPropagation() }>
+                                    <Icon name='cart plus'/>
+                                    Agregar al carrito
+                                </a>}>
+                            <div style={{padding: "0 32px"}}>
+                                <Header>{product.name}</Header>
+                                <AddToCart product={product} />
+                            </div>
+                        </GModal>
                     </Card.Content>
                 </>
         }

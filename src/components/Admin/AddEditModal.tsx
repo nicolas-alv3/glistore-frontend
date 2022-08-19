@@ -1,4 +1,4 @@
-import {Button, Checkbox, Divider, Form, Modal} from "semantic-ui-react";
+import {Checkbox, Divider, Form, Modal} from "semantic-ui-react";
 import React, {ReactNode} from "react";
 import ProductService from "../../../service/ProductService";
 import styles from '../../../styles/Admin.module.css';
@@ -7,6 +7,7 @@ import ImageUploader from "./ImageUploader";
 import ToastUtils from "../../utils/toastUtils";
 import {Product} from "../../types";
 import TalleSelector from "../Utils/TalleSelector";
+import GButton, {ButtonType} from "../Utils/GButton";
 
 
 interface Props {
@@ -130,15 +131,14 @@ export default function AddEditModal(props: Props) {
             </Form>
         </Modal.Content>
         <Modal.Actions>
-            <Button color='black' onClick={() => setOpen(false)}>
+            <GButton type={ButtonType.TERTIARY} onClick={() => setOpen(false)}>
                 Cancelar
-            </Button>
-            <Button
-                content={props.product ? "Editar" : "Agregar"}
-                labelPosition='right'
+            </GButton>
+            <GButton
+                text={props.product ? "Editar" : "Agregar"}
                 icon='checkmark'
                 onClick={handleSubmit}
-                color={"brown"}
+                type={ButtonType.PRIMARY}
             />
         </Modal.Actions>
     </Modal>

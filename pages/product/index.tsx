@@ -1,19 +1,16 @@
 import {useRouter} from 'next/router'
 import React, {useEffect} from "react";
 import ProductService from "../../service/ProductService";
-import {CardDescription, Container, Divider, Grid, Header, Label} from "semantic-ui-react";
-import styles from '../../styles/Home.module.css';
+import {CardDescription, Container, Grid, Header, Label} from "semantic-ui-react";
 import Carrousel from "../../src/components/Utils/Carrousel";
 import TrendingSwiper from '../../src/components/TrendingSwiper';
-import {CartItem, Product} from "../../src/types";
+import {Product} from "../../src/types";
 import ToastUtils from "../../src/utils/toastUtils";
 import Title from "../../src/components/Utils/Title";
-import {addItem, show} from "../../slices/sidebarSlice";
-import {useDispatch} from "react-redux";
 import Skeleton from "react-loading-skeleton";
 import GButton, {ButtonType} from "../../src/components/Utils/GButton";
-import AmountPicker from "../../src/components/Utils/AmountPicker";
 import {NextSeo} from "next-seo";
+import AddToCart from "../../src/components/AddToCart";
 
 function ShowProductSkeleton() {
     return <>
@@ -35,10 +32,6 @@ const ProductDetail = () => {
     const {id} = router.query
     const [loading, setLoading] = React.useState<boolean>(true);
     const [product, setProduct] = React.useState<Product>();
-    const [amount, setAmount] = React.useState(1);
-    const [talle, setTalle] = React.useState("");
-    const [formSubmitted, setFormSubmitted] = React.useState(false);
-    const dispatch = useDispatch()
 
 
     useEffect(() => {
@@ -49,30 +42,6 @@ const ProductDetail = () => {
             })
         }
     }, [id, router.isReady]);
-
-    const addCorrect = () => {
-        const cartItem = {
-            product,
-            amount,
-            talle
-        }
-        dispatch(addItem(cartItem as CartItem));
-        ToastUtils.success("Perfecto!")
-        dispatch(show());
-    }
-
-    const addToCart = () => {
-        if (amount > 0 && talle) {
-            addCorrect()
-        } else {
-            setFormSubmitted(true);
-            ToastUtils.error("Debes elegir un talle y cantidad primero!")
-        }
-    }
-
-    const isInvalidAmount = amount <= 0 && formSubmitted
-
-    const isInvalidTalle = !talle && formSubmitted
 
     const shareProduct = () => {
         if (navigator.share) {
@@ -107,22 +76,7 @@ const ProductDetail = () => {
                                     <Header size={"huge"}>{product?.name} <Label
                                         color={"orange"}>{product?.category}</Label></Header>
                                     <CardDescription>{product?.description}</CardDescription>
-                                    <Header className={styles.font} size={"huge"}>${product?.price}</Header>
-                                    <Header className={styles.font} size={"medium"}>Disponible en talles:</Header>
-                                    {product?.talles?.map(t => <GButton
-                                        key={t}
-                                        basic={talle !== t}
-                                        onClick={() => setTalle(t)}
-                                        type={ButtonType.ORANGE}
-                                    >{t}
-                                    </GButton>)}
-                                    {isInvalidTalle && <div style={{color: "red"}}>Debes elegir un talle</div>}
-                                    <Divider/>
-                                    <AmountPicker isInvalidAmount={isInvalidAmount} onAmountChange={(n: number) => setAmount(n)} />
-                                    <Divider/>
-                                    <GButton text={"Agregar al carrito"} type={ButtonType.PRIMARY} onClick={addToCart}
-                                             icon={"cart plus"}/>
-                                    <Divider/>
+                                    <AddToCart product={product} />
                                     <GButton type={ButtonType.SECONDARY} icon={"share alternate"} onClick={shareProduct}>Compartir</GButton>
                                 </Grid.Column>
                             </>
