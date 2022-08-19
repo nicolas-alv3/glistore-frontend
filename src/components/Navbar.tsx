@@ -77,7 +77,7 @@ export default function Navbar() {
             </form>
             <div className={styles.cartContainer}>
                 <GButton icon={"cart"} onClick={() => dispatch(toggle())} size={"massive"} type={ButtonType.TRANSPARENT} className={styles.cartButton}>
-                    <div style={numberCartStyle}>{cart?.length > 0 && cart.length}</div>
+                    { cart?.length > 0  && <div style={numberCartStyle}>{cart.length}</div>}
                 </GButton>
             </div>
         </nav>

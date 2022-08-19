@@ -8,6 +8,8 @@ import 'react-loading-skeleton/dist/skeleton.css'
 import Image from "next/image";
 import GModal from "./GModal";
 import AddToCart from "./AddToCart";
+import {hideModal} from "../../slices/modalSlice";
+import {useDispatch} from "react-redux";
 
 function ProductSkeleton() {
     return <div style={{height: "100%", width: "100%"}}>
@@ -22,9 +24,9 @@ function ProductSkeleton() {
     </div>;
 }
 
-// @ts-ignore
 export default function ProductCard({product, loading}) {
     const router = useRouter();
+    const dispatch = useDispatch();
 
     const handleCardClick = () => {
         // @ts-ignore
@@ -32,7 +34,7 @@ export default function ProductCard({product, loading}) {
         router.push({pathname: "/product", query: {id: product._id}})
     }
 
-    return <Card as={Button} className={styles.card} onClick={handleCardClick}>
+    return <Card as={Button} className={styles.card}>
         {
             loading ? <ProductSkeleton/>
                 :
@@ -44,9 +46,9 @@ export default function ProductCard({product, loading}) {
                             id={product._id} src={product.images[0] || "..."}
                             quality={30} priority
                             blurDataURL={"/logo_pomelo_largo.png"}
-                            height={222} width={222} className={styles.cardImg} placeholder="blur" alt={""}/>
+                            height={222} width={222} className={styles.cardImg} placeholder="blur" alt={""}  onClick={handleCardClick}/>
                     }
-                    <Card.Content className={styles.cardContent}>
+                    <Card.Content className={styles.cardContent}  onClick={handleCardClick}>
                         <h2>{product.name}</h2>
                         <h3>{product.description}</h3>
                         <h4>${product.price}</h4>
@@ -59,7 +61,7 @@ export default function ProductCard({product, loading}) {
                                 </a>}>
                             <div style={{padding: "0 32px"}}>
                                 <Header>{product.name}</Header>
-                                <AddToCart product={product} />
+                                <AddToCart onAdd={() => dispatch(hideModal())} product={product} />
                             </div>
                         </GModal>
                     </Card.Content>

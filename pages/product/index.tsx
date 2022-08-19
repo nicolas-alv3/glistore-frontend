@@ -1,7 +1,7 @@
 import {useRouter} from 'next/router'
 import React, {useEffect} from "react";
 import ProductService from "../../service/ProductService";
-import {CardDescription, Container, Grid, Header, Label} from "semantic-ui-react";
+import {CardDescription, Container , Grid, Header, Label} from "semantic-ui-react";
 import Carrousel from "../../src/components/Utils/Carrousel";
 import TrendingSwiper from '../../src/components/TrendingSwiper';
 import {Product} from "../../src/types";

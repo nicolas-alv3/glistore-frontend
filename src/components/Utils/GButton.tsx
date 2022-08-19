@@ -16,7 +16,7 @@ export enum ButtonType {
 interface Props {
     text?: string,
     type: ButtonType,
-    onClick?: () => void,
+    onClick?: (e) => void,
     icon?: SemanticICONS,
     basic?: boolean,
     children?: ReactNode,

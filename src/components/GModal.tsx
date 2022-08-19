@@ -1,6 +1,8 @@
-import React, {ReactNode} from "react";
+import React, {ReactNode, useEffect} from "react";
 import {Modal} from "semantic-ui-react";
 import GButton, {ButtonType} from "./Utils/GButton";
+import {useDispatch, useSelector} from "react-redux";
+import {selectShow, setVisible} from "../../slices/modalSlice";
 
 interface Props {
     title: string,
@@ -14,7 +16,17 @@ interface Props {
 
 export default function GModal(props: Props) {
     const [open, setOpen] = React.useState(false);
+    const dispatch = useDispatch();
 
+    const modalVisible = useSelector(selectShow);
+
+    useEffect( () => {
+        setOpen(modalVisible);
+    }, [modalVisible])
+
+    useEffect( () => {
+        dispatch(setVisible(open));
+    }, [open])
 
     return <Modal
         onClose={() => setOpen(false)}

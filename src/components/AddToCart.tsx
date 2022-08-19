@@ -10,8 +10,10 @@ import {useDispatch} from "react-redux";
 import GButton, {ButtonType} from "./Utils/GButton";
 
 interface Props {
-    product?: Product
+    product?: Product;
+    onAdd?: () => void
 }
+
 export default function AddToCart(props: Props) {
     const [amount, setAmount] = React.useState(1);
     const [talle, setTalle] = React.useState("");
@@ -25,6 +27,7 @@ export default function AddToCart(props: Props) {
             talle
         }
         dispatch(addItem(cartItem as CartItem));
+        props.onAdd && props.onAdd();
         ToastUtils.success("Perfecto!")
         dispatch(show());
     }
@@ -44,10 +47,10 @@ export default function AddToCart(props: Props) {
 
     return <div style={{marginBottom: 16}}>
         <Header className={styles.font} size={"huge"}>${props.product?.price}</Header>
-        <TalleSelectorDetail onTalleSelect={setTalle} product={props.product} invalid={isInvalidTalle} />
-        <Divider />
-        <AmountPicker onAmountChange={setAmount} isInvalidAmount={isInvalidAmount} />
-        <Divider />
+        <TalleSelectorDetail onTalleSelect={setTalle} product={props.product} invalid={isInvalidTalle}/>
+        <Divider/>
+        <AmountPicker onAmountChange={setAmount} isInvalidAmount={isInvalidAmount}/>
+        <Divider/>
         <GButton icon={"cart plus"} type={ButtonType.PRIMARY} text={"Agregar al carrito"} onClick={addToCart}/>
     </div>
 
