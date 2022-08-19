@@ -54,8 +54,8 @@ export default function ProductCard({product, loading}) {
                         <h4>${product.price}</h4>
                     </Card.Content>
                     <Card.Content extra>
-                        <GModal withoutButtons size={"mini"} title={"Agregar al carrito"}
-                                trigger={<a style={{color: "var(--col-primary)"}} onClick={(e) => e.stopPropagation() }>
+                        <GModal id={product._id} withoutButtons size={"mini"} title={"Agregar al carrito"}
+                                trigger={<a key={product._id} style={{color: "var(--col-primary)"}}>
                                     <Icon name='cart plus'/>
                                     Agregar al carrito
                                 </a>}>

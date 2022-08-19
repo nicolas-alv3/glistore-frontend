@@ -2,7 +2,7 @@ import React, {ReactNode, useEffect} from "react";
 import {Modal} from "semantic-ui-react";
 import GButton, {ButtonType} from "./Utils/GButton";
 import {useDispatch, useSelector} from "react-redux";
-import {selectShow, setVisible} from "../../slices/modalSlice";
+import {selectModal, setVisible} from "../../slices/modalSlice";
 
 interface Props {
     title: string,
@@ -11,21 +11,24 @@ interface Props {
     confirmText?: string,
     handleSubmit?: () => void,
     withoutButtons?: boolean,
-    size? : 'mini' | 'tiny' | 'small' | 'large' | 'fullscreen'
+    size? : 'mini' | 'tiny' | 'small' | 'large' | 'fullscreen',
+    id: string
 }
 
 export default function GModal(props: Props) {
     const [open, setOpen] = React.useState(false);
     const dispatch = useDispatch();
 
-    const modalVisible = useSelector(selectShow);
+    const modal = useSelector(selectModal);
 
     useEffect( () => {
-        setOpen(modalVisible);
-    }, [modalVisible])
+        if(modal.id == props.id) {
+            setOpen(modal.visible);
+        }
+    }, [modal])
 
     useEffect( () => {
-        dispatch(setVisible(open));
+        dispatch(setVisible({open, id: props.id}));
     }, [open])
 
     return <Modal

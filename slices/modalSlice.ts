@@ -2,19 +2,22 @@ import {createSlice} from '@reduxjs/toolkit'
 import {RootState} from "./store";
 
 export interface ModalState {
-    visible: boolean
+    visible: boolean,
+    id: string,
 }
 
 const initialState: ModalState = {
     visible: false,
+    id:""
 }
 
 export const modalSlice = createSlice({
     name: 'modalSlice',
     initialState,
     reducers: {
-        showModal: (state) => {
+        showModal: (state, id) => {
             state.visible = true;
+            state.id = id.payload;
         },
         hideModal: (state) => {
             state.visible = false;
@@ -22,8 +25,9 @@ export const modalSlice = createSlice({
         toggleModal: (state) => {
             state.visible = !state.visible;
         },
-        setVisible: (state, visible) => {
-            state.visible = visible.payload
+        setVisible: (state, modal) => {
+            state.visible = modal.payload.open;
+            state.id = modal.payload.id;
         }
     },
 })
@@ -32,7 +36,7 @@ export const modalSlice = createSlice({
 export const {showModal, hideModal, toggleModal, setVisible} = modalSlice.actions
 
 //Selectors
-export const selectShow = (state: RootState) => state.modalSlice.visible;
+export const selectModal = (state: RootState) => state.modalSlice as ModalState;
 
 
 export default modalSlice.reducer
