@@ -37,6 +37,13 @@
 .gButtonText {
     margin-left: 4px;
 }
+
+.gButtonTransparent {
+    background-color: transparent !important;
+    color: var(--col-primary) !important;
+    border: none !important
+}
+
 /*
     Input
 */

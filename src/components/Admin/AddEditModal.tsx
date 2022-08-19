@@ -44,9 +44,9 @@ export default function AddEditModal(props: Props) {
         ProductService.create(product)
             .then( () => {
                 ToastUtils.success("Creado!");
-                resetForm();
-                setOpen(false);
-                props.update();
+                //resetForm();
+                //setOpen(false);
+                //props.update();
             })
     }
 

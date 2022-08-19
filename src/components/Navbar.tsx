@@ -1,6 +1,6 @@
 import styles from '../../styles/Home.module.css';
 import {Button, Icon, Input} from "semantic-ui-react";
-import React, {useEffect} from "react";
+import React, {CSSProperties, useEffect} from "react";
 import {useRouter} from "next/router";
 import Link from 'next/link';
 import {isAdminLogged} from "../utils/loginUtils";
@@ -37,6 +37,22 @@ export default function Navbar() {
         }
     }
 
+    const numberCartStyle: CSSProperties = {
+        fontSize:12,
+        width: "20px",
+        height: "20px",
+        background: "var(--col-secondary)",
+        padding: "3px",
+        margin: "0",
+        position:"absolute",
+        top:36,
+        right:14,
+        justifyContent: "center",
+        display: "flex",
+        borderRadius: "50%",
+        alignItems: "center"
+    }
+
     return <>
         <nav className={styles.navbar + ` ${router.pathname.includes("admin") && styles.navbarAdmin}`}>
             <Link href={"/"}>
@@ -56,15 +72,13 @@ export default function Navbar() {
             <form onSubmit={submitSearch} style={{marginTop:8}}>
                 <Input placeholder='Estoy buscando...' className={styles.input}>
                     <input value={searchInput} onChange={handleSearchChange}/>
-                    <GButton type={ButtonType.PRIMARY} icon={"search"}
-                             onClick={() => {}}/>
+                    <GButton type={ButtonType.PRIMARY} icon={"search"} />
                 </Input>
             </form>
             <div className={styles.cartContainer}>
-                <Button icon onClick={() => dispatch(toggle())} className={styles.cartButton}>
-                    <Icon name='cart' size={"big"}/>
-                    <b>{cart?.length > 0 && cart.length}</b>
-                </Button>
+                <GButton icon={"cart"} onClick={() => dispatch(toggle())} size={"massive"} type={ButtonType.TRANSPARENT} className={styles.cartButton}>
+                    <div style={numberCartStyle}>{cart?.length > 0 && cart.length}</div>
+                </GButton>
             </div>
         </nav>
         {isUserLogged && !router.pathname.includes("admin") &&

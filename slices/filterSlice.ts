@@ -59,7 +59,8 @@ export const filterSlice = createSlice({
             state.req.filter.talles = [];
         },
         setPagination: (state, params) => {
-            state.req.page = params.payload.pages;
+            console.log(params.payload)
+            state.req.page = params.payload;
         }
     },
 })

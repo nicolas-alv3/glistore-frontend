@@ -14,7 +14,7 @@ export default function GPagination(props: Props) {
                 firstItem={null}
                 lastItem={null}
                 totalPages={props.totalPages}
-                onPageChange={(e,data) => console.log(data.activePage)}
+                onPageChange={(e,data) => props.onPageChange(data.activePage as number)}
             />
         </div>
     </>
