@@ -5,15 +5,14 @@ import 'semantic-ui-css/semantic.min.css';
 import React, {useEffect} from "react";
 import {Toaster} from "react-hot-toast";
 import PageHeader from "../src/components/PageHeader";
-import {getConfig} from "../src/hooks/getConfig";
 import {Container} from "semantic-ui-react";
 import Footer from "../src/components/Footer";
 import {store} from '../slices/store'
 import {Provider} from 'react-redux'
 import {NextSeo} from "next-seo";
+import {getSEOConfig} from "../src/utils/SEOUtils";
 
 function MyApp({Component, pageProps}: AppProps) {
-    const {companyName, meta} = getConfig();
 
     // Hide splash screen when we are server side
     useEffect(() => {
@@ -32,8 +31,7 @@ function MyApp({Component, pageProps}: AppProps) {
 
     return <Provider store={store}>
         <NextSeo
-            title={companyName+" | Store"}
-            description={meta.description}
+            openGraph={getSEOConfig()}
         />
         <PageHeader/>
         <Container>

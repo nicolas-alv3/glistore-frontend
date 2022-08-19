@@ -1,7 +1,7 @@
 import {useRouter} from 'next/router'
 import React, {useEffect} from "react";
 import ProductService from "../../service/ProductService";
-import {CardDescription, Container , Grid, Header, Label} from "semantic-ui-react";
+import {CardDescription, Container, Divider, Grid, Header, Label} from "semantic-ui-react";
 import Carrousel from "../../src/components/Utils/Carrousel";
 import TrendingSwiper from '../../src/components/TrendingSwiper';
 import {Product} from "../../src/types";
@@ -11,6 +11,7 @@ import Skeleton from "react-loading-skeleton";
 import GButton, {ButtonType} from "../../src/components/Utils/GButton";
 import {NextSeo} from "next-seo";
 import AddToCart from "../../src/components/AddToCart";
+import {getSEOConfig} from "../../src/utils/SEOUtils";
 
 function ShowProductSkeleton() {
     return <>
@@ -59,8 +60,7 @@ const ProductDetail = () => {
 
     return <>
         <NextSeo
-            title={(product?.name || "Mira este producto! ") + " | Pomelo store"}
-            description={product?.description}
+            openGraph={getSEOConfig((product?.name || "Mira este producto! ") + " | Pomelo store", product?.description)}
         />
         <Container>
             <Title title={"Ver producto"} withBackButton/>
@@ -76,7 +76,9 @@ const ProductDetail = () => {
                                     <Header size={"huge"}>{product?.name} <Label
                                         color={"orange"}>{product?.category}</Label></Header>
                                     <CardDescription>{product?.description}</CardDescription>
+                                    <Divider/>
                                     <AddToCart product={product} />
+                                    <Divider/>
                                     <GButton type={ButtonType.SECONDARY} icon={"share alternate"} onClick={shareProduct}>Compartir</GButton>
                                 </Grid.Column>
                             </>

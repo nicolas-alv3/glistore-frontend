@@ -40,6 +40,10 @@ export default function Footer() {
                             <Icon name={"instagram"}/>
                             Instagram
                         </List.Item>
+                        <List.Item as='a' href={getConfig().facebookLink}>
+                            <Icon name={"facebook"}/>
+                            Facebook
+                        </List.Item>
                         <List.Item as='a' href={WhatsappService.getWhatsappLink()}>
                             <Icon name={"whatsapp"}/>
                             Whatsapp
