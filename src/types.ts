@@ -11,7 +11,7 @@ export interface Product {
     visible: boolean,
 }
 
-export interface CartItem {
+export interface SaleItem {
     product: Product,
     amount: number,
     talle: string
@@ -43,4 +43,8 @@ export enum SortType {
     NONE= "NONE",
     HIGHER= "HIGHER",
     LOWER= "LOWER"
+}
+
+export interface Sale {
+    items: SaleItem[]
 }

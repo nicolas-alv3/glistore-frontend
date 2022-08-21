@@ -3,18 +3,18 @@ import React, {useEffect} from "react";
 import styles from '../../styles/Home.module.css';
 import WhatsappService from "../../service/WhatsappService";
 import {getConfig} from "../hooks/getConfig";
-import {CartItem} from "../types";
-import {hide, removeFromIndex, resetCart, selectCart, selectShow, setCart} from "../../slices/sidebarSlice";
+import {SaleItem, Sale} from "../types";
+import {hide, removeFromIndex, selectCart, selectShow, setCart} from "../../slices/sidebarSlice";
 import {useDispatch, useSelector} from "react-redux";
 import {getCartFromReload, saveCartOnReload} from "../utils/windowUtils";
 import GButton, {ButtonType} from "./Utils/GButton";
-import Image from "next/image";
-import PostBuyModal from "./PostBuyModal";
 import GModal from "./GModal";
 import ToastUtils from "../utils/toastUtils";
+import CartItemComponent from "./CartItemComponent";
+import Image from "next/image";
+import SalesService from "../../service/SalesService";
 
 
-// @ts-ignore
 export default function CartSidebar() {
     const cart = useSelector(selectCart);
     const [editMode, setEditMode] = React.useState(false);
@@ -33,28 +33,14 @@ export default function CartSidebar() {
         setEditMode(false);
     }
 
-    function itemPriceRaw(item: CartItem) {
-        return item.product.price * item.amount;
-    }
-
-    function itemPrice(item: CartItem) {
-        return (item.product.price * item.amount) - (item.product.price * item.amount) * item.product.discount / 100;
-    }
-
-
-    function itemsText() {
-        let text = "";
-        cart.forEach((i, index) => text = text + `${index + 1}. ${i.product.name} |${i.talle}| (_${i.amount}u._) ${i.product.discount ? `~${itemPriceRaw(i)}~` : ""} *${itemPrice(i)}* \n `)
-        return text;
-    }
-
     const confirmOrder = () => {
-        const msg = `
-        Hola ${config.companyName}!, quisiera hacer una compra:\n ${itemsText()}
-        *Total:*$ ${cart.reduce((acc, i) => acc + i.amount * i.product.price, 0)}
-    `
-        console.log(msg);
-        WhatsappService.sendMessageToStore(msg);
+        const sale = {
+            items: cart
+        }
+        SalesService.createSale(sale)
+            .then(res => {
+                WhatsappService.sendMessageToStore(res.message);
+            })
     }
     const deleteAll = () => {
         setCart([]);
@@ -63,6 +49,8 @@ export default function CartSidebar() {
     }
 
     const hideSidebar = () => dispatch(hide())
+
+    const emptyCatURL = "https://media.istockphoto.com/vectors/cute-black-and-white-cat-is-sitting-in-a-cardboard-box-vector-id1284540470?k=20&m=1284540470&s=170667a&w=0&h=XOT_1QDiE_P0775yyX4ybkwgZ3-SHb_zKTIdwmDoPJg=";
 
     return <Sidebar
         as={Menu}
@@ -88,24 +76,7 @@ export default function CartSidebar() {
         <Divider/>
         {
             cart?.length ? <Item.Group>
-                    {cart?.map((i, idx) => <Item key={i.product._id} className={styles.item}>
-                        <div style={{marginBottom: 24}}>
-                            <Item.Image size='small' src={i.product.images[0]}/>
-                        </div>
-                        <Item.Content>
-                            <Item.Header as='a'>{i.product.name}</Item.Header>
-                            <Item.Description>
-                                {i.product.description}
-                            </Item.Description>
-                            <Item.Meta>{i.amount}u.</Item.Meta>
-                            <Item.Extra>{`Talle ${i.talle}`}</Item.Extra>
-                            <div style={{display: "flex", justifyContent: "flex-end"}}>
-                                <Item.Header as={Header}>${i.product.price}</Item.Header>
-                            </div>
-                            {editMode && <GButton icon="delete" type={ButtonType.DANGER} onClick={() => deleteItem(idx)}>Eliminar
-                                item</GButton>}
-                        </Item.Content>
-                    </Item>)}
+                    {cart?.map((i, idx) => <CartItemComponent key={i.product._id} item={i} idx={idx} editMode={editMode} onDelete={deleteItem}/>)}
                     <Item>
                         <GButton type={ButtonType.SECONDARY} fluid onClick={hideSidebar}> Seguir mirando
                             👀 </GButton>
@@ -122,8 +93,10 @@ export default function CartSidebar() {
                 </Item.Group> :
                 <>
                     <Header> Aún no has agregado nada...</Header>
-                    <img
-                        src={"https://media.istockphoto.com/vectors/cute-black-and-white-cat-is-sitting-in-a-cardboard-box-vector-id1284540470?k=20&m=1284540470&s=170667a&w=0&h=XOT_1QDiE_P0775yyX4ybkwgZ3-SHb_zKTIdwmDoPJg="}
+                    <Image
+                        alt={"Empty cart"}
+                        loader={() => emptyCatURL}
+                        src={emptyCatURL}
                         width={300}
                         height={300}
                     />

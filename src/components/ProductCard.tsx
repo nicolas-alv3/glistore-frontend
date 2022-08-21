@@ -10,6 +10,7 @@ import GModal from "./GModal";
 import AddToCart from "./AddToCart";
 import {hideModal} from "../../slices/modalSlice";
 import {useDispatch} from "react-redux";
+import {moneyPipe} from "../utils/parseUtils";
 
 function ProductSkeleton() {
     return <div style={{height: "100%", width: "100%"}}>
@@ -51,7 +52,7 @@ export default function ProductCard({product, loading}) {
                     <Card.Content className={styles.cardContent}  onClick={handleCardClick}>
                         <h2>{product.name}</h2>
                         <h3>{product.description}</h3>
-                        <h4>${product.price}</h4>
+                        <h4>{moneyPipe(product.price)}</h4>
                     </Card.Content>
                     <Card.Content extra>
                         <GModal id={product._id} withoutButtons size={"mini"} title={"Agregar al carrito"}

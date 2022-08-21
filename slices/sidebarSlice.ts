@@ -1,11 +1,11 @@
 import {createSlice} from '@reduxjs/toolkit'
 import type {PayloadAction} from '@reduxjs/toolkit'
 import {RootState} from "./store";
-import {CartItem} from "../src/types";
+import {SaleItem} from "../src/types";
 
 export interface SidebarState {
     show: boolean,
-    cart: CartItem[]
+    cart: SaleItem[]
 }
 
 const initialState: SidebarState = {
@@ -26,10 +26,10 @@ export const sidebarSlice = createSlice({
         toggle: (state) => {
             state.show = !state.show;
         },
-        setCart: (state, cart: PayloadAction<CartItem[]>) => {
+        setCart: (state, cart: PayloadAction<SaleItem[]>) => {
             state.cart = cart.payload;
         },
-        addItem: (state, item: PayloadAction<CartItem>) => {
+        addItem: (state, item: PayloadAction<SaleItem>) => {
             state.cart = state.cart.concat([item.payload])
         },
         removeFromIndex: (state, idx: PayloadAction<number>) => {

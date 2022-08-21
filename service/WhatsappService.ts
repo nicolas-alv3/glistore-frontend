@@ -1,4 +1,4 @@
-import configJSON from "../resources/config.json";
+import configJSON from "../resources/glistore.config.json";
 
 class WhatsappService {
     isMobileBrowser = () => {

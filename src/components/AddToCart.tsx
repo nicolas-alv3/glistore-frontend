@@ -1,4 +1,4 @@
-import {CartItem, Product} from "../types";
+import {SaleItem, Product} from "../types";
 import React from "react";
 import {Divider, Header} from "semantic-ui-react";
 import styles from "../../styles/Home.module.css";
@@ -8,6 +8,7 @@ import ToastUtils from "../utils/toastUtils";
 import {addItem, show} from "../../slices/sidebarSlice";
 import {useDispatch} from "react-redux";
 import GButton, {ButtonType} from "./Utils/GButton";
+import {moneyPipe} from "../utils/parseUtils";
 
 interface Props {
     product?: Product;
@@ -26,7 +27,7 @@ export default function AddToCart(props: Props) {
             amount,
             talle
         }
-        dispatch(addItem(cartItem as CartItem));
+        dispatch(addItem(cartItem as SaleItem));
         props.onAdd && props.onAdd();
         ToastUtils.success("Perfecto!")
         dispatch(show());
@@ -46,7 +47,7 @@ export default function AddToCart(props: Props) {
     const isInvalidAmount = amount <= 0 && formSubmitted
 
     return <div style={{marginBottom: 16}}>
-        <Header className={styles.font} size={"huge"}>${props.product?.price}</Header>
+        <Header className={styles.font} size={"huge"}>{moneyPipe(props.product?.price as number)}</Header>
         <TalleSelectorDetail onTalleSelect={setTalle} product={props.product} invalid={isInvalidTalle}/>
         <Divider/>
         <AmountPicker onAmountChange={setAmount} isInvalidAmount={isInvalidAmount}/>

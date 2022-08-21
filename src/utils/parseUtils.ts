@@ -18,3 +18,7 @@ export function withoutDuplicates<T>(array:T[]): T[] {
 
 }
 
+export function moneyPipe(amount: number) {
+    return new Intl.NumberFormat('es-AR', { style: 'currency', currency: 'ARS' }).format(amount)
+}
+
