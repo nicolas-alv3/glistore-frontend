@@ -1,4 +1,4 @@
-import {Button, Card, Header, Icon} from "semantic-ui-react";
+import {Button, Card, Header, Icon, Label} from "semantic-ui-react";
 import styles from "../../styles/Home.module.css";
 import React from "react";
 import {useRouter} from "next/router";
@@ -35,11 +35,23 @@ export default function ProductCard({product, loading}) {
         router.push({pathname: "/product", query: {id: product._id}})
     }
 
+    const isNew = () => {
+        let today = new Date();
+        let aWeekAgo = new Date(today);
+        aWeekAgo.setDate(aWeekAgo.getDate() - 7);
+        return new Date(product.date) >= aWeekAgo;
+    }
     return <Card as={Button} className={styles.card}>
         {
             loading ? <ProductSkeleton/>
                 :
                 <>
+                    {
+                        isNew() &&
+                        <Label className={styles.newBadge}>
+                        Nuevo
+                    </Label>
+                    }
                     {
                         product.images[0]
                         &&
