@@ -131,12 +131,17 @@
 .newBadge {
   position: absolute;
   z-index: 9;
-  right: 8px;
-  top: 160px;
+  right: 0;
+  top: 125px;
 }
 
 /* On screens that are 992px or more */
 @media screen and (min-width: 992px) {
+  .newBadge {
+    right: 8px;
+    top: 160px;
+  }
+
   .input {
     width: 500px;
   }

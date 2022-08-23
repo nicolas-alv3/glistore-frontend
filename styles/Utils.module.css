@@ -56,7 +56,7 @@
     border-radius: 8px;
     width: max-content;
     line-height:normal ;
-    height: 28px;
+    height: max-content;
     font-size: 12px;
 }
 
