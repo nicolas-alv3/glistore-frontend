@@ -1,7 +1,7 @@
 import axios, { AxiosRequestConfig } from 'axios';
 
-//const server = 'https://pomelo-store-back.herokuapp.com';
-const server = 'http://localhost:8080';
+const server = 'https://pomelo-store-back.herokuapp.com';
+//const server = 'http://localhost:8080';
 
 const API = {
     get: (path: any, body?: any) => axios.get(`${server}${path}`, {params: body}).then((response) => response.data),
