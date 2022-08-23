@@ -67,7 +67,8 @@ export default function AddEditModal(props: Props) {
             description,
             price,
             discount,
-            images,
+            images: images.filter(i => !i.includes("preview")),
+            preview: images.find(i => i.includes("preview")),
             talles: selectedTalles,
             category: category,
             isTrending,
@@ -112,7 +113,7 @@ export default function AddEditModal(props: Props) {
                     <input type={"number"} value={discount} onChange={e => setDiscount(Number(e.target.value))} placeholder='Ingresar descuento' />
                 </Form.Field>
                 <Divider/>
-                <ImageUploader images={images} onChange={handleUploadChange}/>
+                <ImageUploader images={images.concat(props.product ? [props.product.preview] : [])} onChange={handleUploadChange}/>
                 <Divider/>
                 <TalleSelector onSelect={(talles: string[]) => setSelectedTalles(talles)} talles={selectedTalles}/>
                 <Form.Field>

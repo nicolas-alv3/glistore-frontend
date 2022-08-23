@@ -49,10 +49,10 @@ export default function ProductCard({product, loading}) {
                 :
                 <>
                     {
-                        product.images[0]
+                        (product.preview || product.images[0])
                         &&
                         <Image
-                            id={product._id} src={product.images[0] || "..."}
+                            id={product._id} src={product.preview || product.images[0] || "..."}
                             quality={30} priority
                             blurDataURL={"/logo_pomelo_largo.png"}
                             height={222} width={222} className={styles.cardImg} placeholder="blur" alt={""}  onClick={handleCardClick}/>

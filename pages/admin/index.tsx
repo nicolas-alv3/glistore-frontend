@@ -63,7 +63,7 @@ function LoginComponent() {
 function ProductsTable({products, update}) {
 
     const removeImages = (p) => {
-        FirebaseService.removeFromFirestore(p.images).then(() => ToastUtils.success("Imagenes eliminadas!"))
+        FirebaseService.removeFromFirestore(p.images.concat([p.preview])).then(() => ToastUtils.success("Imagenes eliminadas!"))
             .catch( () => ToastUtils.error("Hubo un problema eliminando las imagenes"));
     }
 

@@ -3,6 +3,7 @@ export interface Product {
     _id: string,
     name: string,
     images: string[],
+    preview: string,
     description: string,
     price: number,
     discount: number,
