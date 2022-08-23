@@ -1,5 +1,5 @@
 import {Pagination} from "semantic-ui-react";
-import styles from '../../styles/Utils.module.css';
+import styles from '../../../styles/Utils.module.css';
 
 interface Props {
     totalPages: number;

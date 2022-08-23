@@ -42,4 +42,5 @@ a {
     --col-orange: #FF8000;
     --col-danger: #7E191B;
     --col-white: #FFFF;
+    --col-lightgray: lightgray;
 }

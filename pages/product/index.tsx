@@ -1,7 +1,7 @@
 import {useRouter} from 'next/router'
 import React, {useEffect} from "react";
 import ProductService from "../../service/ProductService";
-import {CardDescription, Container, Divider, Grid, Header, Label} from "semantic-ui-react";
+import {CardDescription, Container, Divider, Grid, Header} from "semantic-ui-react";
 import Carrousel from "../../src/components/Utils/Carrousel";
 import TrendingSwiper from '../../src/components/TrendingSwiper';
 import {Product} from "../../src/types";
@@ -12,6 +12,7 @@ import GButton, {ButtonType} from "../../src/components/Utils/GButton";
 import {NextSeo} from "next-seo";
 import AddToCart from "../../src/components/AddToCart";
 import {getSEOConfig} from "../../src/utils/SEOUtils";
+import GBadge, {GBadgeType} from "../../src/components/Utils/GBadge";
 
 function ShowProductSkeleton() {
     return <>
@@ -73,8 +74,8 @@ const ProductDetail = () => {
                                     <Carrousel urls={product?.images || []}/>
                                 </Grid.Column>
                                 <Grid.Column width={6}>
-                                    <Header size={"huge"}>{product?.name} <Label
-                                        color={"orange"}>{product?.category}</Label></Header>
+                                    <Header size={"huge"}>{product?.name} <GBadge
+                                        type={GBadgeType.ORANGE} text={product?.category} /></Header>
                                     <CardDescription>{product?.description}</CardDescription>
                                     <Divider/>
                                     <AddToCart product={product} />

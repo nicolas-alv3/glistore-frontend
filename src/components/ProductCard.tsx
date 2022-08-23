@@ -1,16 +1,17 @@
-import {Button, Card, Header, Icon, Label} from "semantic-ui-react";
+import {Button, Card, Header, Icon} from "semantic-ui-react";
 import styles from "../../styles/Home.module.css";
 import React from "react";
 import {useRouter} from "next/router";
 import {setPartialReq} from "../../slices/filterSlice";
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
-import Image from "next/image";
-import GModal from "./GModal";
-import AddToCart from "./AddToCart";
-import {hideModal} from "../../slices/modalSlice";
 import {useDispatch} from "react-redux";
+import GBadge, {GBadgeType} from "./Utils/GBadge";
+import AddToCart from "./AddToCart";
 import {moneyPipe} from "../utils/parseUtils";
+import {hideModal} from "../../slices/modalSlice";
+import GModal from "./Utils/GModal";
+import Image from "next/image";
 
 function ProductSkeleton() {
     return <div style={{height: "100%", width: "100%"}}>
@@ -41,17 +42,12 @@ export default function ProductCard({product, loading}) {
         aWeekAgo.setDate(aWeekAgo.getDate() - 7);
         return new Date(product.date) >= aWeekAgo;
     }
+    // @ts-ignore
     return <Card as={Button} className={styles.card}>
         {
             loading ? <ProductSkeleton/>
                 :
                 <>
-                    {
-                        isNew() &&
-                        <Label className={styles.newBadge}>
-                        Nuevo
-                    </Label>
-                    }
                     {
                         product.images[0]
                         &&
@@ -60,6 +56,9 @@ export default function ProductCard({product, loading}) {
                             quality={30} priority
                             blurDataURL={"/logo_pomelo_largo.png"}
                             height={222} width={222} className={styles.cardImg} placeholder="blur" alt={""}  onClick={handleCardClick}/>
+                    }
+                    {
+                        isNew() && <GBadge className={styles.newBadge} type={GBadgeType.SECONDARY} text={"Nuevo"}/>
                     }
                     <Card.Content className={styles.cardContent}  onClick={handleCardClick}>
                         <h2>{product.name}</h2>

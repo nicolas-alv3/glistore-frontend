@@ -45,6 +45,30 @@
 }
 
 /*
+   GBadge
+*/
+
+.gBadge {
+    margin: 8px;
+    display: inline-block;
+    padding: 6px 8px;
+    background-color: lightgrey;
+    border-radius: 8px;
+    width: max-content;
+    line-height:normal ;
+    height: 28px;
+    font-size: 12px;
+}
+
+.gBadgeCircular {
+    border-radius: 50px;
+}
+
+.gBadgeBasic {
+    background-color: var(--col-lightgray);
+}
+
+/*
     Input
 */
 .numberInput {

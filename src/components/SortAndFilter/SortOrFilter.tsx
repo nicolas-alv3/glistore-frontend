@@ -5,8 +5,8 @@ import TallesFilter from "./TallesFilter";
 import SelectFilter, {SelectFilterType} from "./SelectFilter";
 import {useDispatch, useSelector} from "react-redux";
 import {cleanFilter, selectFilterState, setPartialReq} from "../../../slices/filterSlice";
-import ProductService from "../../../service/ProductService";
 import FilterBadges from "../Utils/FilterBadges";
+import GButton, {ButtonType} from "../Utils/GButton";
 
 export default function SortOrFilter() {
     const [visible, setVisible] = React.useState(false);
@@ -81,7 +81,7 @@ export default function SortOrFilter() {
         </Button.Group>
         <div style={{display:"flex", justifyContent:"space-between", marginTop:8}}>
             <FilterBadges filterState={filterState}/>
-            { someFilterIsApplied && <Button icon size={"mini"} color={"orange"} circular onClick={cleanFilters}> <Icon name={"delete"}/>Limpiar filtros</Button>}
+            { someFilterIsApplied && <GButton icon={"delete"} size={"mini"} type={ButtonType.ORANGE} circular onClick={cleanFilters}>Limpiar filtros</GButton>}
         </div>
         <Sidebar
             as={Menu}
@@ -95,7 +95,7 @@ export default function SortOrFilter() {
             <Container>
                 <Segment>
                     <Header>{filter ? "Filtrar" : "Ordenar"} por</Header>
-                    {items.map((i, idx) => <Menu.Item key={i.name}
+                    {items.map((i) => <Menu.Item key={i.name}
                                                       onClick={() => setActiveItems(activeItems.concat([i.name]))}>
                         <Header>{i.name}</Header>
                         {i.children}

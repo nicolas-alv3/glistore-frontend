@@ -7,7 +7,7 @@ import {useRouter} from "next/router";
 import {useDispatch, useSelector} from "react-redux";
 import {selectFilterState, setPagination, setPartialReq} from "../../slices/filterSlice";
 import {splitURL} from "../../src/utils/parseUtils";
-import GPagination from "../../src/utils/GPagination";
+import GPagination from "../../src/components/Utils/GPagination";
 
 
 
@@ -59,7 +59,7 @@ export default function SearchProducts() {
 
     setTimeout( () => {
         // @ts-ignore
-        document.getElementById(filterState?.lastVisitedId)?.scrollIntoView();
+        //document.getElementById(filterState?.lastVisitedId)?.scrollIntoView();
     }, 600)
 
     return <div>

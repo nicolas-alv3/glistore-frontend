@@ -1,8 +1,8 @@
 import React, {ReactNode, useEffect} from "react";
 import {Modal} from "semantic-ui-react";
-import GButton, {ButtonType} from "./Utils/GButton";
+import GButton, {ButtonType} from "./GButton";
 import {useDispatch, useSelector} from "react-redux";
-import {selectModal, setVisible} from "../../slices/modalSlice";
+import {selectModal, setVisible} from "../../../slices/modalSlice";
 
 interface Props {
     title: string,

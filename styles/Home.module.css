@@ -129,12 +129,10 @@
 }
 
 .newBadge {
-  background-color: var(--col-primary2) !important;
-  color: var(--col-font) !important;
-  position: absolute !important;
+  position: absolute;
   z-index: 9;
-  left: 103px !important;
-  top: 132px;
+  right: 8px;
+  top: 160px;
 }
 
 /* On screens that are 992px or more */

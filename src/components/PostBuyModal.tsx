@@ -1,4 +1,4 @@
-import GModal from "./GModal";
+import GModal from "./Utils/GModal";
 
 export default function PostBuyModal({ trigger }) {
     return <GModal title={"¿Pudiste terminar la compra?"} trigger={trigger} id={"Post buy modal"} confirmText={"Vaciar carrito"}>

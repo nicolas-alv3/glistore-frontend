@@ -1,7 +1,7 @@
 import {isAdminLogged, login} from "../../src/utils/loginUtils";
 import React, {useEffect} from "react";
 import styles from '../../styles/Admin.module.css';
-import {Checkbox, Container, Divider, Form, Header, Icon, Label, Table} from "semantic-ui-react";
+import {Checkbox, Container, Divider, Form, Header, Icon, Table} from "semantic-ui-react";
 import ToastUtils from "../../src/utils/toastUtils";
 import {useRouter} from "next/router";
 import GButton, {ButtonType} from "../../src/components/Utils/GButton";
@@ -13,6 +13,7 @@ import {Product} from "../../src/types";
 import Image from "next/image";
 import largeLogo from "../../public/logo_pomelo_largo.png";
 import FirebaseService from "../../service/FirebaseService";
+import GBadge, {GBadgeType} from "../../src/components/Utils/GBadge";
 
 function LoginComponent() {
     const [name, setName] = React.useState("");
@@ -91,7 +92,7 @@ function ProductsTable({products, update}) {
                         {p.name}
                     </Table.Cell>
                     <Table.Cell>
-                        {p.talles.map(t => <Label key={t} color={"olive"}>{t}</Label>)}
+                        {p.talles.map(t => <GBadge key={t} type={GBadgeType.SECONDARY} text={t} />)}
                     </Table.Cell>
                     <Table.Cell><Icon name={"eye"} color={p.visible ? "green" : "orange"}/></Table.Cell>
                     <Table.Cell>{pipePrice(p.price)}</Table.Cell>

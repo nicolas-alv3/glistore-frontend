@@ -3,12 +3,11 @@ import React, {useEffect} from "react";
 import styles from '../../styles/Home.module.css';
 import WhatsappService from "../../service/WhatsappService";
 import {getConfig} from "../hooks/getConfig";
-import {SaleItem, Sale} from "../types";
 import {hide, removeFromIndex, selectCart, selectShow, setCart} from "../../slices/sidebarSlice";
 import {useDispatch, useSelector} from "react-redux";
 import {getCartFromReload, saveCartOnReload} from "../utils/windowUtils";
 import GButton, {ButtonType} from "./Utils/GButton";
-import GModal from "./GModal";
+import GModal from "./Utils/GModal";
 import ToastUtils from "../utils/toastUtils";
 import CartItemComponent from "./CartItemComponent";
 import Image from "next/image";
@@ -18,7 +17,6 @@ import SalesService from "../../service/SalesService";
 export default function CartSidebar() {
     const cart = useSelector(selectCart);
     const [editMode, setEditMode] = React.useState(false);
-    const config = getConfig();
     const show = useSelector(selectShow);
     const dispatch = useDispatch();
 
