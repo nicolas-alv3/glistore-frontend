@@ -20,9 +20,9 @@ export default function ImageUploader({onChange, images}) {
         return new Promise((resolve, reject) => {
 
             new Compressor(file, {
-                quality: 0.4,
-                width: 800,
-                height:600,
+                quality: 0.6,
+                width: 1200,
+                height:1800,
                 success(fileC: File | Blob) {
                     const storageRef = ref(storage, `/files/${file.name}`)
                     const uploadTask = uploadBytesResumable(storageRef, fileC);
