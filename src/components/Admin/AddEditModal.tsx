@@ -18,6 +18,7 @@ interface Props {
 
 export default function AddEditModal(props: Props) {
     const [open, setOpen] = React.useState(false);
+    const [loading, setLoading] = React.useState(false);
 
     const [category, setCategory] = React.useState(props.product?.category || "");
     const [name, setName] = React.useState(props.product?.name || "");
@@ -39,6 +40,7 @@ export default function AddEditModal(props: Props) {
         setImages([]);
         setIsTrending(false);
         setIsVisible(false);
+        setLoading(false)
     }
 
     const handleAddSubmit = (product) => {
@@ -62,23 +64,26 @@ export default function AddEditModal(props: Props) {
     }
 
     const handleSubmit = () => {
-        const product = {
-            name,
-            description,
-            price,
-            discount,
-            images: images.filter(i => !i.includes("preview")),
-            preview: images.find(i => i.includes("preview")),
-            talles: selectedTalles,
-            category: category,
-            isTrending,
-            visible: isVisible
-        }
-        if( props.product ) {
-            handleEditSubmit(product);
-        }
-        else {
-            handleAddSubmit(product);
+        if(!loading) {
+            setLoading(true);
+            const product = {
+                name,
+                description,
+                price,
+                discount,
+                images: images.filter(i => !i.includes("preview")),
+                preview: images.find(i => i.includes("preview")),
+                talles: selectedTalles,
+                category: category,
+                isTrending,
+                visible: isVisible
+            }
+            if( props.product ) {
+                handleEditSubmit(product);
+            }
+            else {
+                handleAddSubmit(product);
+            }
         }
     }
 
@@ -86,8 +91,13 @@ export default function AddEditModal(props: Props) {
         setImages(urls);
     }
 
+    const closeModal = () => {
+        setOpen(false);
+        resetForm();
+    }
+
     return <Modal
-        onClose={() => setOpen(false)}
+        onClose={closeModal}
         onOpen={() => setOpen(true)}
         open={open}
         trigger={props.trigger}
@@ -136,6 +146,7 @@ export default function AddEditModal(props: Props) {
                 Cancelar
             </GButton>
             <GButton
+                loading={loading}
                 text={props.product ? "Editar" : "Agregar"}
                 icon='checkmark'
                 onClick={handleSubmit}

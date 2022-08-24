@@ -5,7 +5,6 @@ import {Checkbox, Container, Divider, Form, Header, Icon, Table} from "semantic-
 import ToastUtils from "../../src/utils/toastUtils";
 import {useRouter} from "next/router";
 import GButton, {ButtonType} from "../../src/components/Utils/GButton";
-import {pipePrice} from "../../src/utils/stringUtils";
 import ProductService from "../../service/ProductService";
 import AddEditModal from "../../src/components/Admin/AddEditModal";
 import DialogComponent from "../../src/components/Utils/DialogComponent";
@@ -14,6 +13,7 @@ import Image from "next/image";
 import largeLogo from "../../public/logo_pomelo_largo.png";
 import FirebaseService from "../../service/FirebaseService";
 import GBadge, {GBadgeType} from "../../src/components/Utils/GBadge";
+import {moneyPipe} from "../../src/utils/parseUtils";
 
 function LoginComponent() {
     const [name, setName] = React.useState("");
@@ -95,7 +95,7 @@ function ProductsTable({products, update}) {
                         {p.talles.map(t => <GBadge key={t} type={GBadgeType.SECONDARY} text={t} />)}
                     </Table.Cell>
                     <Table.Cell><Icon name={"eye"} color={p.visible ? "green" : "orange"}/></Table.Cell>
-                    <Table.Cell>{pipePrice(p.price)}</Table.Cell>
+                    <Table.Cell>{moneyPipe(p.price)}</Table.Cell>
                     <Table.Cell>
                         <AddEditModal product={p} update={update}
                                       trigger={<GButton icon={"pencil"} type={ButtonType.TERTIARY}/>}/>
