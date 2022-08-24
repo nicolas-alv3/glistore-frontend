@@ -1,6 +1,7 @@
 import axios, { AxiosRequestConfig } from 'axios';
 
 let server = "";
+console.log("Setting environment", process.env.ENVIRONMENT)
 if(process.env.ENVIRONMENT == "PROD") {
     server = 'https://pomelo-store-back.herokuapp.com';
 }else {
