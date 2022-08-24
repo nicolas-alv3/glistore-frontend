@@ -1,7 +1,11 @@
 import axios, { AxiosRequestConfig } from 'axios';
 
-const server = 'https://pomelo-store-back.herokuapp.com';
-//const server = 'http://localhost:8080';
+let server = "";
+if(process.env.ENVIRONMENT == "PROD") {
+    server = 'https://pomelo-store-back.herokuapp.com';
+}else {
+    server = 'https://dev-pomelo-store-back.herokuapp.com';
+}
 
 const API = {
     get: (path: any, body?: any) => axios.get(`${server}${path}`, {params: body}).then((response) => response.data),
