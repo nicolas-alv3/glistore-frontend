@@ -4,7 +4,7 @@ let server = "";
 if(process.env.ENVIRONMENT == "PROD") {
     server = 'https://pomelo-store-back.herokuapp.com';
 }else {
-    server = 'https://dev-pomelo-store-back.herokuapp.com';
+    server = 'https://dev-pomelo-store.herokuapp.com';
 }
 
 const API = {
