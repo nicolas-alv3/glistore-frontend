@@ -32,6 +32,7 @@ function MyApp({Component, pageProps}: AppProps) {
 
     return <Provider store={store}>
         <Head>
+            <title>{getSEOConfig().title}</title>
             <link rel="icon" href="/favicon.ico"/>
         </Head>
         <NextSeo
