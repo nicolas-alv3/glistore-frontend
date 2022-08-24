@@ -1,11 +1,9 @@
-import axios, { AxiosRequestConfig } from 'axios';
+import axios, {AxiosRequestConfig} from 'axios';
 
-let server = "";
-console.log("Setting environment", process.env.ENVIRONMENT)
-if(process.env.ENVIRONMENT == "PROD") {
+console.log("Setting up environment: ", process.env.NEXT_PUBLIC_ENVIRONMENT)
+let server = 'https://dev-pomelo-store.herokuapp.com';
+if (process.env.NEXT_PUBLIC_ENVIRONMENT && process.env.NEXT_PUBLIC_ENVIRONMENT == 'PROD') {
     server = 'https://pomelo-store-back.herokuapp.com';
-}else {
-    server = 'https://dev-pomelo-store.herokuapp.com';
 }
 
 const API = {
