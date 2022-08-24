@@ -1,5 +1,4 @@
 import styles from '../../styles/Home.module.css';
-import {Button, Icon, Input} from "semantic-ui-react";
 import React, {CSSProperties, useEffect} from "react";
 import {useRouter} from "next/router";
 import Link from 'next/link';
@@ -10,6 +9,7 @@ import {setPartialReq} from "../../slices/filterSlice";
 import Image from "next/image";
 import largeLogo from '../../public/logo_pomelo_largo.png';
 import smallLogo from '../../public/logo_pomelo_cuadrado.png';
+import {Button, Icon, Input} from "semantic-ui-react";
 import GButton, {ButtonType} from "./Utils/GButton";
 
 // @ts-ignore

@@ -2,7 +2,6 @@ import {Divider, Header, Item, Menu, Sidebar} from "semantic-ui-react";
 import React, {useEffect} from "react";
 import styles from '../../styles/Home.module.css';
 import WhatsappService from "../../service/WhatsappService";
-import {getConfig} from "../hooks/getConfig";
 import {hide, removeFromIndex, selectCart, selectShow, setCart} from "../../slices/sidebarSlice";
 import {useDispatch, useSelector} from "react-redux";
 import {getCartFromReload, saveCartOnReload} from "../utils/windowUtils";
@@ -97,6 +96,7 @@ export default function CartSidebar() {
                         src={emptyCatURL}
                         width={300}
                         height={300}
+                        unoptimized
                     />
                     <GButton type={ButtonType.SECONDARY} fluid onClick={hideSidebar}> Seguir mirando
                         👀 </GButton>

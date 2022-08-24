@@ -23,7 +23,8 @@ interface Props {
     fluid?: boolean,
     circular?: boolean,
     size?: SemanticSIZES,
-    className?: string
+    className?: string,
+    loading?: boolean
 }
 
 export default function GButton(props: Props) {
@@ -49,6 +50,7 @@ export default function GButton(props: Props) {
             fluid={props.fluid}
             circular={props.circular}
             size={props.size}
+            loading={props.loading}
         >
             {props.icon && <Icon name={props.icon}/>}
             {props.children}
