@@ -33,7 +33,7 @@ export default function ProductCard({product, loading}) {
     const handleCardClick = () => {
         // @ts-ignore
         setPartialReq(prevState => ({...prevState, lastVisitedId: product._id}));
-        router.push({pathname: "/product", query: {id: product._id}})
+        router.push({pathname: "/product", query: {id: product._id, product: JSON.stringify(product)}, })
     }
 
     const isNew = () => {

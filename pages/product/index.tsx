@@ -10,6 +10,7 @@ import Title from "../../src/components/Utils/Title";
 import Skeleton from "react-loading-skeleton";
 import GButton, {ButtonType} from "../../src/components/Utils/GButton";
 import {NextSeo} from "next-seo";
+import {parse} from "../../src/utils/parseUtils";
 import AddToCart from "../../src/components/AddToCart";
 import {getSEOConfig} from "../../src/utils/SEOUtils";
 import GBadge, {GBadgeType} from "../../src/components/Utils/GBadge";
@@ -37,11 +38,18 @@ const ProductDetail = () => {
 
 
     useEffect(() => {
-        if(router.isReady){
-            ProductService.getProductById(String(id)).then(p => {
-                setProduct(p);
+        if (router.isReady) {
+            if (!router.query.product) {
+                ProductService.getProductById(String(id)).then(p => {
+                    setProduct(p);
+                    setLoading(false);
+                })
+                    .catch( () => router.push("/invalidPage")
+                        .then(res => console.log(res)))
+            } else {
                 setLoading(false);
-            })
+                setProduct(parse(router.query.product as string));
+            }
         }
     }, [id, router.isReady]);
 
@@ -75,12 +83,13 @@ const ProductDetail = () => {
                                 </Grid.Column>
                                 <Grid.Column width={6}>
                                     <Header size={"huge"}>{product?.name} <GBadge
-                                        type={GBadgeType.ORANGE} text={product?.category} /></Header>
+                                        type={GBadgeType.ORANGE} text={product?.category}/></Header>
                                     <CardDescription>{product?.description}</CardDescription>
                                     <Divider/>
-                                    <AddToCart product={product} />
+                                    <AddToCart product={product}/>
                                     <Divider/>
-                                    <GButton type={ButtonType.SECONDARY} icon={"share alternate"} onClick={shareProduct}>Compartir</GButton>
+                                    <GButton type={ButtonType.SECONDARY} icon={"share alternate"}
+                                             onClick={shareProduct}>Compartir</GButton>
                                 </Grid.Column>
                             </>
                     }
