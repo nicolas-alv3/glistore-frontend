@@ -123,7 +123,7 @@ export default function AddEditModal(props: Props) {
                     <input type={"number"} value={discount} onChange={e => setDiscount(Number(e.target.value))} placeholder='Ingresar descuento' />
                 </Form.Field>
                 <Divider/>
-                <ImageUploader images={images.concat(props.product ? [props.product.preview] : [])} onChange={handleUploadChange}/>
+                <ImageUploader images={images.concat((props.product && props.product.preview) ? [props.product.preview] : [])} onChange={handleUploadChange}/>
                 <Divider/>
                 <TalleSelector onSelect={(talles: string[]) => setSelectedTalles(talles)} talles={selectedTalles}/>
                 <Form.Field>
