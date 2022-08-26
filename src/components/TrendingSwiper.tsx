@@ -3,7 +3,7 @@ import ProductService from "../../service/ProductService";
 import {Swiper, SwiperSlide} from "swiper/react";
 import {Navigation} from "swiper";
 import ProductCard from "./ProductCard";
-import {Divider, Header} from "semantic-ui-react";
+import {CardGroup, Divider, Header} from "semantic-ui-react";
 import {Product} from "../types";
 
 export default function TrendingSwiper() {
@@ -18,12 +18,14 @@ export default function TrendingSwiper() {
     return <>
         <Header>Destacados</Header>
         <Divider />
-        <Swiper  navigation={true} modules={[Navigation]} slidesPerView={slidesPerView}
-                 spaceBetween={5}
-                 className="mySwiper">
-            {products.map( (p: Product) => <SwiperSlide style={{width:"40%"}} key={p._id} >
+        <CardGroup>
+            <Swiper  navigation={true} modules={[Navigation]} slidesPerView={slidesPerView}
+                     spaceBetween={20}
+                     className="mySwiper">
+                {products.map( (p: Product) => <SwiperSlide style={{width:"40%", margin:"0 4px"}} key={p._id} >
                     <ProductCard product={p} loading={false}/>
-            </SwiperSlide>)}
-        </Swiper>
+                </SwiperSlide>)}
+            </Swiper>
+        </CardGroup>
     </>
 }
