@@ -79,7 +79,7 @@ const ProductDetail = () => {
                         loading ? <ShowProductSkeleton/> :
                             <>
                                 <Grid.Column width={6}>
-                                    <Carrousel urls={product?.images || []}/>
+                                    <Carrousel preview={product?.preview} urls={product?.images || []}/>
                                 </Grid.Column>
                                 <Grid.Column width={6}>
                                     <Header size={"huge"}>{product?.name} <GBadge

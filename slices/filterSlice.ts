@@ -9,7 +9,7 @@ export interface FilterState {
     lastVisitedId: string
 }
 
-const initialState: FilterState = {
+export const initialState: FilterState = {
     req: {
         name: "",
         pageSize:10,

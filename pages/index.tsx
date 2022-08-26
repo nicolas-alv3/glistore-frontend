@@ -1,8 +1,8 @@
 import type { NextPage } from 'next';
 import React, {useEffect} from "react";
 import ProductList from '../src/components/ProductList';
-import {useDispatch, useSelector} from 'react-redux'
-import {resetFilter, selectFilterState} from "../slices/filterSlice";
+import {useDispatch} from 'react-redux'
+import {initialState, resetFilter} from "../slices/filterSlice";
 import InfiniteScroll from "react-infinite-scroll-component";
 import SearchService from "../service/SearchService";
 
@@ -11,13 +11,12 @@ const Home: NextPage = () => {
     const [page, setPage] = React.useState(1);
     const [totalPages, setTotalPages] = React.useState(10);
     const [loading, setLoading] = React.useState(true);
-    const searchRequest = useSelector(selectFilterState).req;
     const dispatch = useDispatch();
 
     const fetchProducts = () => {
         setLoading(true);
         const sReq = {
-            ...searchRequest,
+            ...initialState.req,
             page
         }
         SearchService.search(sReq).then( res => {
@@ -28,15 +27,12 @@ const Home: NextPage = () => {
     }
 
     useEffect( () => {
-        console.log("useEffect [page]", page)
         fetchProducts();
     }, [page])
 
     useEffect( () => {
         dispatch(resetFilter())
         fetchProducts();
-        console.log("useEffect []", page)
-
     }, []);
 
     return (
@@ -44,7 +40,7 @@ const Home: NextPage = () => {
       <main >
           <InfiniteScroll
               style={{width:"100%", overflow: "visible"}}
-              dataLength={products.length} //This is important field to render the next data
+              dataLength={products.length}
               next={() => setPage(prevState=> prevState + 1)}
               hasMore={totalPages !== page}
               loader={<h4>Cargando mas productos...</h4>}
