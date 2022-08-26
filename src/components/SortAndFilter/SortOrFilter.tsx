@@ -8,6 +8,7 @@ import {cleanFilter, selectFilterState, setPartialReq} from "../../../slices/fil
 import FilterBadges from "../Utils/FilterBadges";
 import GButton, {ButtonType} from "../Utils/GButton";
 import styles from '../../../styles/Home.module.css';
+import {useRouter} from "next/router";
 
 export default function SortOrFilter() {
     const [visible, setVisible] = React.useState(false);
@@ -17,6 +18,7 @@ export default function SortOrFilter() {
     const [activeItems, setActiveItems] = React.useState<string[]>([]);
     const dispatch = useDispatch();
     const filterState = useSelector(selectFilterState);
+    const router = useRouter();
 
 
     const [talles, setTalles] = React.useState([]);
@@ -60,7 +62,17 @@ export default function SortOrFilter() {
                 price: sort
             }
         }
-        dispatch(setPartialReq(sReq))
+        router.push({
+            pathname: "/search",
+            query: {
+                name: sReq.name,
+                talles: talles.reduce((t, acc) => `${t},${acc}`, ""),
+                categories: categories.reduce((c, acc) => `${c},${acc}`, ""),
+            }
+        })
+            .then(() => {
+                dispatch(setPartialReq(sReq))
+            })
         setVisible(false);
     }
 
@@ -80,11 +92,13 @@ export default function SortOrFilter() {
             <Button onClick={show(false)}><Icon name={"sort"}/> Ordenar </Button>
             <Button onClick={show(true)}><Icon name={"filter"}/>Filtrar</Button>
         </Button.Group>
-        <div style={{display:"flex", justifyContent:"space-between", marginTop:8}}>
-            <div style={{width:"60%"}}>
+        <div style={{display: "flex", justifyContent: "space-between", marginTop: 8}}>
+            <div style={{width: "60%"}}>
                 <FilterBadges filterState={filterState}/>
             </div>
-            { someFilterIsApplied && <GButton icon={"delete"} size={"small"} type={ButtonType.TERTIARY} className={styles.cleanFilterButton} circular onClick={cleanFilters}>Limpiar filtros</GButton>}
+            {someFilterIsApplied &&
+                <GButton icon={"delete"} size={"small"} type={ButtonType.TERTIARY} className={styles.cleanFilterButton}
+                         circular onClick={cleanFilters}>Limpiar filtros</GButton>}
         </div>
         <Sidebar
             as={Menu}
@@ -99,7 +113,7 @@ export default function SortOrFilter() {
                 <Segment>
                     <Header>{filter ? "Filtrar" : "Ordenar"} por</Header>
                     {items.map((i) => <Menu.Item key={i.name}
-                                                      onClick={() => setActiveItems(activeItems.concat([i.name]))}>
+                                                 onClick={() => setActiveItems(activeItems.concat([i.name]))}>
                         <Header>{i.name}</Header>
                         {i.children}
                     </Menu.Item>)}
