@@ -2,7 +2,7 @@ import React, {ReactNode, useEffect} from "react";
 import {Modal} from "semantic-ui-react";
 import GButton, {ButtonType} from "./GButton";
 import {useDispatch, useSelector} from "react-redux";
-import {selectModal, setVisible} from "../../../slices/modalSlice";
+import {hideModal, selectModal, setVisible} from "../../../slices/modalSlice";
 
 interface Props {
     title: string,
@@ -30,6 +30,9 @@ export default function GModal(props: Props) {
     useEffect( () => {
         if(open){
             dispatch(setVisible({open, id: props.id}));
+        }
+        if(!open && modal.id == props.id) {
+            dispatch(hideModal())
         }
     }, [open])
 
