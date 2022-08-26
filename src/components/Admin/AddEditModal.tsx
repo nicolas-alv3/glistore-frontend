@@ -125,7 +125,7 @@ export default function AddEditModal(props: Props) {
                 <Divider/>
                 <ImageUploader images={images.concat((props.product && props.product.preview) ? [props.product.preview] : [])} onChange={handleUploadChange}/>
                 <Divider/>
-                <TalleSelector onSelect={(talles: string[]) => setSelectedTalles(talles)} talles={selectedTalles}/>
+                <TalleSelector showLabel onSelect={(talles: string[]) => setSelectedTalles(talles)} talles={selectedTalles}/>
                 <Form.Field>
                     <Divider/>
                     <label>Categoría</label>

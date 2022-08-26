@@ -9,7 +9,7 @@
 }
 
 .loginForm {
-    box-shadow: 10px 9px 20px 0px gray;
+    box-shadow: 10px 9px 20px 0 gray;
     padding: 60px 16px;
     border-radius: 16px;
     top: 15%;
@@ -45,8 +45,12 @@
 }
 
 .tallesContainer div {
-    flex: 1 0 21%; /* explanation below */
+    flex: 1 0 21%;
     margin: 5px
+}
+
+.tallesContainer label {
+    width: 20px;
 }
 
 

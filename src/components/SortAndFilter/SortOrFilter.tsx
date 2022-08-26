@@ -7,6 +7,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {cleanFilter, selectFilterState, setPartialReq} from "../../../slices/filterSlice";
 import FilterBadges from "../Utils/FilterBadges";
 import GButton, {ButtonType} from "../Utils/GButton";
+import styles from '../../../styles/Home.module.css';
 
 export default function SortOrFilter() {
     const [visible, setVisible] = React.useState(false);
@@ -80,8 +81,10 @@ export default function SortOrFilter() {
             <Button onClick={show(true)}><Icon name={"filter"}/>Filtrar</Button>
         </Button.Group>
         <div style={{display:"flex", justifyContent:"space-between", marginTop:8}}>
-            <FilterBadges filterState={filterState}/>
-            { someFilterIsApplied && <GButton icon={"delete"} size={"mini"} type={ButtonType.ORANGE} circular onClick={cleanFilters}>Limpiar filtros</GButton>}
+            <div style={{width:"60%"}}>
+                <FilterBadges filterState={filterState}/>
+            </div>
+            { someFilterIsApplied && <GButton icon={"delete"} size={"small"} type={ButtonType.TERTIARY} className={styles.cleanFilterButton} circular onClick={cleanFilters}>Limpiar filtros</GButton>}
         </div>
         <Sidebar
             as={Menu}
