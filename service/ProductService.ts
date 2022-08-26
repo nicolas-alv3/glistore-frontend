@@ -3,6 +3,7 @@ import API from "./api";
 
 class ProductService {
     path = "/product"
+
     getVisibleProducts() {
         return API.get(this.path + "/visible")
     }

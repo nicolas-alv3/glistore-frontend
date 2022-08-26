@@ -5,6 +5,10 @@ let server = 'https://dev-pomelo-store.herokuapp.com';
 if (process.env.NEXT_PUBLIC_ENVIRONMENT && process.env.NEXT_PUBLIC_ENVIRONMENT == 'PROD') {
     server = 'https://pomelo-store-back.herokuapp.com';
 }
+if (process.env.NEXT_PUBLIC_ENVIRONMENT && process.env.NEXT_PUBLIC_ENVIRONMENT == 'LOCAL') {
+    server = 'http://localhost:8080';
+}
+
 
 const API = {
     get: (path: any, body?: any) => axios.get(`${server}${path}`, {params: body}).then((response) => response.data),
