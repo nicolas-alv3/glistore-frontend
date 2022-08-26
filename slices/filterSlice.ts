@@ -33,16 +33,13 @@ export const filterSlice = createSlice({
             state.req.name = name.payload;
         },
         setTalles: (state, talles: PayloadAction<string[]>) => {
-            // @ts-ignore
-            state.req.talles = talles.payload;
+            state.req.filter.talles = talles.payload;
+        },
+        setId: (state, id) => {
+            state.lastVisitedId = id.payload
         },
         setPartialReq: (state, sReq: PayloadAction<Partial<SearchRequest>>) => {
             state.req = JSON.parse(JSON.stringify(Object.assign(state.req, sReq.payload)))
-        },
-        setFullState: (state, sReq: PayloadAction<Partial<FilterState>>) => {
-            Object.keys(sReq).forEach( k => {
-                state[k] = { ...state[k], ...sReq.payload[k]}
-            })
         },
         resetFilter: (state) => {
             state.req = initialState.req;
@@ -66,7 +63,7 @@ export const filterSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const {setPartialReq, resetFilter, removeCategory, removeTalle, cleanFilter, setPagination} = filterSlice.actions
+export const {setPartialReq, resetFilter, removeCategory, removeTalle, cleanFilter, setPagination, setId} = filterSlice.actions
 
 //Selectors
 export const selectFilterState = (state: RootState) => state.filter;

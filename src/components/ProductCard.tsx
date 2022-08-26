@@ -2,7 +2,6 @@ import {Button, Card, Header, Icon} from "semantic-ui-react";
 import styles from "../../styles/Home.module.css";
 import React from "react";
 import {useRouter} from "next/router";
-import {setPartialReq} from "../../slices/filterSlice";
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import {useDispatch} from "react-redux";
@@ -12,6 +11,7 @@ import {moneyPipe} from "../utils/parseUtils";
 import {hideModal} from "../../slices/modalSlice";
 import GModal from "./Utils/GModal";
 import Image from "next/image";
+import {setId} from "../../slices/filterSlice";
 
 function ProductSkeleton() {
     return <div style={{height: "100%", width: "100%"}}>
@@ -31,8 +31,8 @@ export default function ProductCard({product, loading}) {
     const dispatch = useDispatch();
 
     const handleCardClick = () => {
-        // @ts-ignore
-        setPartialReq(prevState => ({...prevState, lastVisitedId: product._id}));
+        console.log("Setting last id ", product._id )
+        setId(product._id);
         router.push({pathname: "/product", query: {id: product._id, product: JSON.stringify(product)}, })
     }
 
@@ -43,7 +43,7 @@ export default function ProductCard({product, loading}) {
         return new Date(product.date) >= aWeekAgo;
     }
     // @ts-ignore
-    return <Card as={Button} className={styles.card}>
+    return <Card as={Button} id={product?._id} className={styles.card}>
         {
             loading ? <ProductSkeleton/>
                 :

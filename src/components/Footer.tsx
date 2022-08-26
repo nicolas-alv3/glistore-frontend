@@ -8,8 +8,7 @@ import largeLogo from "../../public/logo_pomelo_largo.png";
 import smallLogo from "../../public/logo_pomelo_cuadrado.png";
 
 export default function Footer() {
-    // @ts-ignore
-    return <Segment className={styles.footer} vertical style={{margin: '4em 0em 0em', padding: '2em 0em'}}>
+    return <Segment className={styles.footer} id={"footer"} vertical style={{margin: '4em 0em 0em', padding: '2em 0em'}}>
         <Container textAlign='center'>
             <Grid stackable>
                 <Grid.Column width={4}>

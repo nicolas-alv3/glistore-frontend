@@ -28,7 +28,9 @@ export default function GModal(props: Props) {
     }, [modal])
 
     useEffect( () => {
-        dispatch(setVisible({open, id: props.id}));
+        if(open){
+            dispatch(setVisible({open, id: props.id}));
+        }
     }, [open])
 
     return <Modal

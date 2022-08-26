@@ -42,6 +42,7 @@ export default function SearchProducts() {
                 }
             }
             dispatch(setPartialReq(partialReq));
+            document.getElementById(filterState?.lastVisitedId)?.scrollIntoView();
         }
     }, [router.isReady])
 
@@ -56,11 +57,6 @@ export default function SearchProducts() {
             setTotalPages(res.totalPages);
         })
     }
-
-    setTimeout( () => {
-        // @ts-ignore
-        //document.getElementById(filterState?.lastVisitedId)?.scrollIntoView();
-    }, 600)
 
     return <div>
         <SortOrFilter/>
