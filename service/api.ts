@@ -1,13 +1,8 @@
 import axios, {AxiosRequestConfig} from 'axios';
+import {getBackendURL} from "../src/utils/windowUtils";
 
 console.log("Setting up environment: ", process.env.NEXT_PUBLIC_ENVIRONMENT)
-let server = 'https://dev-pomelo-store.herokuapp.com';
-if (process.env.NEXT_PUBLIC_ENVIRONMENT && process.env.NEXT_PUBLIC_ENVIRONMENT == 'PROD') {
-    server = 'https://pomelo-store-back.herokuapp.com';
-}
-if (process.env.NEXT_PUBLIC_ENVIRONMENT && process.env.NEXT_PUBLIC_ENVIRONMENT == 'LOCAL') {
-    server = 'http://localhost:8080';
-}
+let server = getBackendURL();
 
 
 const API = {

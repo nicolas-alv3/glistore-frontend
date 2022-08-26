@@ -14,6 +14,7 @@ import {parse} from "../../src/utils/parseUtils";
 import AddToCart from "../../src/components/AddToCart";
 import {getSEOConfig} from "../../src/utils/SEOUtils";
 import GBadge, {GBadgeType} from "../../src/components/Utils/GBadge";
+import {getFrontendURL} from "../../src/utils/windowUtils";
 
 function ShowProductSkeleton() {
     return <>
@@ -57,7 +58,7 @@ const ProductDetail = () => {
         if (navigator.share) {
             navigator.share({
                 title: "Mira este producto! " + product?.name,
-                url: window.location.href
+                url: `${getFrontendURL()}/product?id=${product?._id}`
             }).then(() => {
                 ToastUtils.success("¡Gracias por ayudarnos!")
             })
