@@ -64,7 +64,8 @@ export default function CartSidebar() {
             {
                 cart?.length > 0 &&
                 (<div>
-                    {editMode && <GButton type={ButtonType.PRIMARY_BASIC} onClick={deleteAll} text={"Eliminar todos"} icon={"delete"}/>}
+                    {editMode && <GButton type={ButtonType.PRIMARY_BASIC} onClick={deleteAll} text={"Eliminar todos"}
+                                          icon={"delete"}/>}
                     <GButton icon={"pencil"} type={ButtonType.TERTIARY} text={"Editar"}
                              onClick={() => setEditMode(prevState => !prevState)}/>
                 </div>)
@@ -72,22 +73,31 @@ export default function CartSidebar() {
         </div>
         <Divider/>
         {
-            cart?.length ? <Item.Group>
-                    {cart?.map((i, idx) => <CartItemComponent key={i.product._id} item={i} idx={idx} editMode={editMode} onDelete={deleteItem}/>)}
-                    <Item>
-                        <GButton type={ButtonType.SECONDARY} fluid onClick={hideSidebar}> Seguir mirando
-                            👀 </GButton>
-                    </Item>
-                    <Item>
-                        <GModal trigger={<GButton type={ButtonType.PRIMARY} fluid onClick={confirmOrder}> Finalizar compra 🥳</GButton>}
+            cart?.length ? <>
+                    <Item.Group className={styles.cartItemContainer}>
+                        {cart?.map((i, idx) => <CartItemComponent key={i.product._id} item={i} idx={idx} editMode={editMode}
+                                                                  onDelete={deleteItem}/>)}
+                    </Item.Group>
+                    <Item.Group className={styles.sidebarActions}>
+                        <Divider/>
+                        <Item>
+                            <GButton type={ButtonType.SECONDARY} fluid onClick={hideSidebar}> Seguir mirando
+                                👀 </GButton>
+                        </Item>
+                        <Item>
+                            <GModal
+                                trigger={<GButton type={ButtonType.PRIMARY} fluid onClick={confirmOrder}> Finalizar compra
+                                    🥳</GButton>}
                                 id={"Post buy modal"}
                                 title={"¿Pudiste terminar la compra?"}
                                 handleSubmit={deleteAll}
-                        >
-                            Si finalizaste la compra eliminaremos el contenido de tu carrito, si no, lo dejamos como está!
-                        </GModal>
-                    </Item>
-                </Item.Group> :
+                            >
+                                Si finalizaste la compra eliminaremos el contenido de tu carrito, si no, lo dejamos como
+                                está!
+                            </GModal>
+                        </Item>
+                    </Item.Group>
+                </> :
                 <>
                     <Header> Aún no has agregado nada...</Header>
                     <Image

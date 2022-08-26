@@ -45,7 +45,7 @@ export default function AddEditModal(props: Props) {
 
     const handleAddSubmit = (product) => {
         ProductService.create(product)
-            .then( () => {
+            .then(() => {
                 ToastUtils.success("Creado!");
                 resetForm();
                 setOpen(false);
@@ -54,8 +54,8 @@ export default function AddEditModal(props: Props) {
     }
 
     const handleEditSubmit = (product) => {
-        ProductService.update({ ...product, _id: props.product?._id })
-            .then( () => {
+        ProductService.update({...product, _id: props.product?._id})
+            .then(() => {
                 ToastUtils.success("Actualizado!");
                 resetForm();
                 setOpen(false);
@@ -64,12 +64,12 @@ export default function AddEditModal(props: Props) {
     }
 
     const handleSubmit = () => {
-        if(!loading) {
+        if (!loading) {
             setLoading(true);
             const product = {
                 name,
                 description,
-                price,
+                price: price || 0,
                 discount,
                 images: images.filter(i => !i.includes("preview")),
                 preview: images.find(i => i.includes("preview")),
@@ -78,10 +78,9 @@ export default function AddEditModal(props: Props) {
                 isTrending,
                 visible: isVisible
             }
-            if( props.product ) {
+            if (props.product) {
                 handleEditSubmit(product);
-            }
-            else {
+            } else {
                 handleAddSubmit(product);
             }
         }
@@ -108,35 +107,44 @@ export default function AddEditModal(props: Props) {
             <Form>
                 <Form.Field>
                     <label>Nombre</label>
-                    <input value={name} onChange={e => setName(e.target.value)} placeholder='Ingresar nombre' />
+                    <input value={name} onChange={e => setName(e.target.value)} placeholder='Ingresar nombre'/>
                 </Form.Field>
                 <Form.Field>
                     <label>Descripcion</label>
-                    <input value={description} onChange={e => setDescription(e.target.value)} placeholder='Ingresar descripcion' />
+                    <input value={description} onChange={e => setDescription(e.target.value)}
+                           placeholder='Ingresar descripcion'/>
                 </Form.Field>
                 <Form.Field>
                     <label>Precio</label>
-                    <input type={"number"} value={price} onChange={e => setPrice(Number(e.target.value))} placeholder='Ingresar precio' />
+                    <input type={"number"} value={price} onChange={e => setPrice(Number(e.target.value))}
+                           placeholder='Ingresar precio'/>
                 </Form.Field>
                 <Form.Field>
                     <label>Descuento</label>
-                    <input type={"number"} value={discount} onChange={e => setDiscount(Number(e.target.value))} placeholder='Ingresar descuento' />
+                    <input type={"number"} value={discount} onChange={e => setDiscount(Number(e.target.value))}
+                           placeholder='Ingresar descuento'/>
                 </Form.Field>
                 <Divider/>
-                <ImageUploader images={images.concat((props.product && props.product.preview) ? [props.product.preview] : [])} onChange={handleUploadChange}/>
+                <ImageUploader
+                    images={images.concat((props.product && props.product.preview) ? [props.product.preview] : [])}
+                    onChange={handleUploadChange}/>
                 <Divider/>
-                <TalleSelector showLabel onSelect={(talles: string[]) => setSelectedTalles(talles)} talles={selectedTalles}/>
+                <TalleSelector showLabel onSelect={(talles: string[]) => setSelectedTalles(talles)}
+                               talles={selectedTalles}/>
                 <Form.Field>
                     <Divider/>
                     <label>Categoría</label>
-                    <SelectFilter multiple={false} value={category} setValue={setCategory} type={SelectFilterType.SELECT_CATEGORY} />
+                    <SelectFilter multiple={false} value={category} setValue={setCategory}
+                                  type={SelectFilterType.SELECT_CATEGORY}/>
                 </Form.Field>
                 <Divider/>
                 <Form.Field>
                     <label>Detalles</label>
                     <div className={styles.tallesContainer}>
-                        <Checkbox label={"Es visible"} checked={isVisible} onClick={() => setIsVisible(prevState => !prevState)}/>
-                        <Checkbox label={"Es destacado"} checked={isTrending} onClick={() => setIsTrending(prevState => !prevState)}/>
+                        <Checkbox label={"Es visible"} checked={isVisible}
+                                  onClick={() => setIsVisible(prevState => !prevState)}/>
+                        <Checkbox label={"Es destacado"} checked={isTrending}
+                                  onClick={() => setIsTrending(prevState => !prevState)}/>
                     </div>
                 </Form.Field>
             </Form>

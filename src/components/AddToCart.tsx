@@ -5,7 +5,7 @@ import styles from "../../styles/Home.module.css";
 import TalleSelectorDetail from "../utils/TalleSelectorDetail";
 import AmountPicker from "./Utils/AmountPicker";
 import ToastUtils from "../utils/toastUtils";
-import {addItem} from "../../slices/sidebarSlice";
+import {addItem, show} from "../../slices/sidebarSlice";
 import {useDispatch} from "react-redux";
 import GButton, {ButtonType} from "./Utils/GButton";
 import {moneyPipe} from "../utils/parseUtils";
@@ -31,6 +31,7 @@ export default function AddToCart(props: Props) {
         dispatch(addItem(cartItem as SaleItem));
         props.onAdd && props.onAdd();
         ToastUtils.success("Perfecto!")
+        dispatch(show())
         dispatch(hideModal());
     }
 

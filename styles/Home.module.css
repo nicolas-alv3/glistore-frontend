@@ -91,6 +91,16 @@
 .card:hover {
   box-shadow: -1px 1px 20px 0 lightgrey !important;
 }
+.sidebarActions {
+  width: 100% !important;
+  margin:0;
+}
+
+.cartItemContainer {
+  height: calc(100% - 256px);
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
 
 .configButton {
   position: fixed;
