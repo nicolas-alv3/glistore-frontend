@@ -148,7 +148,7 @@ export default function AddEditModal(props: Props) {
                 </Form.Field>
                 <Divider/>
                 <ImageUploader
-                    images={images.concat((props.product && props.product.preview) ? [props.product.preview] : [])}
+                    images={images}
                     onChange={handleUploadChange} error={submitted && !images.length}/>
                 <Divider/>
                 <TalleSelector showLabel onSelect={(talles: string[]) => setSelectedTalles(talles)}
