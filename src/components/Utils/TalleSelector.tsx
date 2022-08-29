@@ -7,7 +7,8 @@ import GButton, {ButtonType} from "./GButton";
 interface Props {
     talles: string[],
     onSelect: (talles: string[]) => void,
-    showLabel?: boolean
+    showLabel?: boolean,
+    error?: boolean
 }
 
 export default function TalleSelector(props: Props) {
@@ -26,7 +27,7 @@ export default function TalleSelector(props: Props) {
         }
     }
 
-    return <Form.Field>
+    return <Form.Field error={props.error}>
         { props.showLabel &&
             <label>Talles disponibles</label>
         }
@@ -41,5 +42,6 @@ export default function TalleSelector(props: Props) {
                 </GButton>
             </>)}
         </div>
+        {props.error && <label>Debes elegir un talle</label>}
     </Form.Field>
 }

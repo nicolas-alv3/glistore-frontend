@@ -8,7 +8,7 @@ import FirebaseService from "../../../service/FirebaseService";
 import ToastUtils from "../../utils/toastUtils";
 
 
-export default function ImageUploader({onChange, images}) {
+export default function ImageUploader({onChange, images, error}) {
     const [loading, setLoading] = React.useState(false);
     const [files, setFiles] = React.useState<File[]>([]);
 
@@ -102,7 +102,7 @@ export default function ImageUploader({onChange, images}) {
             .catch(() => ToastUtils.error("Hubo un problema eliminando las imagenes"))
     }
 
-    return <Form.Field>
+    return <Form.Field error={error}>
         <label>Imágenes</label>
         {
             images.length ? <PlaceholderParagraph> {images?.length} imagenes cargadas <Icon name={"check"}
