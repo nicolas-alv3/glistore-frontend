@@ -24,7 +24,7 @@ export default function SelectFilter( props: Props ) {
         props.setValue(data.value);
     }
 
-    const sortOptions = [{ key:SortType.HIGHER,value: SortType.HIGHER, text:"Más alto primero"}, { key:SortType.LOWER,value: SortType.LOWER, text:"Más bajo primero"}];
+    const sortOptions = [{ key:SortType.HIGHEST_PRICE,value: SortType.HIGHEST_PRICE, text:"Más alto primero"}, { key:SortType.LOWEST_PRICE,value: SortType.LOWEST_PRICE, text:"Más bajo primero"}];
 
     const options = props.type === SelectFilterType.SELECT_ORDER ? sortOptions : [
         { key:"NEW BORN",value: "NEW BORN", text:"New born"},

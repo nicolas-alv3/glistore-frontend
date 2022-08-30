@@ -1,14 +1,12 @@
-import React, {useEffect} from "react";
-import {SearchRequest, SortType} from "../../types";
+import React from "react";
+import {SortType} from "../../types";
 import {Button, Container, Header, Icon, Menu, Segment, Sidebar} from "semantic-ui-react";
 import TallesFilter from "./TallesFilter";
 import SelectFilter, {SelectFilterType} from "./SelectFilter";
-import {useDispatch, useSelector} from "react-redux";
-import {cleanFilter, selectFilterState, setPartialReq} from "../../../slices/filterSlice";
 import FilterBadges from "../Utils/FilterBadges";
 import GButton, {ButtonType} from "../Utils/GButton";
 import styles from '../../../styles/Home.module.css';
-import {useRouter} from "next/router";
+import {useGRouter} from "../../hooks/useGRouter";
 
 export default function SortOrFilter() {
     const [visible, setVisible] = React.useState(false);
@@ -16,16 +14,10 @@ export default function SortOrFilter() {
     const [filter, setFilter] = React.useState(false);
     const [sort, setSort] = React.useState(SortType.NONE);
     const [activeItems, setActiveItems] = React.useState<string[]>([]);
-    const dispatch = useDispatch();
-    const filterState = useSelector(selectFilterState);
-    const router = useRouter();
+    const {resetFilter, navigate, getReq} = useGRouter();
 
 
     const [talles, setTalles] = React.useState([]);
-
-    useEffect(() => {
-        setTalles([]);
-    }, [filterState.req])
 
     const filterItems = [
         {
@@ -53,37 +45,27 @@ export default function SortOrFilter() {
     }
 
     const apply = () => {
-        const sReq: Partial<SearchRequest> = {
-            filter: {
-                talles: talles,
-                categories: categories
-            },
-            sort: {
-                price: sort
-            }
-        }
-        router.push({
-            pathname: "/search",
-            query: {
-                name: sReq.name,
-                talles: talles.reduce((t, acc) => `${t},${acc}`, ""),
-                categories: categories.reduce((c, acc) => `${c},${acc}`, ""),
-            }
-        })
-            .then(() => {
-                dispatch(setPartialReq(sReq))
+        navigate((req) => {
+            return ({
+                filter: {
+                    ...req.filter,
+                    talles: talles,
+                    categories: categories,
+                },
             })
+        })
         setVisible(false);
     }
 
     const items = filter ? filterItems : sortItems;
 
-    const someFilterIsApplied = filterState.req.filter.talles.length > 0 || filterState.req.filter.categories.length > 0
+    const someFilterIsApplied = getReq().filter.talles.length > 0 || getReq().filter.categories.length > 0
 
     const cleanFilters = () => {
-        dispatch(cleanFilter());
+        resetFilter();
         setCategories([]);
         setActiveItems([]);
+        setTalles([]);
         setSort(SortType.NONE);
     }
 
@@ -94,7 +76,7 @@ export default function SortOrFilter() {
         </Button.Group>
         <div style={{display: "flex", justifyContent: "space-between", marginTop: 8}}>
             <div style={{width: "60%"}}>
-                <FilterBadges filterState={filterState}/>
+                <FilterBadges req={getReq()}/>
             </div>
             {someFilterIsApplied &&
                 <GButton icon={"delete"} size={"small"} type={ButtonType.TERTIARY} className={styles.cleanFilterButton}

@@ -1,13 +1,12 @@
 import React, {useEffect} from "react";
 import ProductList from "../../src/components/ProductList";
 import SearchService from "../../service/SearchService";
-import {Product, SearchRequest, SearchResponse} from "../../src/types";
+import {Product, SearchResponse} from "../../src/types";
 import SortOrFilter from "../../src/components/SortAndFilter/SortOrFilter";
-import {useRouter} from "next/router";
-import {useDispatch, useSelector} from "react-redux";
-import {selectFilterState, setPagination, setPartialReq} from "../../slices/filterSlice";
-import {splitURL} from "../../src/utils/parseUtils";
+import {useDispatch} from "react-redux";
+import {setPagination} from "../../slices/filterSlice";
 import GPagination from "../../src/components/Utils/GPagination";
+import {useGRouter} from "../../src/hooks/useGRouter";
 
 
 
@@ -15,43 +14,24 @@ export default function SearchProducts() {
     const [products, setProducts] = React.useState<Product[]>([]);
     const [loading, setLoading] = React.useState(true);
 
-    const router = useRouter();
-    const filterState = useSelector(selectFilterState);
+    const { router, getReq } = useGRouter();
     const dispatch = useDispatch();
 
     const [totalPages, setTotalPages] = React.useState<number>(1);
 
     useEffect( () => {
-        if(router.isReady && filterState.req.name) {
+        if(router.isReady) {
             setLoading(true);
             getProducts();
         }
-    }, [filterState.req])
-
-
-    useEffect( () => {
-        if(router.isReady) {
-            const name = router.query.name as string;
-            const talles = splitURL((router.query.talles || "") as string);
-            const categories = splitURL((router.query.categories || "") as string);
-            const partialReq :Partial<SearchRequest> = {
-                name,
-                filter: {
-                    talles: talles || filterState.req.filter.talles,
-                    categories: categories || filterState.req.filter.categories
-                }
-            }
-            dispatch(setPartialReq(partialReq));
-            document.getElementById(filterState?.lastVisitedId)?.scrollIntoView();
-        }
-    }, [router.isReady])
+    }, [router.query])
 
     const fetchProductsWithPage = (page) => {
         dispatch(setPagination(page));
     }
 
     const getProducts = () => {
-        SearchService.search(filterState.req).then( (res: SearchResponse) => {
+        SearchService.search(getReq()).then( (res: SearchResponse) => {
             setProducts(res.products);
             setLoading(false);
             setTotalPages(res.totalPages);

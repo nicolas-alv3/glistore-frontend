@@ -5,7 +5,6 @@ import Link from 'next/link';
 import {isAdminLogged} from "../utils/loginUtils";
 import {selectCart, toggle} from "../../slices/sidebarSlice";
 import {useDispatch, useSelector} from "react-redux";
-import {setPartialReq} from "../../slices/filterSlice";
 import Image from "next/image";
 import largeLogo from '../../public/logo_pomelo_largo.png';
 import smallLogo from '../../public/logo_pomelo_cuadrado.png';
@@ -31,9 +30,6 @@ export default function Navbar() {
         e.preventDefault();
         if (searchInput.length > 0) {
             router.push({pathname: "/search", query: {name: searchInput}})
-                .then(() => {
-                    dispatch(setPartialReq({name: searchInput}))
-                })
         }
     }
 

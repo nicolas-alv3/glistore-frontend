@@ -31,7 +31,8 @@ export interface SearchRequest {
     pageSize: number,
     page: number,
     sort?: {
-      price: SortType
+      price: SortType,
+      date: SortType
     }
     filter: {
         talles: string[],
@@ -42,8 +43,10 @@ export interface SearchRequest {
 
 export enum SortType {
     NONE= "NONE",
-    HIGHER= "HIGHER",
-    LOWER= "LOWER"
+    HIGHEST_PRICE= "HIGHEST_PRICE",
+    LOWEST_PRICE= "LOWEST_PRICE",
+    OLDEST = "OLDEST",
+    NEWEST = "NEWEST"
 }
 
 export interface Sale {

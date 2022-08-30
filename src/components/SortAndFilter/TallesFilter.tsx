@@ -1,22 +1,21 @@
 import React, {useEffect} from "react";
-import {useSelector} from "react-redux";
-import {selectFilterState} from "../../../slices/filterSlice";
 import TalleSelector from "../Utils/TalleSelector";
+import {useGRouter} from "../../hooks/useGRouter";
 
 export default function TallesFilter( { onChange }) {
-    const filterStateReq = useSelector(selectFilterState).req;
+    const {getReq, router} = useGRouter();
 
     const [talles, setTalles] = React.useState<string[]>([]);
 
     useEffect(() => {
-        setTalles([]);
-    }, [filterStateReq])
+        setTalles(getReq().filter.talles);
+    }, [router.query])
 
 
     return <div>
             <TalleSelector onSelect={(talles: string[]) => {
                 setTalles(talles);
                 onChange(talles);
-            }} talles={talles.concat(filterStateReq.filter.talles)}/>
+            }} talles={talles}/>
     </div>
 }
