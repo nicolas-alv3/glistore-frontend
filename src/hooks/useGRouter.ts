@@ -23,7 +23,7 @@ export function useGRouter() {
             name: paramReq.name || req.name,
             sort: {
                 price: paramReq.sort?.price || req.sort?.price || SortType.NONE,
-                date: SortType.NONE
+                date: paramReq.sort?.date || req.sort?.date || SortType.NONE
             },
             page: 1,
             pageSize: 10,

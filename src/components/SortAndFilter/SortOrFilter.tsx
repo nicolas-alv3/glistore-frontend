@@ -12,7 +12,8 @@ export default function SortOrFilter() {
     const [visible, setVisible] = React.useState(false);
     const [categories, setCategories] = React.useState([]);
     const [filter, setFilter] = React.useState(false);
-    const [sort, setSort] = React.useState(SortType.NONE);
+    const [sortPrice, setSortPrice] = React.useState(SortType.LOWEST_PRICE);
+    const [sortRecent, setSortRecent] = React.useState(SortType.OLDEST);
     const [activeItems, setActiveItems] = React.useState<string[]>([]);
     const {resetFilter, navigate, getReq} = useGRouter();
 
@@ -34,7 +35,12 @@ export default function SortOrFilter() {
     const sortItems = [
         {
             name: "Por precio",
-            children: <SelectFilter value={sort} setValue={setSort} type={SelectFilterType.SELECT_ORDER}
+            children: <SelectFilter value={sortPrice} setValue={setSortPrice} type={SelectFilterType.SELECT_ORDER_PRICE}
+                                    multiple={false}/>
+        },
+        {
+            name: "Recientes",
+            children: <SelectFilter value={sortRecent} setValue={setSortRecent} type={SelectFilterType.SELECT_ORDER_RECENT}
                                     multiple={false}/>
         }
     ]
@@ -52,6 +58,11 @@ export default function SortOrFilter() {
                     talles: talles,
                     categories: categories,
                 },
+                sort: {
+                    ...req.sort,
+                    date: sortRecent,
+                    price: sortPrice
+                }
             })
         })
         setVisible(false);
@@ -66,7 +77,7 @@ export default function SortOrFilter() {
         setCategories([]);
         setActiveItems([]);
         setTalles([]);
-        setSort(SortType.NONE);
+        setSortPrice(SortType.NONE);
     }
 
     return <div style={{marginBottom: 16}}>
