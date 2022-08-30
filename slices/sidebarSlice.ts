@@ -35,14 +35,11 @@ export const sidebarSlice = createSlice({
         removeFromIndex: (state, idx: PayloadAction<number>) => {
             state.cart = state.cart.filter( (i, index) => index !== idx.payload)
         },
-        resetCart: (state) => {
-            state.cart = [];
-        }
     },
 })
 
 // Action creators are generated for each case reducer function
-export const {show, hide, toggle, addItem, removeFromIndex, resetCart, setCart} = sidebarSlice.actions
+export const {show, hide, toggle, addItem, removeFromIndex, setCart} = sidebarSlice.actions
 
 //Selectors
 export const selectShow = (state: RootState) => state.sidebar.show;

@@ -1,6 +1,5 @@
 import type {PayloadAction} from '@reduxjs/toolkit'
 import {createSlice} from '@reduxjs/toolkit'
-import {RootState} from "./store";
 import {SearchRequest, SortType} from "../src/types";
 
 
@@ -19,7 +18,8 @@ export const initialState: FilterState = {
             categories: []
         },
         sort: {
-            price: SortType.NONE
+            price: SortType.NONE,
+            date: SortType.NEWEST
         }
     },
     lastVisitedId: ""
@@ -63,10 +63,6 @@ export const filterSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const {setPartialReq, resetFilter, removeCategory, removeTalle, cleanFilter, setPagination, setId} = filterSlice.actions
-
-//Selectors
-export const selectFilterState = (state: RootState) => state.filter;
-
+export const {resetFilter, setPagination, setId} = filterSlice.actions
 
 export default filterSlice.reducer

@@ -2,7 +2,6 @@ import {SaleItem, Product} from "../types";
 import React from "react";
 import {Divider, Header} from "semantic-ui-react";
 import styles from "../../styles/Home.module.css";
-import TalleSelectorDetail from "../utils/TalleSelectorDetail";
 import AmountPicker from "./Utils/AmountPicker";
 import ToastUtils from "../utils/toastUtils";
 import {addItem, show} from "../../slices/sidebarSlice";
@@ -10,6 +9,7 @@ import {useDispatch} from "react-redux";
 import GButton, {ButtonType} from "./Utils/GButton";
 import {moneyPipe} from "../utils/parseUtils";
 import {hideModal} from "../../slices/modalSlice";
+import TalleSelector from "./Utils/TalleSelector";
 
 interface Props {
     product?: Product;
@@ -18,7 +18,7 @@ interface Props {
 
 export default function AddToCart(props: Props) {
     const [amount, setAmount] = React.useState(1);
-    const [talle, setTalle] = React.useState("");
+    const [talle, setTalle] = React.useState<string[]>([]);
     const [formSubmitted, setFormSubmitted] = React.useState(false);
     const dispatch = useDispatch();
 
@@ -28,7 +28,7 @@ export default function AddToCart(props: Props) {
             amount,
             talle
         }
-        dispatch(addItem(cartItem as SaleItem));
+        dispatch(addItem(cartItem as unknown as SaleItem));
         props.onAdd && props.onAdd();
         ToastUtils.success("Perfecto!")
         dispatch(show())
@@ -36,7 +36,7 @@ export default function AddToCart(props: Props) {
     }
 
     const addToCart = () => {
-        if (amount > 0 && talle) {
+        if (amount > 0 && talle.length) {
             addCorrect()
         } else {
             setFormSubmitted(true);
@@ -44,13 +44,12 @@ export default function AddToCart(props: Props) {
         }
     }
 
-    const isInvalidTalle = !talle && formSubmitted
-
-    const isInvalidAmount = amount <= 0 && formSubmitted
+    const isInvalidTalle = !talle.length && formSubmitted;
+    const isInvalidAmount = amount <= 0 && formSubmitted;
 
     return <div style={{marginBottom: 16}}>
         <Header className={styles.font} size={"huge"}>{moneyPipe(props.product?.price as number)}</Header>
-        <TalleSelectorDetail onTalleSelect={setTalle} product={props.product} invalid={isInvalidTalle}/>
+        <TalleSelector showLabel talles={talle} onSelect={ (t) => setTalle(t)} tallesToSelect={props.product?.talles} multiple={false} error={isInvalidTalle}/>
         <Divider/>
         <AmountPicker onAmountChange={setAmount} isInvalidAmount={isInvalidAmount}/>
         <Divider/>
