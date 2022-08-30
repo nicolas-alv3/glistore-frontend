@@ -13,7 +13,7 @@ export default function TallesFilter( { onChange }) {
 
 
     return <div>
-            <TalleSelector onSelect={(talles: string[]) => {
+            <TalleSelector multiple={true} onSelect={(talles: string[]) => {
                 setTalles(talles);
                 onChange(talles);
             }} talles={talles}/>

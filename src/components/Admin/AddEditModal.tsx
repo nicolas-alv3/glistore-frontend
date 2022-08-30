@@ -151,7 +151,7 @@ export default function AddEditModal(props: Props) {
                     images={images}
                     onChange={handleUploadChange} error={submitted && !images.length}/>
                 <Divider/>
-                <TalleSelector showLabel onSelect={(talles: string[]) => setSelectedTalles(talles)}
+                <TalleSelector showLabel multiple onSelect={(talles: string[]) => setSelectedTalles(talles)}
                                talles={selectedTalles} error={submitted && !selectedTalles.length}/>
                 <Form.Field error={!category && submitted}>
                     <Divider/>
