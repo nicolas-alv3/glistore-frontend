@@ -5,7 +5,7 @@ import styles from '../../../styles/Admin.module.css';
 import SelectFilter, {SelectFilterType} from "../SortAndFilter/SelectFilter";
 import ImageUploader from "./ImageUploader";
 import ToastUtils from "../../utils/toastUtils";
-import {Product} from "../../types";
+import {FeatureType, Product} from "../../types";
 import TalleSelector from "../Utils/TalleSelector";
 import GButton, {ButtonType} from "../Utils/GButton";
 
@@ -92,7 +92,16 @@ export default function AddEditModal(props: Props) {
             talles: selectedTalles,
             category: category,
             isTrending,
-            visible: isVisible
+            visible: isVisible,
+            features: [
+                {
+                    type: FeatureType.ENUM_MULT,
+                    name: "TallesEnum",
+                    enumerable: ["S", "M", "L", "XL", "XXL"],
+                    options: ["S", "XXL"],
+                    required: true,
+                }
+            ]
         };
     }
 

@@ -1,5 +1,20 @@
+export enum FeatureType {
+    ENUM_MULT="ENUM_MULT",
+}
+
+interface Feature {
+    type: FeatureType,
+    name: string,
+    // Enumberables are choosen by admin
+    enumerable?: string[],
+    //Options are choosen by user
+    options?: string[],
+    required?: boolean
+}
+
 export interface Product {
     talles: string[],
+    features: Feature[],
     _id: string,
     name: string,
     images: string[],
