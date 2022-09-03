@@ -3,19 +3,24 @@ export enum FeatureType {
     ENUM_SIMPLE="ENUM_SIMPLE",
 }
 
-export interface Feature {
+export interface GTemplate {
+    name: string,
+    features: GFeature[]
+}
+
+export interface GFeature {
     type: FeatureType,
     name: string,
     // Enumberables are choosen by admin
-    enumerable?: string[],
+    enumerable: string[],
     //Options are choosen by user
-    options?: string[],
+    options: string[],
     required?: boolean
 }
 
 export interface Product {
     talles: string[],
-    features: Feature[],
+    features: GFeature[],
     _id: string,
     name: string,
     images: string[],
@@ -28,11 +33,16 @@ export interface Product {
     visible: boolean,
 }
 
+export interface FeatureItem {
+    name: string,
+    value: string
+}
+
 export interface SaleItem {
     product: Product,
     amount: number,
     talle: string,
-    features: string[]
+    features: FeatureItem[]
 }
 
 

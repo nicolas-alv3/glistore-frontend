@@ -1,10 +1,10 @@
-import {Feature, FeatureType} from "../../types";
+import {GFeature, FeatureType} from "../../types";
 import React from "react";
 import {Divider} from "semantic-ui-react";
 import EnumSelector from "./EnumSelector";
 
 interface FeatProps {
-    feature: Feature,
+    feature: GFeature,
     setFeature: (prevState: any) => void,
 }
 
@@ -34,7 +34,7 @@ function Feature( props: FeatProps) {
 
 interface Props {
     setFeatures: (prevState: any) => void,
-    productFeatures: Feature[]
+    productFeatures: GFeature[]
 }
 
 export default function Features(props: Props) {

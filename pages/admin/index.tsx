@@ -1,14 +1,14 @@
 import {isAdminLogged, login} from "../../src/utils/loginUtils";
 import React, {useEffect} from "react";
 import styles from '../../styles/Admin.module.css';
-import {Checkbox, Container, Divider, Form, Header, Icon, Table} from "semantic-ui-react";
+import {Checkbox, Container, Divider, Dropdown, Form, Header, Icon, Table} from "semantic-ui-react";
 import ToastUtils from "../../src/utils/toastUtils";
 import {useRouter} from "next/router";
 import GButton, {ButtonType} from "../../src/components/Utils/GButton";
 import ProductService from "../../service/ProductService";
 import AddEditModal from "../../src/components/Admin/AddEditModal";
 import DialogComponent from "../../src/components/Utils/DialogComponent";
-import {Product} from "../../src/types";
+import {FeatureType, GTemplate, Product} from "../../src/types";
 import Image from "next/image";
 import largeLogo from "../../public/logo_pomelo_largo.png";
 import FirebaseService from "../../service/FirebaseService";
@@ -64,7 +64,7 @@ function ProductsTable({products, update}) {
 
     const removeImages = (p) => {
         FirebaseService.removeFromFirestore(p.images.concat([p.preview])).then(() => ToastUtils.success("Imagenes eliminadas!"))
-            .catch( () => ToastUtils.error("Hubo un problema eliminando las imagenes"));
+            .catch(() => ToastUtils.error("Hubo un problema eliminando las imagenes"));
     }
 
     const onDeleteConfirm = (p: Product) => {
@@ -92,7 +92,7 @@ function ProductsTable({products, update}) {
                         {p.name}
                     </Table.Cell>
                     <Table.Cell>
-                        {p.talles.map(t => <GBadge key={t} type={GBadgeType.SECONDARY} text={t} />)}
+                        {p.talles.map(t => <GBadge key={t} type={GBadgeType.SECONDARY} text={t}/>)}
                     </Table.Cell>
                     <Table.Cell><Icon name={"eye"} color={p.visible ? "green" : "orange"}/></Table.Cell>
                     <Table.Cell>{moneyPipe(p.price)}</Table.Cell>
@@ -124,11 +124,60 @@ function AdminPanel() {
         fetchProducts();
     }, [])
 
+    const shoeTemplate: GTemplate = {
+        name: "Zapatilla",
+        features: [
+            {
+                type: FeatureType.ENUM_SIMPLE,
+                name: "Talle de zapa",
+                options: [],
+                required: true,
+                enumerable: ["35", "36", "37", "38", "39", "40", "41", "42"]
+            }
+            ]
+    }
+
+    const burgerTemplate: GTemplate = {
+        name: "Hamburguesa",
+        features: [
+            {
+                type: FeatureType.ENUM_MULT,
+                name: "Agregados",
+                options: [],
+                required: true,
+                enumerable: ["Extra cheddar","Extra carne","Extra bacon"]
+            }
+        ]
+    }
+
+    const templateOptions = [shoeTemplate, burgerTemplate].map( t => ({
+        key: t.name,
+        value: t,
+        text: t.name
+    }))
+
     return <div>
-        <Header>Todos tus productos</Header>
-        <AddEditModal update={fetchProducts}
-                      trigger={<GButton size={"large"} circular className={styles.floatingButton}
-                                        type={ButtonType.PRIMARY} icon={"plus"} text={"Agregar"} />}/>
+        <div style={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
+            <Header>Todos tus productos</Header>
+            <Dropdown
+                direction={"left"}
+                text={"Agregar"}
+                icon={"dropdown"}
+                button item={false}
+                className={styles.addButton}
+            >
+                <Dropdown.Menu>
+                    <Dropdown.Header icon='book' content='Elige una plantilla'/>
+                    {templateOptions.map( (o) => <AddEditModal key={o.key} update={fetchProducts}
+                                                               template={o.value}
+                                                               trigger={
+                                                                   <Dropdown.Item>{o.text}</Dropdown.Item>
+
+                                                               }/>)}
+
+                </Dropdown.Menu>
+            </Dropdown>
+        </div>
         <Divider/>
         <ProductsTable products={products} update={fetchProducts}/>
     </div>;

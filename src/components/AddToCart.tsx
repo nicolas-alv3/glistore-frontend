@@ -28,7 +28,8 @@ export default function AddToCart(props: Props) {
         const cartItem = {
             product: props.product,
             amount,
-            talle
+            talle,
+            features: Object.keys(features).map( k => ({ name: k, value: features[k]}))
         }
         dispatch(addItem(cartItem as unknown as SaleItem));
         props.onAdd && props.onAdd();

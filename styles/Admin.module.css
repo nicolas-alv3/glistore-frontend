@@ -31,17 +31,14 @@
     height: 130px;
 }
 
-.floatingButton {
-    z-index: 200;
-    position: fixed;
-    bottom: 16px;
-    top: unset;
-    right: 16px;
-}
-
 .optionsContainer {
     display: flex;
     flex-wrap: wrap;
+}
+
+.addButton {
+    background-color: var(--col-primary) !important;
+    color: var(--col-white) !important;
 }
 
 .optionsContainer div {
@@ -56,10 +53,4 @@
 
 /* On screens that are 992px or less, set the background color to blue */
 @media screen and (min-width: 992px) {
-    .floatingButton {
-        position: absolute;
-        top: 60px;
-        right: 64px;
-        bottom: unset;
-    }
 }

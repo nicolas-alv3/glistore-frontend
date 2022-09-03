@@ -5,15 +5,18 @@ import styles from '../../../styles/Admin.module.css';
 import SelectFilter, {SelectFilterType} from "../SortAndFilter/SelectFilter";
 import ImageUploader from "./ImageUploader";
 import ToastUtils from "../../utils/toastUtils";
-import {FeatureType, Product} from "../../types";
+import {GFeature, GTemplate, Product} from "../../types";
 import TalleSelector from "../Utils/TalleSelector";
 import GButton, {ButtonType} from "../Utils/GButton";
+import GBadge, {GBadgeType} from "../Utils/GBadge";
+import EnumSelector from "../Utils/EnumSelector";
 
 
 interface Props {
     trigger: ReactNode,
     update: Function,
-    product?: Product
+    product?: Product,
+    template?: GTemplate
 }
 
 export default function AddEditModal(props: Props) {
@@ -29,6 +32,7 @@ export default function AddEditModal(props: Props) {
     const [selectedTalles, setSelectedTalles] = React.useState(props.product?.talles || []);
     const [images, setImages] = React.useState<string[]>(props.product?.images || []);
     const [isTrending, setIsTrending] = React.useState<boolean>(typeof props.product?.isTrending !== 'boolean' ? false : props.product?.isTrending);
+    const [features, setFeatures] = React.useState(props.template?.features);
     const [isVisible, setIsVisible] = React.useState<boolean>(typeof props.product?.visible !== 'boolean' ? true : props.product?.visible);
 
     const resetForm = () => {
@@ -93,15 +97,7 @@ export default function AddEditModal(props: Props) {
             category: category,
             isTrending,
             visible: isVisible,
-            features: [
-                {
-                    type: FeatureType.ENUM_SIMPLE,
-                    name: "Talle de remera (Simple)",
-                    enumerable: ["S", "M", "L", "XL", "XXL"],
-                    options: ["S", "XXL"],
-                    required: true,
-                }
-            ]
+            features
         };
     }
 
@@ -126,6 +122,17 @@ export default function AddEditModal(props: Props) {
         resetForm();
     }
 
+    const handleFeatureSelected = (values: string[], f: GFeature) => {
+        setFeatures(
+            prevState => {
+                const state = prevState || [];
+                const oldFeature = state?.find(o => o.name === f.name);
+                const filteredFeatures = state.filter(o => o.name !== f.name);
+                return filteredFeatures.concat([{...oldFeature, options: values} as GFeature])
+            }
+        )
+    }
+
     return <Modal
         onClose={closeModal}
         onOpen={() => setOpen(true)}
@@ -133,7 +140,7 @@ export default function AddEditModal(props: Props) {
         trigger={props.trigger}
         size={"small"}
     >
-        <Modal.Header>{props.product ? "Editar" : "Agregar"} Producto</Modal.Header>
+        <Modal.Header>{props.product ? "Editar" : "Agregar"} Producto <GBadge type={GBadgeType.TERTIARY} text={props.template?.name}/> </Modal.Header>
         <Modal.Content>
             <Form>
                 <Form.Field error={!name && submitted}>
@@ -159,6 +166,12 @@ export default function AddEditModal(props: Props) {
                 <ImageUploader
                     images={images}
                     onChange={handleUploadChange} error={submitted && !images.length}/>
+                <Divider/>
+                {
+                    props.template?.features.map( f => (
+                        <EnumSelector label={f.name} key={f.name} valueSelected={features!!.find(o => o.name == f.name)!!.options} onSelect={(v) => handleFeatureSelected(v as string[],f)} multiple options={f.enumerable}/>
+                    ))
+                }
                 <Divider/>
                 <TalleSelector showLabel multiple onSelect={(talles: string[]) => setSelectedTalles(talles)}
                                talles={selectedTalles} error={submitted && !selectedTalles.length}/>
