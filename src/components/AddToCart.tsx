@@ -10,6 +10,7 @@ import GButton, {ButtonType} from "./Utils/GButton";
 import {moneyPipe} from "../utils/parseUtils";
 import {hideModal} from "../../slices/modalSlice";
 import TalleSelector from "./Utils/TalleSelector";
+import Features from "./Utils/Features";
 
 interface Props {
     product?: Product;
@@ -20,6 +21,7 @@ export default function AddToCart(props: Props) {
     const [amount, setAmount] = React.useState(1);
     const [talle, setTalle] = React.useState<string[]>([]);
     const [formSubmitted, setFormSubmitted] = React.useState(false);
+    const [features, setFeatures] = React.useState({});
     const dispatch = useDispatch();
 
     const addCorrect = () => {
@@ -50,6 +52,7 @@ export default function AddToCart(props: Props) {
     return <div style={{marginBottom: 16}}>
         <Header className={styles.font} size={"huge"}>{moneyPipe(props.product?.price as number)}</Header>
         <TalleSelector showLabel talles={talle} onSelect={ (t) => setTalle(t)} tallesToSelect={props.product?.talles} multiple={false} error={isInvalidTalle}/>
+        <Features setFeatures={setFeatures} productFeatures={props.product?.features || []} />
         <Divider/>
         <AmountPicker onAmountChange={setAmount} isInvalidAmount={isInvalidAmount}/>
         <Divider/>

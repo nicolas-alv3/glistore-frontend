@@ -39,17 +39,17 @@
     right: 16px;
 }
 
-.tallesContainer {
+.optionsContainer {
     display: flex;
     flex-wrap: wrap;
 }
 
-.tallesContainer div {
+.optionsContainer div {
     flex: 1 0 21%;
     margin: 5px
 }
 
-.tallesContainer label {
+.optionsContainer label {
     width: 20px;
 }
 

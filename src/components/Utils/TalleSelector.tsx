@@ -38,7 +38,7 @@ export default function TalleSelector(props: Props) {
         { props.showLabel &&
             <Header className={stylesHome.font} size={"tiny"}>Disponible en talles:</Header>
         }
-        <div className={styles.tallesContainer}>
+        <div className={styles.optionsContainer}>
             {getTalles().map((t) => <>
                 <GButton
                     key={t}

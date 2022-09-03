@@ -95,8 +95,8 @@ export default function AddEditModal(props: Props) {
             visible: isVisible,
             features: [
                 {
-                    type: FeatureType.ENUM_MULT,
-                    name: "TallesEnum",
+                    type: FeatureType.ENUM_SIMPLE,
+                    name: "Talle de remera (Simple)",
                     enumerable: ["S", "M", "L", "XL", "XXL"],
                     options: ["S", "XXL"],
                     required: true,
@@ -171,7 +171,7 @@ export default function AddEditModal(props: Props) {
                 <Divider/>
                 <Form.Field>
                     <label>Detalles</label>
-                    <div className={styles.tallesContainer}>
+                    <div className={styles.optionsContainer}>
                         <Checkbox label={"Es visible"} checked={isVisible}
                                   onClick={() => setIsVisible(prevState => !prevState)}/>
                         <Checkbox label={"Es destacado"} checked={isTrending}

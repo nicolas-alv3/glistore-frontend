@@ -1,8 +1,9 @@
 export enum FeatureType {
     ENUM_MULT="ENUM_MULT",
+    ENUM_SIMPLE="ENUM_SIMPLE",
 }
 
-interface Feature {
+export interface Feature {
     type: FeatureType,
     name: string,
     // Enumberables are choosen by admin
@@ -30,7 +31,8 @@ export interface Product {
 export interface SaleItem {
     product: Product,
     amount: number,
-    talle: string
+    talle: string,
+    features: string[]
 }
 
 
