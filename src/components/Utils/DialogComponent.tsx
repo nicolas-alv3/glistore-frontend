@@ -1,15 +1,15 @@
-import React, {Component, ReactNode} from 'react'
-import { Button, Confirm } from 'semantic-ui-react'
+import React, {Component} from 'react'
+import {Confirm} from 'semantic-ui-react'
+import GButton, {ButtonType} from "./GButton";
 
 interface Props {
     title: string,
     message: string,
     onConfirm: () => void,
-    trigger: ReactNode
 }
 
 class ConfirmComponent extends Component<Props, {open: boolean}> {
-    state = { open: false }
+    state = { open: true }
 
     open = () => this.setState({ open: true })
     close = () => this.setState({ open: false })
@@ -22,13 +22,11 @@ class ConfirmComponent extends Component<Props, {open: boolean}> {
     render() {
         return (
             <>
-                <div style={{display: "inline"}} onClick={this.open}>
-                    {this.props.trigger}
-                </div>
                 <Confirm
                     header={this.props.title}
                     content={this.props.message}
                     open={this.state.open}
+                    confirmButton={<GButton type={ButtonType.PRIMARY} text={"Aceptar"}/>}
                     onCancel={this.close}
                     onConfirm={this.confirm}
                 ></Confirm>

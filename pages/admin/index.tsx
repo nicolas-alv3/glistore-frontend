@@ -7,7 +7,6 @@ import {useRouter} from "next/router";
 import GButton, {ButtonType} from "../../src/components/Utils/GButton";
 import ProductService from "../../service/ProductService";
 import AddEditModal from "../../src/components/Admin/AddEditModal";
-import DialogComponent from "../../src/components/Utils/DialogComponent";
 import {Product} from "../../src/types";
 import Image from "next/image";
 import largeLogo from "../../public/logo_pomelo_largo.png";
@@ -15,9 +14,10 @@ import FirebaseService from "../../service/FirebaseService";
 import GBadge, {GBadgeType} from "../../src/components/Utils/GBadge";
 import {moneyPipe} from "../../src/utils/parseUtils";
 import GTable from "../../src/components/Utils/GTable";
-import TemplateService from "../../service/TemplateService";
-import CRUDPage from "../../src/components/Utils/CRUDPage";
 import GTitle, {GTitleSize} from "../../src/components/Utils/GTitle";
+import ModalUtils from "../../src/utils/ModalUtils";
+import CRUDPage from "../../src/components/Utils/CRUDPage";
+import TemplateService from "../../service/TemplateService";
 
 function LoginComponent() {
     const [name, setName] = React.useState("");
@@ -81,20 +81,21 @@ function ProductsTable({products, update}) {
 
     const headers = ["Nombre", "Talles", "Visible", "Precio", "Acciones"];
 
+    const openEditModal = (p) => {
+        ModalUtils.openModal(<AddEditModal product={p} update={update}/>)
+    }
+
+    const openDeleteDialog = (p) => ModalUtils.dialog("Eliminar " + p.name, "¿Estas segur@ que querés eliminar este producto?", () => onDeleteConfirm(p) )
+
     const columns = [
         (p: Product) => p.name,
         (p: Product) => p.talles.map(t => <GBadge key={t} type={GBadgeType.SECONDARY} text={t}/>),
         (p: Product) => <Icon name={"eye"} color={p.visible ? "green" : "orange"}/>,
         (p: Product) => moneyPipe(p.price),
         (p: Product) => <>
-            <AddEditModal product={p} update={update}
-                          trigger={<GButton icon={"pencil"} type={ButtonType.TERTIARY}/>}/>
-            <DialogComponent
-                title={"Eliminar producto"}
-                message={"¿Estas segur@ que querés eliminar este producto?"}
-                onConfirm={() => onDeleteConfirm(p)}
-                trigger={<GButton
-                    icon={"trash"} type={ButtonType.DANGER}/>}/>
+            <GButton icon={"pencil"} type={ButtonType.TERTIARY} onClick={() => openEditModal(p)}/>
+            <GButton
+                icon={"trash"} type={ButtonType.DANGER} onClick={() => openDeleteDialog(p)}/>
         </>,
     ]
     return <GTable elements={products} headers={headers} columns={columns}/>;
@@ -118,6 +119,11 @@ function AdminPanel() {
         text: t.name
     }))
 
+
+    const openAddModal = (template) => {
+        ModalUtils.openModal(<AddEditModal template={template} update={fetchProducts}/>)
+    }
+
     const addButton = <Dropdown
         direction={"left"}
         text={"Agregar"}
@@ -127,12 +133,9 @@ function AdminPanel() {
     >
         <Dropdown.Menu>
             <Dropdown.Header icon='book' content='Elige una plantilla'/>
-            {templates.map((o) => <AddEditModal key={o.key} update={fetchProducts}
-                                                template={o.value}
-                                                trigger={
-                                                    <Dropdown.Item>{o.text}</Dropdown.Item>
-
-                                                }/>)}
+            {templates.map((o) => <Dropdown.Item key={o.text} onClick={() => openAddModal(o.value)}>
+                {o.text}
+            </Dropdown.Item>)}
 
         </Dropdown.Menu>
     </Dropdown>

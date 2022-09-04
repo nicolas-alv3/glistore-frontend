@@ -1,14 +1,15 @@
 import {Dropdown, Icon, SemanticICONS} from "semantic-ui-react";
 import GButton, {ButtonType} from "./GButton";
+import {ReactNode} from "react";
 
 export interface ActionOption {
     icon: SemanticICONS,
     text: string,
-    onClick: (e: any) => void
+    onClick: (e: any) => void,
 }
 
 interface Props {
-    options: ActionOption[]
+    options: ActionOption[] | ReactNode[]
 }
 
 

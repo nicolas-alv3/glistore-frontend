@@ -1,5 +1,5 @@
 import {Checkbox, Divider, Form, Modal} from "semantic-ui-react";
-import React, {ReactNode} from "react";
+import React from "react";
 import ProductService from "../../../service/ProductService";
 import styles from '../../../styles/Admin.module.css';
 import SelectFilter, {SelectFilterType} from "../SortAndFilter/SelectFilter";
@@ -13,14 +13,13 @@ import EnumSelector from "../Utils/EnumSelector";
 
 
 interface Props {
-    trigger: ReactNode,
     update: Function,
     product?: Product,
     template?: GTemplate
 }
 
 export default function AddEditModal(props: Props) {
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = React.useState(true);
     const [loading, setLoading] = React.useState(false);
     const [submitted, setSubmitted] = React.useState(false);
 
@@ -137,10 +136,10 @@ export default function AddEditModal(props: Props) {
         onClose={closeModal}
         onOpen={() => setOpen(true)}
         open={open}
-        trigger={props.trigger}
         size={"small"}
     >
-        <Modal.Header>{props.product ? "Editar" : "Agregar"} Producto <GBadge type={GBadgeType.TERTIARY} text={props.template?.name}/> </Modal.Header>
+        <Modal.Header>{props.product ? "Editar" : "Agregar"} Producto { props.template && <GBadge type={GBadgeType.TERTIARY}
+                                                                               text={props.template?.name}/>} </Modal.Header>
         <Modal.Content>
             <Form>
                 <Form.Field error={!name && submitted}>
