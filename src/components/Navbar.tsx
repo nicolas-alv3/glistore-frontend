@@ -1,15 +1,12 @@
 import styles from '../../styles/Home.module.css';
 import React, {CSSProperties, useEffect} from "react";
 import {useRouter} from "next/router";
-import Link from 'next/link';
 import {isAdminLogged} from "../utils/loginUtils";
 import {selectCart, toggle} from "../../slices/sidebarSlice";
 import {useDispatch, useSelector} from "react-redux";
-import Image from "next/image";
-import largeLogo from '../../public/logo_pomelo_largo.png';
-import smallLogo from '../../public/logo_pomelo_cuadrado.png';
 import {Button, Icon, Input} from "semantic-ui-react";
 import GButton, {ButtonType} from "./Utils/GButton";
+import {toggleNavMenu} from "../../slices/navMenuSlice";
 
 // @ts-ignore
 export default function Navbar() {
@@ -49,23 +46,15 @@ export default function Navbar() {
         alignItems: "center"
     }
 
+    const openNavMenu = () => {
+        dispatch(toggleNavMenu())
+    }
+
     return <>
         <nav className={styles.navbar + ` ${router.pathname.includes("admin") && styles.navbarAdmin}`}>
-            <Link href={"/"}>
-                <div style={{cursor: "pointer", position: "relative"}}>
-                    <span className={styles.largeLogo}>
-                        <Image src={largeLogo} width={170} alt={"logo"}
-                               style={{marginTop: "-55px !important", marginLeft: "4px !important"}}
-                               layout={"intrinsic"}
-                               height={170}/>
-                    </span>
-                    <span  className={styles.smallLogo}>
-                        <Image src={smallLogo} width={64} layout={"intrinsic"}
-                               height={64} alt={"logo"}/>
-                    </span>
-                </div>
-            </Link>
-            <form onSubmit={submitSearch} style={{marginTop:8}}>
+            <GButton icon={"bars"} onClick={openNavMenu} size={"massive"} type={ButtonType.TRANSPARENT} className={styles.cartButton}>
+                { cart?.length > 0  && <div style={numberCartStyle}>{cart.length}</div>}
+            </GButton>            <form onSubmit={submitSearch} style={{marginTop:8}}>
                 <Input placeholder='Estoy buscando...' className={styles.input}>
                     <input value={searchInput} onChange={handleSearchChange}/>
                     <GButton type={ButtonType.PRIMARY} icon={"search"} />

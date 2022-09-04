@@ -52,6 +52,12 @@
   top: 50px !important;
 }
 
+.navMenu {
+  padding: 16px;
+  width: min(75%, 400px)!important;
+  top: 60px !important;
+}
+
 .cardImg {
   object-position: 0 -20px;
   object-fit: cover;
