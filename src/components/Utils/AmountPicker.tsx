@@ -1,7 +1,8 @@
-import {Header, Input} from "semantic-ui-react";
+import {Input} from "semantic-ui-react";
 import styles from "../../../styles/Utils.module.css";
 import React from "react";
 import GButton, {ButtonType} from "./GButton";
+import GTitle, {GTitleSize} from "./GTitle";
 
 interface Props {
     onAmountChange: (n: number) => void,
@@ -20,7 +21,7 @@ export default function AmountPicker(props: Props) {
         setAmount(amount - 1);
     }
     return <div className={styles.amountPicker}>
-        <Header className={styles.font} size={"small"}>Cantidad:</Header>
+        <GTitle className={styles.font} size={GTitleSize.SMALL}>Cantidad:</GTitle>
         <GButton type={ButtonType.TERTIARY} circular icon={"minus"} onClick={handleAmountChangeMinus}/>
         <Input className={styles.numberInput} type={"number"} value={amount} error={amount <= 0}/>
         <GButton type={ButtonType.TERTIARY} circular icon={"plus"} onClick={handleAmountChangePlus}/>

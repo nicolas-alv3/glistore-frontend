@@ -1,4 +1,4 @@
-import {Divider, Header, Item, Menu, Sidebar} from "semantic-ui-react";
+import {Divider, Item, Menu, Sidebar} from "semantic-ui-react";
 import React, {useEffect} from "react";
 import styles from '../../styles/Home.module.css';
 import WhatsappService from "../../service/WhatsappService";
@@ -11,6 +11,7 @@ import ToastUtils from "../utils/toastUtils";
 import CartItemComponent from "./CartItemComponent";
 import Image from "next/image";
 import SalesService from "../../service/SalesService";
+import GTitle, {GTitleSize} from "./Utils/GTitle";
 
 
 export default function CartSidebar() {
@@ -60,7 +61,7 @@ export default function CartSidebar() {
         visible={show}
     >
         <div style={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
-            <Header>Tu carrito</Header>
+            <GTitle size={GTitleSize.MEDIUM}>Tu carrito</GTitle>
             {
                 cart?.length > 0 &&
                 (<div>
@@ -99,7 +100,7 @@ export default function CartSidebar() {
                     </Item.Group>
                 </> :
                 <>
-                    <Header> Aún no has agregado nada...</Header>
+                    <GTitle size={GTitleSize.MEDIUM} centered> Aún no has agregado nada...</GTitle>
                     <Image
                         alt={"Empty cart"}
                         loader={() => emptyCatURL}

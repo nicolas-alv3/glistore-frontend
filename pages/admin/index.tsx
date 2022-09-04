@@ -1,19 +1,23 @@
 import {isAdminLogged, login} from "../../src/utils/loginUtils";
 import React, {useEffect} from "react";
 import styles from '../../styles/Admin.module.css';
-import {Checkbox, Container, Divider, Dropdown, Form, Header, Icon, Table} from "semantic-ui-react";
+import {Checkbox, Container, Divider, Dropdown, Form, Icon} from "semantic-ui-react";
 import ToastUtils from "../../src/utils/toastUtils";
 import {useRouter} from "next/router";
 import GButton, {ButtonType} from "../../src/components/Utils/GButton";
 import ProductService from "../../service/ProductService";
 import AddEditModal from "../../src/components/Admin/AddEditModal";
 import DialogComponent from "../../src/components/Utils/DialogComponent";
-import {FeatureType, GTemplate, Product} from "../../src/types";
+import {Product} from "../../src/types";
 import Image from "next/image";
 import largeLogo from "../../public/logo_pomelo_largo.png";
 import FirebaseService from "../../service/FirebaseService";
 import GBadge, {GBadgeType} from "../../src/components/Utils/GBadge";
 import {moneyPipe} from "../../src/utils/parseUtils";
+import GTable from "../../src/components/Utils/GTable";
+import TemplateService from "../../service/TemplateService";
+import CRUDPage from "../../src/components/Utils/CRUDPage";
+import GTitle, {GTitleSize} from "../../src/components/Utils/GTitle";
 
 function LoginComponent() {
     const [name, setName] = React.useState("");
@@ -35,7 +39,7 @@ function LoginComponent() {
                            objectFit={"cover"}
                            height={200} objectPosition={"center"}/>
                 </div>
-                <Header textAlign={"center"} size={"huge"}>Ingreso Admin</Header>
+                <GTitle centered size={GTitleSize.LARGE}>Ingreso Admin</GTitle>
                 <Divider/>
                 <Form size={"big"}>
                     <Form.Field>
@@ -74,42 +78,26 @@ function ProductsTable({products, update}) {
             .then(() => removeImages(p))
             .catch(() => ToastUtils.error("Ha ocurrido un error"));
     }
-    return <Table>
-        <Table.Header>
-            <Table.Row>
-                <Table.HeaderCell>Nombre</Table.HeaderCell>
-                <Table.HeaderCell>Talles</Table.HeaderCell>
-                <Table.HeaderCell>Visible</Table.HeaderCell>
-                <Table.HeaderCell>Precio</Table.HeaderCell>
-                <Table.HeaderCell>Acciones</Table.HeaderCell>
-            </Table.Row>
-        </Table.Header>
 
-        <Table.Body>
-            {products.map((p) => {
-                return <Table.Row key={p._id}>
-                    <Table.Cell>
-                        {p.name}
-                    </Table.Cell>
-                    <Table.Cell>
-                        {p.talles.map(t => <GBadge key={t} type={GBadgeType.SECONDARY} text={t}/>)}
-                    </Table.Cell>
-                    <Table.Cell><Icon name={"eye"} color={p.visible ? "green" : "orange"}/></Table.Cell>
-                    <Table.Cell>{moneyPipe(p.price)}</Table.Cell>
-                    <Table.Cell>
-                        <AddEditModal product={p} update={update}
-                                      trigger={<GButton icon={"pencil"} type={ButtonType.TERTIARY}/>}/>
-                        <DialogComponent
-                            title={"Eliminar producto"}
-                            message={"¿Estas segur@ que querés eliminar este producto?"}
-                            onConfirm={() => onDeleteConfirm(p)}
-                            trigger={<GButton
-                                icon={"trash"} type={ButtonType.DANGER}/>}/>
-                    </Table.Cell>
-                </Table.Row>
-            })}
-        </Table.Body>
-    </Table>;
+    const headers = ["Nombre", "Talles", "Visible", "Precio", "Acciones"];
+
+    const columns = [
+        (p: Product) => p.name,
+        (p: Product) => p.talles.map(t => <GBadge key={t} type={GBadgeType.SECONDARY} text={t}/>),
+        (p: Product) => <Icon name={"eye"} color={p.visible ? "green" : "orange"}/>,
+        (p: Product) => moneyPipe(p.price),
+        (p: Product) => <>
+            <AddEditModal product={p} update={update}
+                          trigger={<GButton icon={"pencil"} type={ButtonType.TERTIARY}/>}/>
+            <DialogComponent
+                title={"Eliminar producto"}
+                message={"¿Estas segur@ que querés eliminar este producto?"}
+                onConfirm={() => onDeleteConfirm(p)}
+                trigger={<GButton
+                    icon={"trash"} type={ButtonType.DANGER}/>}/>
+        </>,
+    ]
+    return <GTable elements={products} headers={headers} columns={columns}/>;
 }
 
 function AdminPanel() {
@@ -124,63 +112,32 @@ function AdminPanel() {
         fetchProducts();
     }, [])
 
-    const shoeTemplate: GTemplate = {
-        name: "Zapatilla",
-        features: [
-            {
-                type: FeatureType.ENUM_SIMPLE,
-                name: "Talle de zapa",
-                options: [],
-                required: true,
-                enumerable: ["35", "36", "37", "38", "39", "40", "41", "42"]
-            }
-            ]
-    }
-
-    const burgerTemplate: GTemplate = {
-        name: "Hamburguesa",
-        features: [
-            {
-                type: FeatureType.ENUM_MULT,
-                name: "Agregados",
-                options: [],
-                required: true,
-                enumerable: ["Extra cheddar","Extra carne","Extra bacon"]
-            }
-        ]
-    }
-
-    const templateOptions = [shoeTemplate, burgerTemplate].map( t => ({
+    const templates = TemplateService.getTemplates().map(t => ({
         key: t.name,
         value: t,
         text: t.name
     }))
 
-    return <div>
-        <div style={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
-            <Header>Todos tus productos</Header>
-            <Dropdown
-                direction={"left"}
-                text={"Agregar"}
-                icon={"dropdown"}
-                button item={false}
-                className={styles.addButton}
-            >
-                <Dropdown.Menu>
-                    <Dropdown.Header icon='book' content='Elige una plantilla'/>
-                    {templateOptions.map( (o) => <AddEditModal key={o.key} update={fetchProducts}
-                                                               template={o.value}
-                                                               trigger={
-                                                                   <Dropdown.Item>{o.text}</Dropdown.Item>
+    const addButton = <Dropdown
+        direction={"left"}
+        text={"Agregar"}
+        icon={"dropdown"}
+        button item={false}
+        className={styles.addButton}
+    >
+        <Dropdown.Menu>
+            <Dropdown.Header icon='book' content='Elige una plantilla'/>
+            {templates.map((o) => <AddEditModal key={o.key} update={fetchProducts}
+                                                template={o.value}
+                                                trigger={
+                                                    <Dropdown.Item>{o.text}</Dropdown.Item>
 
-                                                               }/>)}
+                                                }/>)}
 
-                </Dropdown.Menu>
-            </Dropdown>
-        </div>
-        <Divider/>
-        <ProductsTable products={products} update={fetchProducts}/>
-    </div>;
+        </Dropdown.Menu>
+    </Dropdown>
+
+    return <CRUDPage title={"Todos tus productos"} addButton={addButton} table={<ProductsTable products={products} update={fetchProducts}/>}/>
 }
 
 export default function Login() {

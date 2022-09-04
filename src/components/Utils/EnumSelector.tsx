@@ -1,8 +1,9 @@
 import styles from "../../../styles/Admin.module.css";
-import {Form, Header} from "semantic-ui-react";
+import {Form} from "semantic-ui-react";
 import React from "react";
 import GButton, {ButtonType} from "./GButton";
 import stylesHome from "../../../styles/Home.module.css";
+import GTitle, {GTitleSize} from "./GTitle";
 
 interface Props {
     valueSelected: string | string[],
@@ -34,7 +35,7 @@ export default function EnumSelector(props: Props) {
 
     return <Form.Field error={props.error}>
         { props.label &&
-            <Header className={stylesHome.font} size={"tiny"}>{props.label}</Header>
+            <GTitle className={stylesHome.font} size={GTitleSize.SMALL}>{props.label}</GTitle>
         }
         <div className={styles.optionsContainer}>
             {props.options.map((t) => <>

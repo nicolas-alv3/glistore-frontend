@@ -1,12 +1,13 @@
 import React from "react";
 import {SortType} from "../../types";
-import {Button, Container, Header, Icon, Menu, Segment, Sidebar} from "semantic-ui-react";
+import {Button, Container, Icon, Menu, Segment, Sidebar} from "semantic-ui-react";
 import TallesFilter from "./TallesFilter";
 import SelectFilter, {SelectFilterType} from "./SelectFilter";
 import FilterBadges from "../Utils/FilterBadges";
 import GButton, {ButtonType} from "../Utils/GButton";
 import styles from '../../../styles/Home.module.css';
 import {useGRouter} from "../../hooks/useGRouter";
+import GTitle, {GTitleSize} from "../Utils/GTitle";
 
 export default function SortOrFilter() {
     const [visible, setVisible] = React.useState(false);
@@ -104,10 +105,10 @@ export default function SortOrFilter() {
         >
             <Container>
                 <Segment>
-                    <Header>{filter ? "Filtrar" : "Ordenar"} por</Header>
+                    <GTitle centered size={GTitleSize.MEDIUM}>{filter ? "Filtrar" : "Ordenar"} por</GTitle>
                     {items.map((i) => <Menu.Item key={i.name}
                                                  onClick={() => setActiveItems(activeItems.concat([i.name]))}>
-                        <Header>{i.name}</Header>
+                        <GTitle centered size={GTitleSize.SMALL}>{i.name}</GTitle>
                         {i.children}
                     </Menu.Item>)}
                     <Button onClick={apply} color={"brown"} fluid content={"Aplicar"}/>

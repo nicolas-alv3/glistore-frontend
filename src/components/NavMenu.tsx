@@ -29,20 +29,30 @@ export default function NavMenu() {
         vertical
         visible={show}
     >
-        <Link href={"/"}>
-            <div style={{display: "flex", justifyContent: "flex-start", gap: 8}}>
-                <Icon name={"home"}/>
-                <p>Home</p>
-            </div>
-        </Link>
-        <Divider/>
+        <div onClick={hideSidebar}>
+            <Link href={"/"}>
+                <div style={{display: "flex", justifyContent: "flex-start", gap: 8}}>
+                    <Icon name={"home"}/>
+                    <p>Home</p>
+                </div>
+            </Link>
+            <Divider/>
 
-        <Link href={"/admin/templates"}>
-            <div style={{display: "flex", justifyContent: "flex-start", gap: 8}}>
-                <Icon name={"book"}/>
-                <p>Templates</p>
-            </div>
-        </Link>
-        <Divider/>
+            <Link href={"/admin/templates"}>
+                <div style={{display: "flex", justifyContent: "flex-start", gap: 8}}>
+                    <Icon name={"book"}/>
+                    <p>Templates</p>
+                </div>
+            </Link>
+            <Divider/>
+
+            <Link href={"/admin"}>
+                <div style={{display: "flex", justifyContent: "flex-start", gap: 8}}>
+                    <Icon name={"configure"}/>
+                    <p>Admin</p>
+                </div>
+            </Link>
+            <Divider/>
+        </div>
     </Sidebar>
 }

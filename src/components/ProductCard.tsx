@@ -1,4 +1,4 @@
-import {Button, Card, Header, Icon} from "semantic-ui-react";
+import {Button, Card, Icon} from "semantic-ui-react";
 import styles from "../../styles/Home.module.css";
 import React from "react";
 import {useRouter} from "next/router";
@@ -12,6 +12,7 @@ import {hideModal} from "../../slices/modalSlice";
 import GModal from "./Utils/GModal";
 import Image from "next/image";
 import {setId} from "../../slices/filterSlice";
+import GTitle, {GTitleSize} from "./Utils/GTitle";
 
 function ProductSkeleton() {
     return <div style={{height: "100%", width: "100%"}}>
@@ -73,7 +74,7 @@ export default function ProductCard({product, loading}) {
                                     Agregar al carrito
                                 </a>}>
                             <div style={{padding: "0 32px"}}>
-                                <Header>{product.name}</Header>
+                                <GTitle size={GTitleSize.MEDIUM}>{product.name}</GTitle>
                                 <AddToCart onAdd={() => dispatch(hideModal())} product={product} />
                             </div>
                         </GModal>

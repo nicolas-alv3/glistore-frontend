@@ -1,8 +1,9 @@
 import ProductCard from "./ProductCard";
-import {Card, Container, Header} from "semantic-ui-react";
+import {Card} from "semantic-ui-react";
 import React from "react";
 import {Product} from "../types";
-import Title from "./Utils/Title";
+import GTitle, {GTitleSize} from "./Utils/GTitle";
+import Image from "next/image";
 
 interface Props {
     products: Product[],
@@ -14,6 +15,9 @@ interface Props {
 
 export default function ProductList( props: Props ) {
 
+    const emptyCatURL = "https://media.istockphoto.com/vectors/cute-black-and-white-cat-is-sitting-in-a-cardboard-box-vector-id1284540470?k=20&m=1284540470&s=170667a&w=0&h=XOT_1QDiE_P0775yyX4ybkwgZ3-SHb_zKTIdwmDoPJg=";
+
+
     const getProducts = () => {
             return <>
                 {props.products.map( (p :Product) => <ProductCard loading={false} key={p._id} product={p} />)}
@@ -24,7 +28,7 @@ export default function ProductList( props: Props ) {
         {
             props.products?.length > 0 || props.loading?
                 <>
-                    { props.title && <Title title={props.title} withBackButton={props.withBackButton}/>}
+                    { props.title && <GTitle withDivider title={props.title} size={GTitleSize.LARGE} withBackButton={props.withBackButton}/>}
                     {props.belowTitle && props.belowTitle}
                     <Card.Group itemsPerRow={5} doubling={true} >
                         {/* eslint-disable-next-line react/jsx-key */}
@@ -32,14 +36,17 @@ export default function ProductList( props: Props ) {
                     </Card.Group>
                 </>
                 :
-                <Container text={false} textAlign={"center"}>
-                    <Header> Ooops! Parece que no hay productos aquí... Prueba con otra búsqueda!</Header>
-                    <img alt={""}
-                        src={"https://media.istockphoto.com/vectors/cute-black-and-white-cat-is-sitting-in-a-cardboard-box-vector-id1284540470?k=20&m=1284540470&s=170667a&w=0&h=XOT_1QDiE_P0775yyX4ybkwgZ3-SHb_zKTIdwmDoPJg="}
+                <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
+                    <b> Ooops! Parece que no hay productos aquí... Prueba con otra búsqueda!</b>
+                    <Image
+                        alt={"Empty cart"}
+                        loader={() => emptyCatURL}
+                        src={emptyCatURL}
                         width={300}
                         height={300}
+                        unoptimized
                     />
-                </Container>
+                </div>
         }
         </>
 }
