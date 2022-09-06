@@ -6,7 +6,7 @@ import ToastUtils from "../../src/utils/toastUtils";
 import {useRouter} from "next/router";
 import GButton, {ButtonType} from "../../src/components/Utils/GButton";
 import ProductService from "../../service/ProductService";
-import AddEditModal from "../../src/components/Admin/AddEditModal";
+import AddEditProductModal from "../../src/components/Admin/AddEditProductModal";
 import {Product} from "../../src/types";
 import Image from "next/image";
 import largeLogo from "../../public/logo_pomelo_largo.png";
@@ -82,7 +82,7 @@ function ProductsTable({products, update}) {
     const headers = ["Nombre", "Talles", "Visible", "Precio", "Acciones"];
 
     const openEditModal = (p) => {
-        ModalUtils.openModal(<AddEditModal product={p} update={update}/>)
+        ModalUtils.openModal(<AddEditProductModal product={p} update={update}/>)
     }
 
     const openDeleteDialog = (p) => ModalUtils.dialog("Eliminar " + p.name, "¿Estas segur@ que querés eliminar este producto?", () => onDeleteConfirm(p) )
@@ -121,7 +121,7 @@ function AdminPanel() {
 
 
     const openAddModal = (template) => {
-        ModalUtils.openModal(<AddEditModal template={template} update={fetchProducts}/>)
+        ModalUtils.openModal(<AddEditProductModal template={template} update={fetchProducts}/>)
     }
 
     const addButton = <Dropdown

@@ -18,7 +18,7 @@ interface Props {
     template?: GTemplate
 }
 
-export default function AddEditModal(props: Props) {
+export default function AddEditProductModal(props: Props) {
     const [open, setOpen] = React.useState(true);
     const [loading, setLoading] = React.useState(false);
     const [submitted, setSubmitted] = React.useState(false);

@@ -4,7 +4,7 @@ import GBadge, {GBadgeType} from "./GBadge";
 import {SearchRequest} from "../../types";
 import {useGRouter} from "../../hooks/useGRouter";
 
-function FilterBadge(props: { text: string, onDelete: Function, value: string}) {
+export function FilterBadge(props: { text: string, onDelete: Function, value: string}) {
     return <GBadge type={GBadgeType.BASIC} circular>{props.text} <a onClick={() => props.onDelete(props.value)}><Icon color={"black"} name={"delete"}/></a></GBadge>;
 }
 
