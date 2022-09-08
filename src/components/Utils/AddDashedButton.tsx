@@ -8,8 +8,9 @@ interface Props {
 
 export default function AddDashedButton(props: Props) {
     return <div style={{
-        width: "100%",
-        height: "128px",
+        width: "250px",
+        margin: "5px",
+        height: "100px",
         border: "2px dashed var(--col-lightgray)",
         display: "flex",
         justifyContent: "center",

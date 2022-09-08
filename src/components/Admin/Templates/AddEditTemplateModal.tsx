@@ -8,7 +8,6 @@ import AddEditFeatureModal from "../../Utils/AddEditFeatureModal";
 import ModalUtils from "../../../utils/ModalUtils";
 import AddDashedButton from "../../Utils/AddDashedButton";
 import GTitle, {GTitleSize} from "../../Utils/GTitle";
-import {prev} from "dom7";
 import FeatureCard from "./FeatureCard";
 
 
@@ -98,7 +97,6 @@ export default function AddEditTemplateModal(props: Props) {
 
     const openAddModal = () => ModalUtils.openModal(<AddEditFeatureModal formSubmitted={submitted} onChange={(f) => setFeatures(prevState => prevState.concat([f]))} features={features}/>)
 
-
     return <Modal
         onClose={closeModal}
         onOpen={() => setOpen(true)}
@@ -115,10 +113,12 @@ export default function AddEditTemplateModal(props: Props) {
                 <Divider/>
             </Form>
             <GTitle size={GTitleSize.SMALL}>Características</GTitle>
-            <AddDashedButton label={"Agregar característica"} onClick={openAddModal} />
-            {
-                features.map(f => <FeatureCard key={f.name} feature={f}/>)
-            }
+            <div style={{display: "flex", justifyContent:"space-between", flexWrap:"wrap"}}>
+                <AddDashedButton label={"Agregar característica"} onClick={openAddModal} />
+                {
+                    features.map(f => <FeatureCard key={f.name} feature={f}/>)
+                }
+            </div>
         </Modal.Content>
         <Modal.Actions>
             <GButton type={ButtonType.TERTIARY} onClick={() => setOpen(false)}>

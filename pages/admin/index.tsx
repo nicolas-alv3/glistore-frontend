@@ -7,7 +7,7 @@ import {useRouter} from "next/router";
 import GButton, {ButtonType} from "../../src/components/Utils/GButton";
 import ProductService from "../../service/ProductService";
 import AddEditProductModal from "../../src/components/Admin/AddEditProductModal";
-import {Product} from "../../src/types";
+import {GTemplate, Product} from "../../src/types";
 import Image from "next/image";
 import largeLogo from "../../public/logo_pomelo_largo.png";
 import FirebaseService from "../../service/FirebaseService";
@@ -103,17 +103,25 @@ function ProductsTable({products, update}) {
 
 function AdminPanel() {
     const [products, setProducts] = React.useState<Product[]>([]);
+    const [templates, setTemplates] = React.useState<GTemplate[]>([]);
+
 
     const fetchProducts = () => {
         ProductService.getAll()
             .then(res => setProducts(res))
     }
 
+    const fetchTemplates = () => {
+        TemplateService.getTemplates()
+            .then(res => setTemplates(res))
+    }
+
     useEffect(() => {
         fetchProducts();
+        fetchTemplates();
     }, [])
 
-    const templates = TemplateService.getTemplates().map(t => ({
+    const templateOptions = templates.map(t => ({
         key: t.name,
         value: t,
         text: t.name
@@ -133,7 +141,7 @@ function AdminPanel() {
     >
         <Dropdown.Menu>
             <Dropdown.Header icon='book' content='Elige una plantilla'/>
-            {templates.map((o) => <Dropdown.Item key={o.text} onClick={() => openAddModal(o.value)}>
+            {templateOptions.map((o) => <Dropdown.Item key={o.text} onClick={() => openAddModal(o.value)}>
                 {o.text}
             </Dropdown.Item>)}
 

@@ -15,11 +15,12 @@ interface Props {
     withDivider?: boolean,
     centered?: boolean,
     className?: string,
+    padding?: string | number
 }
 
 export default function GTitle(props: Props) {
     return <>
-        <div style={{display: "flex", alignItems: "flex-end", gap: 16, justifyContent: props.centered ?"center": "flex-start",padding: "16px 0", paddingBottom: props.withDivider ? 0: 16}}>
+        <div style={{display: "flex", alignItems: "flex-end", justifyContent: props.centered ?"center": "flex-start",padding: props.padding || "16px 0", paddingBottom: props.withDivider ? 0: 16}}>
             {/*{props.withBackButton && <Button color={"facebook"} icon onClick={() => router.back()}><Icon name={"chevron left"}/></Button>}*/}
             <Header className={props.className} size={props.size}>{props.title || props.children}</Header>
         </div>

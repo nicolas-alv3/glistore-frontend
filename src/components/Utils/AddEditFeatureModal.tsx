@@ -1,7 +1,6 @@
 import {Dropdown, Form, FormField, Input, Menu, Modal} from "semantic-ui-react";
 import {FeatureType, GFeature} from "../../types";
 import React from "react";
-import GTitle, {GTitleSize} from "./GTitle";
 import {FilterBadge} from "./FilterBadges";
 import GButton, {ButtonType} from "./GButton";
 
@@ -54,24 +53,22 @@ export default function AddEditFeatureModal(props: Props) {
         resetForm();
     }
 
-    return <Modal open={open} onClose={() => setOpen(false)}>
+    return <Modal open={open} onClose={() => setOpen(false)} size={"tiny"}>
         <Modal.Header>Agregar característica </Modal.Header>
         <Modal.Content>
         <Form onSubmit={addToItems}>
-            <GTitle size={GTitleSize.SMALL}>Características</GTitle>
             <Form.Field error={props.formSubmitted && props.features.length == 0}>
                 <label>Nombre</label>
-                <input value={name} onChange={e => setName(e.target.value)} placeholder='Ingresar nombre'/>
+                <input value={name} onChange={e => setName(e.target.value)} placeholder='Aderezos'/>
             </Form.Field>
             <Form.Field>
                 <label>Tipo de selección</label>
                 <Menu compact>
-                    <Dropdown placeholder={"Elige el tipo"} value={type} options={options} onChange={(e,data) => setType(data.value as FeatureType)} simple item />
-                </Menu>
+                    <Dropdown placeholder={"Elige el tipo"} value={type} options={options} onChange={(e,data) => setType(data.value as FeatureType)} item />                </Menu>
             </Form.Field>
             <FormField error={props.formSubmitted && props.features.length == 0}>
                 <label>Agregar items seleccionables</label>
-                <Input action={{icon: 'arrow right'}} placeholder='Talles, tamaños o características...' input={<input value={item} onChange={(e) => setItem(e.target.value)}/>}/>
+                <Input action={{icon: 'arrow right'}} placeholder='Ketchup, mayonesa, mostaza...' input={<input value={item} onChange={(e) => setItem(e.target.value)}/>}/>
             </FormField>
         </Form>
         {
