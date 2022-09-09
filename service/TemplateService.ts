@@ -9,8 +9,11 @@ class TemplateService {
     }
 
     create(template: GTemplate) {
-        console.log("Created")
-        return new Promise(() => {});
+        return API.post(this.path + "/", template)
+    }
+
+    delete(id: string) {
+        return API.delete(this.path + "/" + id)
     }
 }
 

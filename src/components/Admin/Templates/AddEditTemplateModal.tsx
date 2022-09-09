@@ -1,7 +1,7 @@
 import {Divider, Form, Modal} from "semantic-ui-react";
 import React from "react";
 import TemplateService from "../../../../service/TemplateService";
-import {FeatureType, GFeature, GTemplate} from "../../../types";
+import {GFeature, GTemplate} from "../../../types";
 import ToastUtils from "../../../utils/toastUtils";
 import GButton, {ButtonType} from "../../Utils/GButton";
 import AddEditFeatureModal from "../../Utils/AddEditFeatureModal";
@@ -18,16 +18,13 @@ interface Props {
 
 export default function AddEditTemplateModal(props: Props) {
     const [open, setOpen] = React.useState(true);
-    const [loading, setLoading] = React.useState(false);
     const [submitted, setSubmitted] = React.useState(false);
 
     const [name, setName] = React.useState("");
     const [features, setFeatures] = React.useState<GFeature[]>([]);
 
-
-
     const resetForm = () => {
-        setLoading(false)
+        setName("");
     }
 
     const handleAddSubmit = (template) => {
@@ -51,10 +48,6 @@ export default function AddEditTemplateModal(props: Props) {
     }
 
     function templateIsCorrect() {
-        const {
-            name,
-            features:[]
-        } = createTemplateBody();
         const isCorrect = name && features.length;
         if (!isCorrect) {
             ToastUtils.error("Hay errores en el formulario");
@@ -65,22 +58,13 @@ export default function AddEditTemplateModal(props: Props) {
 
     function createTemplateBody(): GTemplate {
         return {
-            name: "Zapatilla",
-            features: [
-                {
-                    type: FeatureType.ENUM_SIMPLE,
-                    name: "Talle de zapa",
-                    options: [],
-                    required: true,
-                    enumerable: ["35", "36", "37", "38", "39", "40", "41", "42"]
-                }
-            ]
+            name,
+            features
         };
     }
 
     const handleSubmit = () => {
-        if (!loading && templateIsCorrect()) {
-            setLoading(true);
+        if (templateIsCorrect()) {
             const product = createTemplateBody();
             if (props.template) {
                 handleEditSubmit(product);
@@ -95,7 +79,7 @@ export default function AddEditTemplateModal(props: Props) {
         resetForm();
     }
 
-    const openAddModal = () => ModalUtils.openModal(<AddEditFeatureModal formSubmitted={submitted} onChange={(f) => setFeatures(prevState => prevState.concat([f]))} features={features}/>)
+    const openAddModal = () => ModalUtils.openModal(<AddEditFeatureModal onChange={(f) => setFeatures(prevState => prevState.concat([f]))} features={features}/>)
 
     return <Modal
         onClose={closeModal}
@@ -113,11 +97,11 @@ export default function AddEditTemplateModal(props: Props) {
                 <Divider/>
             </Form>
             <GTitle size={GTitleSize.SMALL}>Características</GTitle>
-            <div style={{display: "flex", justifyContent:"space-between", flexWrap:"wrap"}}>
-                <AddDashedButton label={"Agregar característica"} onClick={openAddModal} />
+            <div style={{display: "flex", justifyContent:"flex-start", flexWrap:"wrap"}}>
                 {
                     features.map(f => <FeatureCard key={f.name} feature={f}/>)
                 }
+                <AddDashedButton label={"Agregar característica"} onClick={openAddModal} />
             </div>
         </Modal.Content>
         <Modal.Actions>
@@ -125,7 +109,6 @@ export default function AddEditTemplateModal(props: Props) {
                 Cancelar
             </GButton>
             <GButton
-                loading={loading}
                 text={props.template ? "Editar" : "Agregar"}
                 icon='checkmark'
                 onClick={handleSubmit}

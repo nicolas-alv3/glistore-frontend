@@ -5,7 +5,7 @@ import {ReactNode} from "react";
 export interface ActionOption {
     icon: SemanticICONS,
     text: string,
-    onClick: (e: any) => void,
+    onClick: () => void,
 }
 
 interface Props {

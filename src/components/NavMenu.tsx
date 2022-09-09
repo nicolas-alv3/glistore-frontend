@@ -29,7 +29,7 @@ export default function NavMenu() {
         vertical
         visible={show}
     >
-        <div onClick={hideSidebar}>
+        <div onClick={hideSidebar} style={{cursor: "pointer"}}>
             <Link href={"/"}>
                 <div style={{display: "flex", justifyContent: "flex-start", gap: 8}}>
                     <Icon name={"home"}/>

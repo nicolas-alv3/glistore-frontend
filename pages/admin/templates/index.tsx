@@ -7,28 +7,47 @@ import ActionMore, {ActionOption} from "../../../src/components/Utils/ActionMore
 import React, {useEffect} from "react";
 import ModalUtils from "../../../src/utils/ModalUtils";
 import AddEditTemplateModal from "../../../src/components/Admin/Templates/AddEditTemplateModal";
+import ToastUtils from "../../../src/utils/toastUtils";
 
 export default function Templates() {
     const [templates, setTemplates] = React.useState([]);
 
     useEffect(() => {
-        TemplateService.getTemplates()
-            .then( res => setTemplates(res))
+        fetchTemplates();
     }, [])
 
-    const options: ActionOption[] = [
-        {onClick: () => {}, text: "Editar", icon:"pencil"},
-        {onClick: () => {}, text: "Eliminar", icon:"delete"},
-    ]
+    const fetchTemplates = () => TemplateService.getTemplates()
+        .then(res => setTemplates(res));
+
+    const deleteTemplate = (template: GTemplate) => {
+        TemplateService.delete(template._id as string)
+            .then(() => {
+                ToastUtils.success("Eliminado exitosamente");
+                fetchTemplates();
+            });
+    }
+
+    const handleDelete = (t) => {
+        console.log(t)
+        ModalUtils.dialog("Eliminar plantilla", "¿Estas segur@ que deseas eliminarla?", () => deleteTemplate(t))
+    }
+
+    function getOptions(template: GTemplate): ActionOption[] {
+        return [
+            {onClick: () => handleDelete(template), text: "Eliminar", icon: "delete"},
+        ]
+    }
 
     const columns = [
         (t: GTemplate) => t.name,
-        (t: GTemplate) => t.features.map(f=>f.name).toString(),
-        (t: GTemplate) => <ActionMore options={options} />
+        (t: GTemplate) => t.features.map(f => f.name).toString(),
+        (t: GTemplate) => <ActionMore options={getOptions(t)}/>
     ]
     const openModal = () => ModalUtils.openModal(
-        <AddEditTemplateModal update={() => {}}/>
+        <AddEditTemplateModal update={fetchTemplates}/>
     )
-    const table = <GTable elements={templates} headers={["Nombre","Características", "Acciones"]} columns={columns} />
-    return <CRUDPage table={table} title={"Plantillas"} addButton={<GButton type={ButtonType.PRIMARY} text={"Agregar"} icon={"plus"} onClick={openModal}/>}/>
+    const table = <GTable elements={templates} headers={["Nombre", "Características", "Acciones"]} columns={columns}/>
+    return <CRUDPage table={table} title={"Plantillas"}
+                     addButton={<GButton type={ButtonType.PRIMARY} text={"Agregar"} icon={"plus"}
+                                         onClick={openModal}/>}/>
 }

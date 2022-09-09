@@ -7,13 +7,13 @@ import GButton, {ButtonType} from "./GButton";
 interface Props {
     onChange: (feature: GFeature) => void,
     features: GFeature[],
-    formSubmitted: boolean
 }
 
 
 export default function AddEditFeatureModal(props: Props) {
     const [open, setOpen] = React.useState(true);
 
+    const [submitted, setSubmitted] = React.useState(false);
     const [name, setName] = React.useState("");
     const [item, setItem] = React.useState("");
     const [type, setType] = React.useState<FeatureType>(FeatureType.ENUM_SIMPLE);
@@ -41,23 +41,38 @@ export default function AddEditFeatureModal(props: Props) {
         setType(FeatureType.ENUM_SIMPLE);
     }
 
+    const isValidForm = () => name && items.length;
+
     const handleSubmit = () => {
-        props.onChange({
-            name,
-            type,
-            options:[],
-            enumerable: items,
-            required: true
-        })
-        setOpen(false);
-        resetForm();
+        if(isValidForm()) {
+            props.onChange({
+                name,
+                type,
+                options:[],
+                enumerable: items,
+                required: true
+            })
+            setOpen(false);
+            resetForm();
+        } else {
+            setSubmitted(true);
+        }
+    }
+
+    const handleItemChange = (e) => {
+        if(e.target.value.includes(",")) {
+            addToItems();
+            setItem("");
+        } else {
+            setItem(e.target.value)
+        }
     }
 
     return <Modal open={open} onClose={() => setOpen(false)} size={"tiny"}>
         <Modal.Header>Agregar característica </Modal.Header>
         <Modal.Content>
         <Form onSubmit={addToItems}>
-            <Form.Field error={props.formSubmitted && props.features.length == 0}>
+            <Form.Field error={submitted && name.length == 0}>
                 <label>Nombre</label>
                 <input value={name} onChange={e => setName(e.target.value)} placeholder='Aderezos'/>
             </Form.Field>
@@ -66,9 +81,9 @@ export default function AddEditFeatureModal(props: Props) {
                 <Menu compact>
                     <Dropdown placeholder={"Elige el tipo"} value={type} options={options} onChange={(e,data) => setType(data.value as FeatureType)} item />                </Menu>
             </Form.Field>
-            <FormField error={props.formSubmitted && props.features.length == 0}>
+            <FormField error={submitted && items.length == 0} >
                 <label>Agregar items seleccionables</label>
-                <Input action={{icon: 'arrow right'}} placeholder='Ketchup, mayonesa, mostaza...' input={<input value={item} onChange={(e) => setItem(e.target.value)}/>}/>
+                <Input action={{icon: 'arrow right'}} placeholder='Ketchup, mayonesa, mostaza...' input={<input value={item} onChange={handleItemChange}/>}/>
             </FormField>
         </Form>
         {

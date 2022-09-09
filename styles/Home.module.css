@@ -53,9 +53,17 @@
 }
 
 .navMenu {
-  padding: 16px;
+  padding: 16px 0;
   width: min(75%, 400px)!important;
   top: 60px !important;
+}
+
+.navMenu div {
+  margin-left: 8px;
+}
+
+.navMenu > div :hover {
+  font-weight: bold;
 }
 
 .cardImg {

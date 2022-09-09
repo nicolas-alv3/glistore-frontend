@@ -23,7 +23,7 @@ export default function FeatureCard(props: { feature: GFeature }) {
         padding: "0 16px",
         position: "relative"
     }}>
-        <GTitle padding={"8px 0 0 0"} size={GTitleSize.SMALL}>
+        <GTitle padding={"0"} size={GTitleSize.SMALL}>
             {props.feature.name}
             <GBadge type={GBadgeType.SECONDARY} text={getBadgeText(props.feature.type)}/></GTitle>
         <b>Opciones:</b>

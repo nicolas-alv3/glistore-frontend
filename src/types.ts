@@ -4,6 +4,7 @@ export enum FeatureType {
 }
 
 export interface GTemplate {
+    _id?: string,
     name: string,
     features: GFeature[]
 }
