@@ -1,7 +1,6 @@
 import React from "react";
 import {SortType} from "../../types";
 import {Button, Container, Icon, Menu, Segment, Sidebar} from "semantic-ui-react";
-import TallesFilter from "./TallesFilter";
 import SelectFilter, {SelectFilterType} from "./SelectFilter";
 import FilterBadges from "../Utils/FilterBadges";
 import GButton, {ButtonType} from "../Utils/GButton";
@@ -22,10 +21,6 @@ export default function SortOrFilter() {
     const [talles, setTalles] = React.useState([]);
 
     const filterItems = [
-        {
-            name: "Talle",
-            children: <TallesFilter onChange={setTalles}/>
-        },
         {
             name: "Categoría",
             children: <SelectFilter value={categories} setValue={setCategories} type={SelectFilterType.SELECT_CATEGORY}
