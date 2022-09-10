@@ -1,11 +1,12 @@
 import React from "react";
 import styles from '../../styles/Home.module.css';
-import {Container, Divider, Grid, Header, Icon, List, Segment} from "semantic-ui-react";
+import {Container, Grid, Icon, List, Segment} from "semantic-ui-react";
 import {getConfig} from "../hooks/getConfig";
 import WhatsappService from "../../service/WhatsappService";
 import Image from "next/image";
 import largeLogo from "../../public/logo_pomelo_largo.png";
 import smallLogo from "../../public/logo_pomelo_cuadrado.png";
+import GTitle, {GTitleSize} from "./Utils/GTitle";
 
 export default function Footer() {
     return <Segment className={styles.footer} id={"footer"} vertical style={{margin: '4em 0em 0em', padding: '2em 0em'}}>
@@ -24,15 +25,14 @@ export default function Footer() {
                     </span>
                 </Grid.Column>
                 <Grid.Column width={6}>
-                    <Header size={"small"}> Acerca de Pomelo</Header>
-                    <Divider/>
+                    <GTitle withDivider centered size={GTitleSize.SMALL}> Acerca de Pomelo</GTitle>
                     Somos un emprendimiento joven y familiar en pleno crecimiento, nos centramos en la calidad de la
                     atención y de nuestros productos porque queremos lo mejor para los chicxs!
 
                 </Grid.Column>
                 <Grid.Column width={4}>
                     <List size='small'>
-                        <Header size={"small"}> Contactanos!</Header>
+                        <GTitle withDivider centered size={GTitleSize.SMALL}>Contactanos!</GTitle>
                     </List>
                     <List link size='big'>
                         <List.Item as='a' href={getConfig().instagramLink}>

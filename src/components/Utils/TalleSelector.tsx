@@ -1,9 +1,10 @@
 import styles from "../../../styles/Admin.module.css";
-import {Form, Header} from "semantic-ui-react";
+import {Form} from "semantic-ui-react";
 import React from "react";
 import ProductService from "../../../service/ProductService";
 import GButton, {ButtonType} from "./GButton";
 import stylesHome from "../../../styles/Home.module.css";
+import GTitle, {GTitleSize} from "./GTitle";
 
 interface Props {
     talles: string[],
@@ -36,9 +37,9 @@ export default function TalleSelector(props: Props) {
 
     return <Form.Field error={props.error}>
         { props.showLabel &&
-            <Header className={stylesHome.font} size={"tiny"}>Disponible en talles:</Header>
+            <GTitle className={stylesHome.font} size={GTitleSize.SMALL}>Disponible en talles:</GTitle>
         }
-        <div className={styles.tallesContainer}>
+        <div className={styles.optionsContainer}>
             {getTalles().map((t) => <>
                 <GButton
                     key={t}

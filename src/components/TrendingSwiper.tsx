@@ -3,8 +3,9 @@ import ProductService from "../../service/ProductService";
 import {Swiper, SwiperSlide} from "swiper/react";
 import {Navigation} from "swiper";
 import ProductCard from "./ProductCard";
-import {CardGroup, Divider, Header} from "semantic-ui-react";
+import {CardGroup, Divider} from "semantic-ui-react";
 import {Product} from "../types";
+import GTitle, {GTitleSize} from "./Utils/GTitle";
 
 export default function TrendingSwiper() {
     const [products, setProducts] = React.useState([]);
@@ -16,7 +17,7 @@ export default function TrendingSwiper() {
         setSlidesPerViews(window?.screen.width >= 1024 ? 5 : 2)
     }, [slidesPerView])
     return <>
-        <Header>Destacados</Header>
+        <GTitle title={"Destacados para ti"} size={GTitleSize.MEDIUM} withDivider/>
         <Divider />
         <CardGroup>
             <Swiper  navigation={true} modules={[Navigation]} slidesPerView={slidesPerView}

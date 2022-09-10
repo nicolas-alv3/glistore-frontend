@@ -1,12 +1,12 @@
 import {useRouter} from 'next/router'
 import React, {useEffect} from "react";
 import ProductService from "../../service/ProductService";
-import {CardDescription, Container, Divider, Grid, Header} from "semantic-ui-react";
+import {CardDescription, Container, Divider, Grid} from "semantic-ui-react";
 import Carrousel from "../../src/components/Utils/Carrousel";
 import TrendingSwiper from '../../src/components/TrendingSwiper';
 import {Product} from "../../src/types";
 import ToastUtils from "../../src/utils/toastUtils";
-import Title from "../../src/components/Utils/Title";
+import GTitle, {GTitleSize} from "../../src/components/Utils/GTitle";
 import Skeleton from "react-loading-skeleton";
 import GButton, {ButtonType} from "../../src/components/Utils/GButton";
 import {NextSeo} from "next-seo";
@@ -73,7 +73,7 @@ const ProductDetail = () => {
             openGraph={getSEOConfig((product?.name || "Mira este producto! ") + " | Pomelo store", product?.description)}
         />
         <Container>
-            <Title title={"Ver producto"} withBackButton/>
+            <GTitle title={"Ver producto"} withDivider withBackButton size={GTitleSize.LARGE}/>
             <Grid stackable>
                 <Grid.Row>
                     {
@@ -83,8 +83,8 @@ const ProductDetail = () => {
                                     <Carrousel preview={product?.preview} urls={product?.images || []}/>
                                 </Grid.Column>
                                 <Grid.Column width={6}>
-                                    <Header size={"huge"}>{product?.name} <GBadge
-                                        type={GBadgeType.ORANGE} text={product?.category}/></Header>
+                                    <GTitle size={GTitleSize.LARGE}>{product?.name} <GBadge
+                                        type={GBadgeType.ORANGE} text={product?.category}/></GTitle>
                                     <CardDescription>{product?.description}</CardDescription>
                                     <Divider/>
                                     <AddToCart product={product}/>

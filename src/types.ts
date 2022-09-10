@@ -1,5 +1,27 @@
+export enum FeatureType {
+    ENUM_MULT="ENUM_MULT",
+    ENUM_SIMPLE="ENUM_SIMPLE",
+}
+
+export interface GTemplate {
+    _id?: string,
+    name: string,
+    features: GFeature[]
+}
+
+export interface GFeature {
+    type: FeatureType,
+    name: string,
+    // Enumberables are choosen by admin
+    enumerable: string[],
+    //Options are choosen by user
+    options: string[],
+    required?: boolean
+}
+
 export interface Product {
     talles: string[],
+    features: GFeature[],
     _id: string,
     name: string,
     images: string[],
@@ -12,10 +34,16 @@ export interface Product {
     visible: boolean,
 }
 
+export interface FeatureItem {
+    name: string,
+    value: string
+}
+
 export interface SaleItem {
     product: Product,
     amount: number,
-    talle: string
+    talle: string,
+    features: FeatureItem[]
 }
 
 

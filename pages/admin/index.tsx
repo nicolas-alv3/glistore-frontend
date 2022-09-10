@@ -1,19 +1,23 @@
 import {isAdminLogged, login} from "../../src/utils/loginUtils";
 import React, {useEffect} from "react";
 import styles from '../../styles/Admin.module.css';
-import {Checkbox, Container, Divider, Form, Header, Icon, Table} from "semantic-ui-react";
+import {Checkbox, Container, Divider, Dropdown, Form, Icon} from "semantic-ui-react";
 import ToastUtils from "../../src/utils/toastUtils";
 import {useRouter} from "next/router";
 import GButton, {ButtonType} from "../../src/components/Utils/GButton";
 import ProductService from "../../service/ProductService";
-import AddEditModal from "../../src/components/Admin/AddEditModal";
-import DialogComponent from "../../src/components/Utils/DialogComponent";
-import {Product} from "../../src/types";
+import AddEditProductModal from "../../src/components/Admin/AddEditProductModal";
+import {GTemplate, Product} from "../../src/types";
 import Image from "next/image";
 import largeLogo from "../../public/logo_pomelo_largo.png";
 import FirebaseService from "../../service/FirebaseService";
 import GBadge, {GBadgeType} from "../../src/components/Utils/GBadge";
 import {moneyPipe} from "../../src/utils/parseUtils";
+import GTable from "../../src/components/Utils/GTable";
+import GTitle, {GTitleSize} from "../../src/components/Utils/GTitle";
+import ModalUtils from "../../src/utils/ModalUtils";
+import CRUDPage from "../../src/components/Utils/CRUDPage";
+import TemplateService from "../../service/TemplateService";
 
 function LoginComponent() {
     const [name, setName] = React.useState("");
@@ -35,7 +39,7 @@ function LoginComponent() {
                            objectFit={"cover"}
                            height={200} objectPosition={"center"}/>
                 </div>
-                <Header textAlign={"center"} size={"huge"}>Ingreso Admin</Header>
+                <GTitle centered size={GTitleSize.LARGE}>Ingreso Admin</GTitle>
                 <Divider/>
                 <Form size={"big"}>
                     <Form.Field>
@@ -64,7 +68,7 @@ function ProductsTable({products, update}) {
 
     const removeImages = (p) => {
         FirebaseService.removeFromFirestore(p.images.concat([p.preview])).then(() => ToastUtils.success("Imagenes eliminadas!"))
-            .catch( () => ToastUtils.error("Hubo un problema eliminando las imagenes"));
+            .catch(() => ToastUtils.error("Hubo un problema eliminando las imagenes"));
     }
 
     const onDeleteConfirm = (p: Product) => {
@@ -74,64 +78,77 @@ function ProductsTable({products, update}) {
             .then(() => removeImages(p))
             .catch(() => ToastUtils.error("Ha ocurrido un error"));
     }
-    return <Table>
-        <Table.Header>
-            <Table.Row>
-                <Table.HeaderCell>Nombre</Table.HeaderCell>
-                <Table.HeaderCell>Talles</Table.HeaderCell>
-                <Table.HeaderCell>Visible</Table.HeaderCell>
-                <Table.HeaderCell>Precio</Table.HeaderCell>
-                <Table.HeaderCell>Acciones</Table.HeaderCell>
-            </Table.Row>
-        </Table.Header>
 
-        <Table.Body>
-            {products.map((p) => {
-                return <Table.Row key={p._id}>
-                    <Table.Cell>
-                        {p.name}
-                    </Table.Cell>
-                    <Table.Cell>
-                        {p.talles.map(t => <GBadge key={t} type={GBadgeType.SECONDARY} text={t} />)}
-                    </Table.Cell>
-                    <Table.Cell><Icon name={"eye"} color={p.visible ? "green" : "orange"}/></Table.Cell>
-                    <Table.Cell>{moneyPipe(p.price)}</Table.Cell>
-                    <Table.Cell>
-                        <AddEditModal product={p} update={update}
-                                      trigger={<GButton icon={"pencil"} type={ButtonType.TERTIARY}/>}/>
-                        <DialogComponent
-                            title={"Eliminar producto"}
-                            message={"¿Estas segur@ que querés eliminar este producto?"}
-                            onConfirm={() => onDeleteConfirm(p)}
-                            trigger={<GButton
-                                icon={"trash"} type={ButtonType.DANGER}/>}/>
-                    </Table.Cell>
-                </Table.Row>
-            })}
-        </Table.Body>
-    </Table>;
+    const headers = ["Nombre", "Talles", "Visible", "Precio", "Acciones"];
+
+    const openEditModal = (p) => {
+        ModalUtils.openModal(<AddEditProductModal product={p} update={update}/>)
+    }
+
+    const openDeleteDialog = (p) => ModalUtils.dialog("Eliminar " + p.name, "¿Estas segur@ que querés eliminar este producto?", () => onDeleteConfirm(p) )
+
+    const columns = [
+        (p: Product) => p.name,
+        (p: Product) => p.talles.map(t => <GBadge key={t} type={GBadgeType.SECONDARY} text={t}/>),
+        (p: Product) => <Icon name={"eye"} color={p.visible ? "green" : "orange"}/>,
+        (p: Product) => moneyPipe(p.price),
+        (p: Product) => <>
+            <GButton icon={"pencil"} type={ButtonType.TERTIARY} onClick={() => openEditModal(p)}/>
+            <GButton
+                icon={"trash"} type={ButtonType.DANGER} onClick={() => openDeleteDialog(p)}/>
+        </>,
+    ]
+    return <GTable elements={products} headers={headers} columns={columns}/>;
 }
 
 function AdminPanel() {
     const [products, setProducts] = React.useState<Product[]>([]);
+    const [templates, setTemplates] = React.useState<GTemplate[]>([]);
+
 
     const fetchProducts = () => {
         ProductService.getAll()
             .then(res => setProducts(res))
     }
 
+    const fetchTemplates = () => {
+        TemplateService.getTemplates()
+            .then(res => setTemplates(res))
+    }
+
     useEffect(() => {
         fetchProducts();
+        fetchTemplates();
     }, [])
 
-    return <div>
-        <Header>Todos tus productos</Header>
-        <AddEditModal update={fetchProducts}
-                      trigger={<GButton size={"large"} circular className={styles.floatingButton}
-                                        type={ButtonType.PRIMARY} icon={"plus"} text={"Agregar"} />}/>
-        <Divider/>
-        <ProductsTable products={products} update={fetchProducts}/>
-    </div>;
+    const templateOptions = templates.map(t => ({
+        key: t.name,
+        value: t,
+        text: t.name
+    }))
+
+
+    const openAddModal = (template) => {
+        ModalUtils.openModal(<AddEditProductModal template={template} update={fetchProducts}/>)
+    }
+
+    const addButton = <Dropdown
+        direction={"left"}
+        text={"Agregar"}
+        icon={"dropdown"}
+        button item={false}
+        className={styles.addButton}
+    >
+        <Dropdown.Menu>
+            <Dropdown.Header icon='book' content='Elige una plantilla'/>
+            {templateOptions.map((o) => <Dropdown.Item key={o.text} onClick={() => openAddModal(o.value)}>
+                {o.text}
+            </Dropdown.Item>)}
+
+        </Dropdown.Menu>
+    </Dropdown>
+
+    return <CRUDPage title={"Todos tus productos"} addButton={addButton} table={<ProductsTable products={products} update={fetchProducts}/>}/>
 }
 
 export default function Login() {

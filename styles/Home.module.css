@@ -33,7 +33,7 @@
   margin-top: -70px;
   box-shadow: -1px 1px 20px 0 lightgrey;
   position: fixed;
-  z-index: 10;
+  z-index: 100;
   margin-bottom: 16px;
   background: var(--col-secondary3);
   height: 60px;
@@ -50,6 +50,20 @@
   padding: 16px;
   width: min(100%, 700px)!important;
   top: 50px !important;
+}
+
+.navMenu {
+  padding: 16px 0;
+  width: min(75%, 400px)!important;
+  top: 60px !important;
+}
+
+.navMenu div {
+  margin-left: 8px;
+}
+
+.navMenu > div :hover {
+  font-weight: bold;
 }
 
 .cardImg {
