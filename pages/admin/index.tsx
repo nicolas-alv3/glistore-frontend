@@ -140,7 +140,7 @@ function AdminPanel() {
         className={styles.addButton}
     >
         <Dropdown.Menu>
-            <Dropdown.Header icon='book' content='Elige una plantilla'/>
+            <Dropdown.Header icon='book' content='Elige un formato'/>
             {templateOptions.map((o) => <Dropdown.Item key={o.text} onClick={() => openAddModal(o.value)}>
                 {o.text}
             </Dropdown.Item>)}

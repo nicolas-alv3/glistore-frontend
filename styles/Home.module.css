@@ -35,7 +35,7 @@
   position: fixed;
   z-index: 100;
   margin-bottom: 16px;
-  background: var(--col-secondary3);
+  background: var(--col-quaternary);
   height: 60px;
   width: 100vw;
   display: flex;

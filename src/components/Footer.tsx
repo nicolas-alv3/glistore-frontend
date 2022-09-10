@@ -1,7 +1,7 @@
 import React from "react";
 import styles from '../../styles/Home.module.css';
 import {Container, Grid, Icon, List, Segment} from "semantic-ui-react";
-import {getConfig} from "../hooks/getConfig";
+import {useConfig} from "../hooks/useConfig";
 import WhatsappService from "../../service/WhatsappService";
 import Image from "next/image";
 import largeLogo from "../../public/logo_pomelo_largo.png";
@@ -9,6 +9,8 @@ import smallLogo from "../../public/logo_pomelo_cuadrado.png";
 import GTitle, {GTitleSize} from "./Utils/GTitle";
 
 export default function Footer() {
+    const config = useConfig();
+
     return <Segment className={styles.footer} id={"footer"} vertical style={{margin: '4em 0em 0em', padding: '2em 0em'}}>
         <Container textAlign='center'>
             <Grid stackable>
@@ -35,11 +37,11 @@ export default function Footer() {
                         <GTitle withDivider centered size={GTitleSize.SMALL}>Contactanos!</GTitle>
                     </List>
                     <List link size='big'>
-                        <List.Item as='a' href={getConfig().instagramLink}>
+                        <List.Item as='a' href={config.instaUser}>
                             <Icon name={"instagram"}/>
                             Instagram
                         </List.Item>
-                        <List.Item as='a' href={getConfig().facebookLink}>
+                        <List.Item as='a' href={config.fbLink}>
                             <Icon name={"facebook"}/>
                             Facebook
                         </List.Item>

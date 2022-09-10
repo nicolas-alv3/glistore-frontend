@@ -9,10 +9,8 @@ import ToastUtils from "../../src/utils/toastUtils";
 import GTitle, {GTitleSize} from "../../src/components/Utils/GTitle";
 import Skeleton from "react-loading-skeleton";
 import GButton, {ButtonType} from "../../src/components/Utils/GButton";
-import {NextSeo} from "next-seo";
 import {parse} from "../../src/utils/parseUtils";
 import AddToCart from "../../src/components/AddToCart";
-import {getSEOConfig} from "../../src/utils/SEOUtils";
 import GBadge, {GBadgeType} from "../../src/components/Utils/GBadge";
 import {getFrontendURL} from "../../src/utils/windowUtils";
 
@@ -69,9 +67,6 @@ const ProductDetail = () => {
     }
 
     return <>
-        <NextSeo
-            openGraph={getSEOConfig((product?.name || "Mira este producto! ") + " | Pomelo store", product?.description)}
-        />
         <Container>
             <GTitle title={"Ver producto"} withDivider withBackButton size={GTitleSize.LARGE}/>
             <Grid stackable>

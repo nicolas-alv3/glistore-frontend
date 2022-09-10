@@ -29,7 +29,7 @@ export default function Templates() {
 
     const handleDelete = (t) => {
         console.log(t)
-        ModalUtils.dialog("Eliminar plantilla", "¿Estas segur@ que deseas eliminarla?", () => deleteTemplate(t))
+        ModalUtils.dialog("Eliminar formato", "¿Estas segur@ que deseas eliminarla?", () => deleteTemplate(t))
     }
 
     function getOptions(template: GTemplate): ActionOption[] {
@@ -47,7 +47,7 @@ export default function Templates() {
         <AddEditTemplateModal update={fetchTemplates}/>
     )
     const table = <GTable elements={templates} headers={["Nombre", "Características", "Acciones"]} columns={columns}/>
-    return <CRUDPage table={table} title={"Plantillas"}
+    return <CRUDPage table={table} title={"Formatos"}
                      addButton={<GButton type={ButtonType.PRIMARY} text={"Agregar"} icon={"plus"}
                                          onClick={openModal}/>}/>
 }

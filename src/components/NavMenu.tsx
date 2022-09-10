@@ -41,15 +41,23 @@ export default function NavMenu() {
             <Link href={"/admin/templates"}>
                 <div style={{display: "flex", justifyContent: "flex-start", gap: 8}}>
                     <Icon name={"book"}/>
-                    <p>Templates</p>
+                    <p>Formatos</p>
                 </div>
             </Link>
             <Divider/>
 
             <Link href={"/admin"}>
                 <div style={{display: "flex", justifyContent: "flex-start", gap: 8}}>
-                    <Icon name={"configure"}/>
+                    <Icon name={"user"}/>
                     <p>Admin</p>
+                </div>
+            </Link>
+            <Divider/>
+
+            <Link href={"/admin/settings"}>
+                <div style={{display: "flex", justifyContent: "flex-start", gap: 8}}>
+                    <Icon name={"configure"}/>
+                    <p>Configuración</p>
                 </div>
             </Link>
             <Divider/>

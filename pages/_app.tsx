@@ -9,13 +9,14 @@ import {Container} from "semantic-ui-react";
 import Footer from "../src/components/Footer";
 import {store} from '../slices/store'
 import {Provider} from 'react-redux'
-import {NextSeo} from "next-seo";
-import {getSEOConfig} from "../src/utils/SEOUtils";
 import Head from "next/head";
+import {useConfig} from "../src/hooks/useConfig";
+
 
 function MyApp({Component, pageProps}: AppProps) {
+    const config = useConfig()
 
-    // Hide splash screen when we are server side
+    // Hide splash screen when we are client side
     useEffect(() => {
         if (typeof window !== 'undefined') {
             const loader = document.getElementById('globalLoader');
@@ -32,12 +33,9 @@ function MyApp({Component, pageProps}: AppProps) {
 
     return <Provider store={store}>
         <Head>
-            <title>{getSEOConfig().title}</title>
+            <title>{config.companyName}</title>
             <link rel="icon" href="/favicon.ico"/>
         </Head>
-        <NextSeo
-            openGraph={getSEOConfig()}
-        />
         <PageHeader/>
         <Container>
             <Component {...pageProps} />

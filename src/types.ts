@@ -80,3 +80,23 @@ export enum SortType {
 export interface Sale {
     items: SaleItem[]
 }
+
+export interface GColorPallette {
+    primary: string,
+    secondary: string,
+    tertiary: string,
+    quaternary: string,
+    primaryFont: string,
+    secondaryFont: string
+}
+
+export interface GConfig {
+    _id?:string,
+    companyName: string,
+    description: string,
+    instaUser: string,
+    fbLink: string,
+    phoneNumber: string,
+    colorPalette: GColorPallette,
+    logo: string
+}
