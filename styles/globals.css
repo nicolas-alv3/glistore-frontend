@@ -1,11 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@400;700&family=Sansita+Swashed:wght@400;500;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600&family=Rubik:wght@600;700;800&display=swap');
 
 html,
 body, #root {
     color: var(--col-font) !important;
     padding: 0;
     margin-top: 70px;
-    font-family: 'Barlow', serif !important;
+    font-family: 'Rubik', sans-serif;
 }
 
 body::-webkit-scrollbar {
@@ -22,8 +22,9 @@ a {
 }
 
 .header {
-    font-family: 'Barlow', serif !important;
+    font-family: 'Rubik', sans-serif !important;
     font-weight: 600 !important;
+    line-height: 40px !important;
 }
 
 
@@ -43,5 +44,7 @@ a {
     --col-danger: #7E191B;
     --col-quaternary: #FFFF;
     --col-white: #FFFF;
+    --col-footer-font: var(--col-white);
     --col-lightgray: lightgray;
+    --col-darkgray: #3D3D3D ;
 }

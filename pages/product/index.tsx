@@ -13,6 +13,7 @@ import {parse} from "../../src/utils/parseUtils";
 import AddToCart from "../../src/components/AddToCart";
 import GBadge, {GBadgeType} from "../../src/components/Utils/GBadge";
 import {getFrontendURL} from "../../src/utils/windowUtils";
+import {GColors} from "../../src/utils/GColors";
 
 function ShowProductSkeleton() {
     return <>
@@ -43,7 +44,7 @@ const ProductDetail = () => {
                     setProduct(p);
                     setLoading(false);
                 })
-                    .catch( () => router.push("/invalidPage")
+                    .catch(() => router.push("/invalidPage")
                         .then(res => console.log(res)))
             } else {
                 setLoading(false);
@@ -79,8 +80,10 @@ const ProductDetail = () => {
                                 </Grid.Column>
                                 <Grid.Column width={6}>
                                     <GTitle size={GTitleSize.LARGE}>{product?.name} <GBadge
-                                        type={GBadgeType.ORANGE} text={product?.category}/></GTitle>
-                                    <CardDescription>{product?.description}</CardDescription>
+                                        type={GBadgeType.PRIMARY} text={product?.category}/></GTitle>
+                                    <CardDescription>
+                                        <GTitle size={GTitleSize.SMALL} color={GColors.SECONDARY_FONT}>{product?.description}</GTitle>
+                                    </CardDescription>
                                     <Divider/>
                                     <AddToCart product={product}/>
                                     <Divider/>

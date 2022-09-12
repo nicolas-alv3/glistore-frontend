@@ -14,7 +14,7 @@ import {useConfig} from "../src/hooks/useConfig";
 
 
 function MyApp({Component, pageProps}: AppProps) {
-    const config = useConfig()
+    const {config} = useConfig()
 
     // Hide splash screen when we are client side
     useEffect(() => {

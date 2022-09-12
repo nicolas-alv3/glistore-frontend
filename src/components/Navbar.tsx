@@ -51,7 +51,7 @@ export default function Navbar() {
     }
 
     return <>
-        <nav className={styles.navbar + ` ${router.pathname.includes("admin") && styles.navbarAdmin}`}>
+        <nav className={styles.navbar + ` ${router.pathname.includes("admin")}`}>
             <GButton icon={"bars"} onClick={openNavMenu} size={"massive"} type={ButtonType.TRANSPARENT} className={styles.cartButton}>
                 { cart?.length > 0  && <div style={numberCartStyle}>{cart.length}</div>}
             </GButton>            <form onSubmit={submitSearch} style={{marginTop:8}}>

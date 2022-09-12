@@ -3,22 +3,6 @@
   height: 40px;
 }
 
-.largeLogoFooter {
-  display: block !important;
-}
-
-.smallLogoFooter {
-  display: none !important;
-}
-
-.smallLogo {
-  display: block !important;
-}
-
-.largeLogo {
-  display: none !important;
-}
-
 .input {
   width: max(30vw, calc(100% - 40px));
   height: 48px;
@@ -40,10 +24,6 @@
   width: 100vw;
   display: flex;
   justify-content: space-between;
-}
-
-.navbarAdmin {
-  background: var(--col-primary2);
 }
 
 .sidebar {
@@ -91,11 +71,16 @@
 .footer {
   margin-top: 16px;
   padding: 16px;
-  background: var(--col-tertiary3) !important;
+  background: var(--col-quaternary) !important;
+}
+
+.footer p {
+  color: var(--col-footer-font);
 }
 
 .footerMeta {
-  color: var(--col-secondary)
+  color: var(--col-footer-font);
+  filter: invert(100%);
 }
 
 .font {
@@ -173,22 +158,6 @@
 
   .input {
     width: 500px;
-  }
-
-  .largeLogoFooter {
-    display: none !important;
-  }
-
-  .smallLogoFooter {
-    display: block !important;
-  }
-
-  .smallLogo {
-    display: none !important;
-  }
-
-  .largeLogo {
-    display: block !important;
   }
 
   .cartContainer {

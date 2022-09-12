@@ -9,9 +9,10 @@ import {GColorPallette, GConfig} from "../../../src/types";
 import ProfilePicture from "../../../src/components/Admin/Settings/ProfileImage";
 import ConfigService from "../../../service/ConfigService";
 import ToastUtils from "../../../src/utils/toastUtils";
-import {loadVariables} from "../../../src/hooks/useConfig";
+import {loadVariables, useConfig} from "../../../src/hooks/useConfig";
 
 export default function Settings() {
+    const { reloadConfig } = useConfig();
     const [companyName, setCompanyName] = React.useState("");
     const [description, setDescription] = React.useState("");
     const [instaUser, setInstaUser] = React.useState("");
@@ -75,6 +76,25 @@ export default function Settings() {
         }
     }
 
+    const mapColorWithBubbleText = (key) => {
+        switch (key) {
+            case "primary":
+                return "Se utiliza en botones y acciones principales";
+            case "secondary":
+                return "Se utiliza en botones y acciones";
+            case "tertiary":
+                return "Se utiliza para botones adicionales";
+            case "quaternary":
+                return "Se utiliza para barra de navegación y pie de página";
+            case "primaryFont":
+                return "Utilizada en títulos";
+            case "secondaryFont":
+                return "Utilizada en subtítulos";
+            default:
+                return "";
+        }
+    }
+
     function getBody(): GConfig {
         return {
             _id: oldConfig._id,
@@ -92,7 +112,9 @@ export default function Settings() {
     function handleSave() {
         ConfigService.update(getBody())
             .then( () => {
-                ToastUtils.success("Actualizado!")
+                ToastUtils.success("Actualizado!");
+                reloadConfig();
+                setOldConfig(getBody);
                 loadVariables(getBody());
             });
     }
@@ -111,7 +133,7 @@ export default function Settings() {
                                 errorMessage={""}
                                 value={description} placeholder={"Ingrese descripción de la tienda"}/>
                     </div>
-                    <ProfilePicture/>
+                    <ProfilePicture setLogo={setLogo} logo={logo}/>
                 </div>
             </GForm>
             <GTitle size={GTitleSize.MEDIUM} title={"Datos de contacto"} withDivider/>
@@ -139,6 +161,7 @@ export default function Settings() {
                         Object.keys(colorPalette).filter(k => k !== "_id").map(key => <GInput key={key}
                                                                                               label={mapColorWithLabel(key)}
                                                                                               error={false}
+                                                                                              helpBubbleText={mapColorWithBubbleText(key)}
                                                                                               errorMessage={""}
                                                                                               input={<input
                                                                                                   type={"color"}

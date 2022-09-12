@@ -24,7 +24,6 @@ export default function GBadge(props: Props) {
             [GBadgeType.SECONDARY]: styles.gButtonSecondary,
             [GBadgeType.TERTIARY]: styles.gButtonTertiary,
             [GBadgeType.BASIC]: styles.gBadgeBasic,
-            [GBadgeType.ORANGE]: styles.gButtonOrange,
         }
         return classes[props.type]
     }

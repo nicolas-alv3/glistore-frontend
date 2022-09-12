@@ -4,50 +4,46 @@ import {Container, Grid, Icon, List, Segment} from "semantic-ui-react";
 import {useConfig} from "../hooks/useConfig";
 import WhatsappService from "../../service/WhatsappService";
 import Image from "next/image";
-import largeLogo from "../../public/logo_pomelo_largo.png";
-import smallLogo from "../../public/logo_pomelo_cuadrado.png";
 import GTitle, {GTitleSize} from "./Utils/GTitle";
 
 export default function Footer() {
-    const config = useConfig();
+    const {config} = useConfig();
 
-    return <Segment className={styles.footer} id={"footer"} vertical style={{margin: '4em 0em 0em', padding: '2em 0em'}}>
+    return <Segment className={styles.footer} id={"footer"} vertical
+                    style={{margin: '4em 0em 0em', padding: '2em 0em'}}>
         <Container textAlign='center'>
             <Grid stackable>
                 <Grid.Column width={4}>
-                        <span className={styles.largeLogoFooter}>
-                        <Image src={largeLogo} width={200}
+                        <span>
+                        <Image src={config.logo || "..."} width={200}
                                layout={"intrinsic"} alt={"logo"}
                                objectFit={"cover"}
-                               height={100} objectPosition={"center"}/>
-                    </span>
-                    <span className={styles.smallLogoFooter}>
-                        <Image src={smallLogo} width={150} layout={"intrinsic"}
-                               height={150} alt={"logo"} />
+                               height={200} objectPosition={"center"}/>
                     </span>
                 </Grid.Column>
                 <Grid.Column width={6}>
-                    <GTitle withDivider centered size={GTitleSize.SMALL}> Acerca de Pomelo</GTitle>
-                    Somos un emprendimiento joven y familiar en pleno crecimiento, nos centramos en la calidad de la
-                    atención y de nuestros productos porque queremos lo mejor para los chicxs!
+                    <GTitle withDivider centered size={GTitleSize.SMALL}><p>Acerca de {config.companyName}</p></GTitle>
+                    <p>
+                        {config.description}
+                    </p>
 
                 </Grid.Column>
                 <Grid.Column width={4}>
                     <List size='small'>
-                        <GTitle withDivider centered size={GTitleSize.SMALL}>Contactanos!</GTitle>
+                        <GTitle withDivider centered size={GTitleSize.SMALL}><p>Contactanos!</p></GTitle>
                     </List>
                     <List link size='big'>
                         <List.Item as='a' href={config.instaUser}>
-                            <Icon name={"instagram"}/>
-                            Instagram
+                            <p><Icon name={"instagram"}/>
+                                Instagram</p>
                         </List.Item>
                         <List.Item as='a' href={config.fbLink}>
-                            <Icon name={"facebook"}/>
-                            Facebook
+                            <p><Icon name={"facebook"}/>
+                                Facebook</p>
                         </List.Item>
                         <List.Item as='a' href={WhatsappService.getWhatsappLink()}>
-                            <Icon name={"whatsapp"}/>
-                            Whatsapp
+                            <p><Icon name={"whatsapp"}/>
+                                Whatsapp</p>
                         </List.Item>
                     </List>
                 </Grid.Column>

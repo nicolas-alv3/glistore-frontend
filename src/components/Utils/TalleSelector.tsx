@@ -3,8 +3,8 @@ import {Form} from "semantic-ui-react";
 import React from "react";
 import ProductService from "../../../service/ProductService";
 import GButton, {ButtonType} from "./GButton";
-import stylesHome from "../../../styles/Home.module.css";
 import GTitle, {GTitleSize} from "./GTitle";
+import {GColors} from "../../utils/GColors";
 
 interface Props {
     talles: string[],
@@ -37,7 +37,7 @@ export default function TalleSelector(props: Props) {
 
     return <Form.Field error={props.error}>
         { props.showLabel &&
-            <GTitle className={stylesHome.font} size={GTitleSize.SMALL}>Disponible en talles:</GTitle>
+            <GTitle color={GColors.SECONDARY_FONT} size={GTitleSize.SMALL}>Disponible en talles:</GTitle>
         }
         <div className={styles.optionsContainer}>
             {getTalles().map((t) => <>
@@ -45,7 +45,7 @@ export default function TalleSelector(props: Props) {
                     key={t}
                     basic={!props.talles.includes(t)}
                     onClick={() => handleToggleTalle(t)}
-                    type={ButtonType.ORANGE}
+                    type={ButtonType.SECONDARY}
                 >{t}
                 </GButton>
             </>)}
