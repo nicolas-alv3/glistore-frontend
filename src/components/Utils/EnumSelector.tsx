@@ -41,9 +41,8 @@ export default function EnumSelector(props: Props) {
             {props.options.map((t) => <>
                 <GButton
                     key={t}
-                    basic={!props.valueSelected.includes(t)}
                     onClick={() => handleToggleOption(t)}
-                    type={ButtonType.SECONDARY}
+                    type={!props.valueSelected.includes(t) ? ButtonType.PRIMARY_BASIC :ButtonType.SECONDARY}
                 >{t}
                 </GButton>
             </>)}

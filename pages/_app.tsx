@@ -34,7 +34,7 @@ function MyApp({Component, pageProps}: AppProps) {
     return <Provider store={store}>
         <Head>
             <title>{config.companyName}</title>
-            <link rel="icon" href="/favicon.ico"/>
+            <link rel="icon" href={config.logo}/>
         </Head>
         <PageHeader/>
         <Container>

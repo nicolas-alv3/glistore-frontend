@@ -35,7 +35,7 @@ class ImageService {
                 height: 1800,
                 ...options,
                 success(fileC: File | Blob) {
-                    const storageRef = ref(storage, name || `/${folder || "files"}/${file.name}`)
+                    const storageRef = ref(storage,`/${folder || "files"}/${name || file.name}`)
                     const uploadTask = uploadBytesResumable(storageRef, fileC);
 
                     uploadTask.on(

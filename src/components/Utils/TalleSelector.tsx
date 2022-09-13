@@ -43,9 +43,8 @@ export default function TalleSelector(props: Props) {
             {getTalles().map((t) => <>
                 <GButton
                     key={t}
-                    basic={!props.talles.includes(t)}
                     onClick={() => handleToggleTalle(t)}
-                    type={ButtonType.SECONDARY}
+                    type={!props.talles.includes(t) ? ButtonType.PRIMARY_BASIC :ButtonType.SECONDARY}
                 >{t}
                 </GButton>
             </>)}

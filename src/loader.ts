@@ -8,7 +8,8 @@ display: block;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: #D2A78F;
+    background: lightgray;
+    object-fit:cover;
     display: flex;
     left: 0,
     right: 0;
@@ -17,9 +18,29 @@ display: block;
     justify-content: center;
     align-items: center;
 }
-.loader img {
+
+.background {
+    overflow:hidden;
+    transform: translate(45%, 45%);
+    width: 1000%;
+    height: 1000%;
+    position: absolute;
+}
+
+.logo {
+    border-radius: 8px;
+    backdrop-filter: blur(2000px);
     width: 22em;
     height: 22em;
+    z-index:100;
+}
+
+.backdrop {
+    position:absolute;
+    width:100vw;
+    height: 100vh;
+    color:red;
+    backdrop-filter: blur(20px);
 }
 
 .hidden {

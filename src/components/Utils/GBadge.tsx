@@ -1,5 +1,6 @@
 import styles from "../../../styles/Utils.module.css";
 import {ReactNode} from "react";
+import {GColors, isDark} from "../../utils/GColors";
 
 export enum GBadgeType {
     PRIMARY,
@@ -28,7 +29,21 @@ export default function GBadge(props: Props) {
         return classes[props.type]
     }
 
+    function getTypeColor() {
+        const variables = {
+            [GBadgeType.PRIMARY]: GColors.PRIMARY_COLOR,
+            [GBadgeType.SECONDARY]: GColors.SECONDARY_COLOR,
+            [GBadgeType.TERTIARY]: GColors.TERTIARY_COLOR,
+            [GBadgeType.BASIC]: GColors.WHITE_COLOR,
+        }
+        return variables[props.type];
+    }
+
+    function getColor() {
+        return isDark(getTypeColor(), true) ? "var(--col-white)": "var(--col-darkgray)";
+    }
+
     return <div className={`${styles.gBadge} ${getClass()} ${props.className} ${props.circular && styles.gBadgeCircular}`}>
-        {props.text || props.children}
+        <span style={{color: getColor()}}>{props.text || props.children}</span>
     </div>
 }

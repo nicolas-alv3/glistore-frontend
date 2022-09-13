@@ -29,22 +29,21 @@ a {
 
 
 :root {
+    /*Fonts*/
     --col-font: #585A66;
     --col-secondary-font: #838383;
+    --col-footer-font: var(--col-white);
+
+    /*Pallette*/
     --col-primary: #C67F4E;
     --col-secondary: #CBD4A5;
     --col-tertiary: #585A66;
-    --col-primary2: #DBBC74;
-    --col-secondary2: #D2A78F;
-    --col-tertiary2: #F5ECD8;
-    --col-primary3: #E6E7E3;
-    --col-secondary3: #F8EDE7;
-    --col-tertiary3: #E7CDB4;
+    --col-quaternary: #FFFF;
+
+    /*Colors*/
     --col-orange: #FF8000;
     --col-danger: #7E191B;
-    --col-quaternary: #FFFF;
-    --col-white: #FFFF;
-    --col-footer-font: var(--col-white);
-    --col-lightgray: lightgray;
+    --col-white: #FFFFFF;
+    --col-lightgray: #838383;
     --col-darkgray: #3D3D3D ;
 }

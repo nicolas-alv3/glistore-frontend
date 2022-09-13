@@ -5,6 +5,7 @@ import {useConfig} from "../hooks/useConfig";
 import WhatsappService from "../../service/WhatsappService";
 import Image from "next/image";
 import GTitle, {GTitleSize} from "./Utils/GTitle";
+import {GColors} from "../utils/GColors";
 
 export default function Footer() {
     const {config} = useConfig();
@@ -34,23 +35,23 @@ export default function Footer() {
                     </List>
                     <List link size='big'>
                         <List.Item as='a' href={config.instaUser}>
-                            <p><Icon name={"instagram"}/>
+                            <p><Icon name={"instagram"} color={"grey"}/>
                                 Instagram</p>
                         </List.Item>
                         <List.Item as='a' href={config.fbLink}>
-                            <p><Icon name={"facebook"}/>
+                            <p><Icon name={"facebook"} color={"grey"}/>
                                 Facebook</p>
                         </List.Item>
                         <List.Item as='a' href={WhatsappService.getWhatsappLink()}>
-                            <p><Icon name={"whatsapp"}/>
+                            <p><Icon name={"whatsapp"} color={"grey"}/>
                                 Whatsapp</p>
                         </List.Item>
                     </List>
                 </Grid.Column>
             </Grid>
             <List divided link size='small'>
-                <List.Item className={styles.footerMeta} as='a' href='https://linktr.ee/nicolas_alvarez'>
-                    Proudly developed by <b>Nicolas Alvarez</b>
+                <List.Item className={styles.footerMeta} as='a'  href='https://linktr.ee/nicolas_alvarez'>
+                    <GTitle size={GTitleSize.SMALL} centered color={GColors.SECONDARY_COLOR}>Proudly developed by <b>Nicolas Alvarez</b></GTitle>
                 </List.Item>
             </List>
         </Container>

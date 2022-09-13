@@ -6,7 +6,7 @@ import {Segment} from "semantic-ui-react";
 import GButton, {ButtonType} from "../../../src/components/Utils/GButton";
 import ActionBar from "../../../src/utils/ActionBar";
 import {GColorPallette, GConfig} from "../../../src/types";
-import ProfilePicture from "../../../src/components/Admin/Settings/ProfileImage";
+import LogoPicture from "../../../src/components/Admin/Settings/LogoImage";
 import ConfigService from "../../../service/ConfigService";
 import ToastUtils from "../../../src/utils/toastUtils";
 import {loadVariables, useConfig} from "../../../src/hooks/useConfig";
@@ -133,7 +133,7 @@ export default function Settings() {
                                 errorMessage={""}
                                 value={description} placeholder={"Ingrese descripción de la tienda"}/>
                     </div>
-                    <ProfilePicture setLogo={setLogo} logo={logo}/>
+                    <LogoPicture setLogo={setLogo} logo={logo}/>
                 </div>
             </GForm>
             <GTitle size={GTitleSize.MEDIUM} title={"Datos de contacto"} withDivider/>
