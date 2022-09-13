@@ -28,7 +28,7 @@ export default function LogoPicture({ logo, setLogo}) {
                 <label>Tu foto de perfil</label>
                 <div style={{border: "2px dashed var(--col-lightgray)", position: "relative", cursor: "pointer"}}>
                     <div style={{position: "absolute", right: 8, bottom: 8, zIndex: 1}}>
-                        <GButton type={ButtonType.PRIMARY} icon={"pencil"} onClick={() => fileRef.current.click()}>
+                        <GButton type={ButtonType.PRIMARY} icon={"pencil"} onClick={() => (fileRef.current as HTMLInputElement).click()}>
                             <input id="upload" name="upload" multiple={false} type="file" ref={fileRef} hidden onChange={handleChange}/>
                         </GButton>
                     </div>
