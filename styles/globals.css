@@ -1,11 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@400;700&family=Sansita+Swashed:wght@400;500;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600&family=Rubik:wght@600;700;800&display=swap');
 
 html,
 body, #root {
     color: var(--col-font) !important;
     padding: 0;
     margin-top: 70px;
-    font-family: 'Barlow', serif !important;
+    font-family: 'Rubik', sans-serif;
 }
 
 body::-webkit-scrollbar {
@@ -22,25 +22,28 @@ a {
 }
 
 .header {
-    font-family: 'Barlow', serif !important;
+    font-family: 'Rubik', sans-serif !important;
     font-weight: 600 !important;
+    line-height: 40px !important;
 }
 
 
 :root {
+    /*Fonts*/
     --col-font: #585A66;
     --col-secondary-font: #838383;
+    --col-footer-font: var(--col-white);
+
+    /*Pallette*/
     --col-primary: #C67F4E;
     --col-secondary: #CBD4A5;
     --col-tertiary: #585A66;
-    --col-primary2: #DBBC74;
-    --col-secondary2: #D2A78F;
-    --col-tertiary2: #F5ECD8;
-    --col-primary3: #E6E7E3;
-    --col-secondary3: #F8EDE7;
-    --col-tertiary3: #E7CDB4;
+    --col-quaternary: #FFFF;
+
+    /*Colors*/
     --col-orange: #FF8000;
     --col-danger: #7E191B;
-    --col-white: #FFFF;
-    --col-lightgray: lightgray;
+    --col-white: #FFFFFF;
+    --col-lightgray: #838383;
+    --col-darkgray: #3D3D3D ;
 }

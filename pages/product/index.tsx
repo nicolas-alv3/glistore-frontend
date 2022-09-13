@@ -9,12 +9,11 @@ import ToastUtils from "../../src/utils/toastUtils";
 import GTitle, {GTitleSize} from "../../src/components/Utils/GTitle";
 import Skeleton from "react-loading-skeleton";
 import GButton, {ButtonType} from "../../src/components/Utils/GButton";
-import {NextSeo} from "next-seo";
 import {parse} from "../../src/utils/parseUtils";
 import AddToCart from "../../src/components/AddToCart";
-import {getSEOConfig} from "../../src/utils/SEOUtils";
 import GBadge, {GBadgeType} from "../../src/components/Utils/GBadge";
 import {getFrontendURL} from "../../src/utils/windowUtils";
+import {GColors} from "../../src/utils/GColors";
 
 function ShowProductSkeleton() {
     return <>
@@ -45,7 +44,7 @@ const ProductDetail = () => {
                     setProduct(p);
                     setLoading(false);
                 })
-                    .catch( () => router.push("/invalidPage")
+                    .catch(() => router.push("/invalidPage")
                         .then(res => console.log(res)))
             } else {
                 setLoading(false);
@@ -69,9 +68,6 @@ const ProductDetail = () => {
     }
 
     return <>
-        <NextSeo
-            openGraph={getSEOConfig((product?.name || "Mira este producto! ") + " | Pomelo store", product?.description)}
-        />
         <Container>
             <GTitle title={"Ver producto"} withDivider withBackButton size={GTitleSize.LARGE}/>
             <Grid stackable>
@@ -84,8 +80,10 @@ const ProductDetail = () => {
                                 </Grid.Column>
                                 <Grid.Column width={6}>
                                     <GTitle size={GTitleSize.LARGE}>{product?.name} <GBadge
-                                        type={GBadgeType.ORANGE} text={product?.category}/></GTitle>
-                                    <CardDescription>{product?.description}</CardDescription>
+                                        type={GBadgeType.PRIMARY} text={product?.category}/></GTitle>
+                                    <CardDescription>
+                                        <GTitle size={GTitleSize.SMALL} color={GColors.SECONDARY_FONT}>{product?.description}</GTitle>
+                                    </CardDescription>
                                     <Divider/>
                                     <AddToCart product={product}/>
                                     <Divider/>

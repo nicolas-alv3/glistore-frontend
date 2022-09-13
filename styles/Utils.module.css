@@ -4,28 +4,23 @@
 
 .gButtonPrimary {
     background-color: var(--col-primary) !important;
-    color: var(--col-white) !important;
 }
 
 .gButtonSecondary {
     background-color: var(--col-secondary) !important;
-    color: var(--col-font) !important;
 }
 
 
 .gButtonTertiary {
     background-color: var(--col-tertiary) !important;
-    color: var(--col-primary3) !important;
 }
 
 .gButtonOrange {
     background-color: var(--col-orange) !important;
-    color: var(--col-white) !important;
 }
 
 .gButtonDanger {
     background-color: var(--col-danger) !important;
-    color: var(--col-white) !important;
 }
 
 .gButtonPrimaryBasic {
@@ -36,6 +31,10 @@
 
 .gButtonText {
     margin-left: 4px;
+}
+
+.gIcon {
+    margin: 0 !important
 }
 
 .gButtonTransparent {

@@ -18,8 +18,6 @@ export default function SortOrFilter() {
     const {resetFilter, navigate, getReq} = useGRouter();
 
 
-    const [talles, setTalles] = React.useState([]);
-
     const filterItems = [
         {
             name: "Categoría",
@@ -51,7 +49,6 @@ export default function SortOrFilter() {
             return ({
                 filter: {
                     ...req.filter,
-                    talles: talles,
                     categories: categories,
                 },
                 sort: {
@@ -72,7 +69,6 @@ export default function SortOrFilter() {
         resetFilter();
         setCategories([]);
         setActiveItems([]);
-        setTalles([]);
         setSortPrice(SortType.NONE);
     }
 

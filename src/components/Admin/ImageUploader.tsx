@@ -1,10 +1,7 @@
 import {Button, Form, Icon, PlaceholderParagraph} from "semantic-ui-react";
 import React from "react";
-import storage from "../../../firebase.config";
-import {getDownloadURL, ref, uploadBytesResumable} from "firebase/storage";
-import Compressor from 'compressorjs';
 import GButton, {ButtonType} from "../Utils/GButton";
-import FirebaseService from "../../../service/FirebaseService";
+import FirebaseService, {IMAGE_QUALITY, ImageUploadingOptions} from "../../../service/FirebaseService";
 import ToastUtils from "../../utils/toastUtils";
 
 
@@ -17,61 +14,16 @@ export default function ImageUploader({onChange, images, error}) {
     }
 
     const getPromiseFrom = (file) => {
-        return new Promise((resolve, reject) => {
-
-            new Compressor(file, {
-                quality: 0.6,
-                width: 1200,
-                height:1800,
-                success(fileC: File | Blob) {
-                    const storageRef = ref(storage, `/files/${file.name}`)
-                    const uploadTask = uploadBytesResumable(storageRef, fileC);
-
-                    uploadTask.on(
-                        "state_changed",
-                        () => {
-                            setLoading(true);
-                        },
-                        (err) => reject(err),
-                        () => {
-                            // download url
-                            getDownloadURL(uploadTask.snapshot.ref).then((url) => {
-                                resolve(url);
-                            });
-                        }
-                    );
-                }
-            })
-        })
+        return FirebaseService.upload(file, () => setLoading(true))
     }
 
     const previewPromise: (file) => Promise<any> = (file) => {
-        return new Promise((resolve, reject) => {
-
-            new Compressor(file, {
-                quality: 0.6,
-                width: 666,
-                height: 666,
-                success(fileC: File | Blob) {
-                    const storageRef = ref(storage, `/files/preview_${file.name}`)
-                    const uploadTask = uploadBytesResumable(storageRef, fileC);
-
-                    uploadTask.on(
-                        "state_changed",
-                        () => {
-                            setLoading(true);
-                        },
-                        (err) => reject(err),
-                        () => {
-                            // download url
-                            getDownloadURL(uploadTask.snapshot.ref).then((url) => {
-                                resolve(url);
-                            });
-                        }
-                    );
-                }
-            })
-        })
+        const options : ImageUploadingOptions = {
+            quality: IMAGE_QUALITY.HIGH,
+            width: 666,
+            height: 666,
+    }
+        return FirebaseService.upload(file,() => setLoading(true), options, `preview_${file.name}`)
     }
 
     const upload = () => {

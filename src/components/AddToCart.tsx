@@ -1,7 +1,6 @@
 import {Product, SaleItem} from "../types";
 import React from "react";
 import {Divider} from "semantic-ui-react";
-import styles from "../../styles/Home.module.css";
 import AmountPicker from "./Utils/AmountPicker";
 import ToastUtils from "../utils/toastUtils";
 import {addItem, show} from "../../slices/sidebarSlice";
@@ -12,6 +11,7 @@ import {hideModal} from "../../slices/modalSlice";
 import TalleSelector from "./Utils/TalleSelector";
 import Features from "./Utils/Features";
 import GTitle, {GTitleSize} from "./Utils/GTitle";
+import {GColors} from "../utils/GColors";
 
 interface Props {
     product?: Product;
@@ -52,7 +52,7 @@ export default function AddToCart(props: Props) {
     const isInvalidAmount = amount <= 0 && formSubmitted;
 
     return <div style={{marginBottom: 16}}>
-        <GTitle className={styles.font} size={GTitleSize.LARGE}>{moneyPipe(props.product?.price as number)}</GTitle>
+        <GTitle style={{margin: "16px 0"}} size={GTitleSize.LARGE} color={GColors.DARKGRAY_COLOR}>{moneyPipe(props.product?.price as number)}</GTitle>
         <TalleSelector showLabel talles={talle} onSelect={ (t) => setTalle(t)} tallesToSelect={props.product?.talles} multiple={false} error={isInvalidTalle}/>
         <Features setFeatures={setFeatures} productFeatures={props.product?.features || []} />
         <Divider/>

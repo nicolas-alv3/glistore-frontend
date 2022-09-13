@@ -2,6 +2,7 @@ import {Button, Icon} from "semantic-ui-react";
 import styles from '../../../styles/Utils.module.css';
 import {SemanticICONS, SemanticSIZES} from "semantic-ui-react/dist/commonjs/generic";
 import {ReactNode} from "react";
+import {GColors, isDark} from "../../utils/GColors";
 
 export enum ButtonType {
     PRIMARY,
@@ -41,6 +42,27 @@ export default function GButton(props: Props) {
         }
         return classes[props.type]
     }
+
+    function getColor() {
+        const variables = {
+            [ButtonType.PRIMARY]: GColors.PRIMARY_COLOR,
+            [ButtonType.PRIMARY_BASIC]: GColors.WHITE_COLOR,
+            [ButtonType.SECONDARY]: GColors.SECONDARY_COLOR,
+            [ButtonType.TERTIARY]: GColors.TERTIARY_COLOR,
+            [ButtonType.ORANGE]: GColors.DARKGRAY_COLOR,
+            [ButtonType.DANGER]: GColors.DANGER_COLOR,
+            [ButtonType.TRANSPARENT]: GColors.PRIMARY_COLOR,
+        }
+        return variables[props.type];
+    }
+
+    const getColorForTextOrIcon = () => {
+        if(props.type === ButtonType.TRANSPARENT) {
+            return getColor();
+        }
+        return isDark(getColor(), true) ? "var(--col-white)": "var(--col-darkgray)";
+    }
+
     return <>
         <Button
             className={getClass() + " " + props.className}
@@ -52,9 +74,11 @@ export default function GButton(props: Props) {
             size={props.size}
             loading={props.loading}
         >
-            {props.icon && <Icon name={props.icon}/>}
-            {props.children}
-            <span className={props.text && styles.gButtonText}>{props.text}</span>
+            <span style={{color: getColorForTextOrIcon()}}>
+                {props.icon && <Icon className={!props.text ? styles.gIcon : ""} name={props.icon} />}
+                {props.children || <span className={props.text && styles.gButtonText}>{props.text}</span>}
+            </span>
+
         </Button>
     </>
 }

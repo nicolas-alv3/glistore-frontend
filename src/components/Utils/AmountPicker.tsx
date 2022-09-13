@@ -3,6 +3,7 @@ import styles from "../../../styles/Utils.module.css";
 import React from "react";
 import GButton, {ButtonType} from "./GButton";
 import GTitle, {GTitleSize} from "./GTitle";
+import {GColors} from "../../utils/GColors";
 
 interface Props {
     onAmountChange: (n: number) => void,
@@ -21,7 +22,7 @@ export default function AmountPicker(props: Props) {
         setAmount(amount - 1);
     }
     return <div className={styles.amountPicker}>
-        <GTitle className={styles.font} size={GTitleSize.SMALL}>Cantidad:</GTitle>
+        <GTitle color={GColors.SECONDARY_FONT} size={GTitleSize.SMALL}>Cantidad:</GTitle>
         <GButton type={ButtonType.TERTIARY} circular icon={"minus"} onClick={handleAmountChangeMinus}/>
         <Input className={styles.numberInput} type={"number"} value={amount} error={amount <= 0}/>
         <GButton type={ButtonType.TERTIARY} circular icon={"plus"} onClick={handleAmountChangePlus}/>
