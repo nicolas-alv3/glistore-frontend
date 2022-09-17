@@ -22,7 +22,6 @@ export default function CartItemComponent(props: Props) {
                 {props.item.product.description}
             </Item.Description>
             <Item.Meta>{props.item.amount}u.</Item.Meta>
-            <Item.Extra>{`Talle ${props.item.talle}`}</Item.Extra>
             {props.item.features.map( (f) => <Item.Extra key={f.name}>{`${f.name}: ${f.value}`}</Item.Extra>)}
             <div style={{display: "flex", justifyContent: "flex-end"}}>
                 <Item.Header as={Header}>${props.item.product.price}</Item.Header>
