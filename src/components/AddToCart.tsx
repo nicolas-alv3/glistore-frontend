@@ -32,7 +32,6 @@ export default function AddToCart(props: Props) {
             talle,
             features: Object.keys(features).map( k => ({ name: k, value: features[k].toString()}))
         }
-        console.log(cartItem)
         dispatch(addItem(cartItem as unknown as SaleItem));
         props.onAdd && props.onAdd();
         ToastUtils.success("Perfecto!")

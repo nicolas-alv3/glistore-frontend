@@ -32,7 +32,6 @@ export default function ProductCard({product, loading}) {
     const dispatch = useDispatch();
 
     const handleCardClick = () => {
-        console.log("Setting last id ", product._id )
         setId(product._id);
         router.push({pathname: "/product", query: {id: product._id, product: JSON.stringify(product)}, })
     }
