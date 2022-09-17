@@ -8,7 +8,6 @@ import {useDispatch} from "react-redux";
 import GButton, {ButtonType} from "./Utils/GButton";
 import {moneyPipe} from "../utils/parseUtils";
 import {hideModal} from "../../slices/modalSlice";
-import TalleSelector from "./Utils/TalleSelector";
 import Features from "./Utils/Features";
 import GTitle, {GTitleSize} from "./Utils/GTitle";
 import {GColors} from "../utils/GColors";
@@ -20,7 +19,6 @@ interface Props {
 
 export default function AddToCart(props: Props) {
     const [amount, setAmount] = React.useState(1);
-    const [talle, setTalle] = React.useState<string[]>([]);
     const [formSubmitted, setFormSubmitted] = React.useState(false);
     const [features, setFeatures] = React.useState({});
     const dispatch = useDispatch();
@@ -29,7 +27,6 @@ export default function AddToCart(props: Props) {
         const cartItem = {
             product: props.product,
             amount,
-            talle,
             features: Object.keys(features).map( k => ({ name: k, value: features[k].toString()}))
         }
         dispatch(addItem(cartItem as unknown as SaleItem));
@@ -40,7 +37,7 @@ export default function AddToCart(props: Props) {
     }
 
     const addToCart = () => {
-        if (amount > 0 && talle.length) {
+        if (amount > 0) {
             addCorrect()
         } else {
             setFormSubmitted(true);
@@ -48,12 +45,10 @@ export default function AddToCart(props: Props) {
         }
     }
 
-    const isInvalidTalle = !talle.length && formSubmitted;
     const isInvalidAmount = amount <= 0 && formSubmitted;
 
     return <div style={{marginBottom: 16}}>
         <GTitle style={{margin: "16px 0"}} size={GTitleSize.LARGE} color={GColors.DARKGRAY_COLOR}>{moneyPipe(props.product?.price as number)}</GTitle>
-        <TalleSelector showLabel talles={talle} onSelect={ (t) => setTalle(t)} tallesToSelect={props.product?.talles} multiple={false} error={isInvalidTalle}/>
         <Features setFeatures={setFeatures} productFeatures={props.product?.features || []} />
         <Divider/>
         <AmountPicker onAmountChange={setAmount} isInvalidAmount={isInvalidAmount}/>

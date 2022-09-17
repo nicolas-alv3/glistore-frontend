@@ -20,7 +20,6 @@ export interface GFeature {
 }
 
 export interface Product {
-    talles: string[],
     features: GFeature[],
     _id: string,
     name: string,
@@ -63,7 +62,6 @@ export interface SearchRequest {
       date: SortType
     }
     filter: {
-        talles: string[],
         categories: string[]
     },
 }

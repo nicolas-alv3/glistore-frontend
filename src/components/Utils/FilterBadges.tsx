@@ -18,14 +18,11 @@ export function FilterBadge(props: { text: string, onDelete?: Function, value: s
 }
 
 export default function FilterBadges(props: { req: SearchRequest }) {
-    const {removeTalle, removeCategory} = useGRouter();
+    const {removeCategory} = useGRouter();
     const handleCategoryDelete = (cat: string) => removeCategory(cat);
-    const handleTalleDelete = (t: string) => removeTalle(t);
 
     return <div>
         {props.req.filter.categories.map(cat => <FilterBadge key={cat} value={cat} text={cat}
                                                              onDelete={handleCategoryDelete}/>)}
-        {props.req.filter.talles.map(t => <FilterBadge key={t} value={t} text={"Talle " + t}
-                                                       onDelete={handleTalleDelete}/>)}
     </div>;
 }

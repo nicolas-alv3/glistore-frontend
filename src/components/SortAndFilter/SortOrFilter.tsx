@@ -63,7 +63,7 @@ export default function SortOrFilter() {
 
     const items = filter ? filterItems : sortItems;
 
-    const someFilterIsApplied = getReq().filter.talles.length > 0 || getReq().filter.categories.length > 0
+    const someFilterIsApplied = getReq().filter.categories.length > 0 || getReq().sort.date !== SortType.NONE || getReq().sort.price
 
     const cleanFilters = () => {
         resetFilter();

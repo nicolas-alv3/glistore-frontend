@@ -20,25 +20,6 @@ class ProductService {
         return API.get(this.path + "/")
     }
 
-    getTalles(): string[] {
-        return [
-            "000",
-            "00",
-            "0",
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "8",
-            "10",
-            "12",
-            "14",
-            "Único"
-        ]
-    }
-
     create(p: Product) {
         return API.post(this.path + "/", p)
     }
