@@ -11,7 +11,6 @@ import {GTemplate, Product} from "../../src/types";
 import Image from "next/image";
 import largeLogo from "../../public/logo_pomelo_largo.png";
 import FirebaseService from "../../service/FirebaseService";
-import GBadge, {GBadgeType} from "../../src/components/Utils/GBadge";
 import {moneyPipe} from "../../src/utils/parseUtils";
 import GTable from "../../src/components/Utils/GTable";
 import GTitle, {GTitleSize} from "../../src/components/Utils/GTitle";
@@ -79,7 +78,7 @@ function ProductsTable({products, update}) {
             .catch(() => ToastUtils.error("Ha ocurrido un error"));
     }
 
-    const headers = ["Nombre", "Talles", "Visible", "Precio", "Acciones"];
+    const headers = ["Nombre", "Visible", "Precio", "Acciones"];
 
     const openEditModal = (p) => {
         ModalUtils.openModal(<AddEditProductModal product={p} update={update}/>)
@@ -89,7 +88,6 @@ function ProductsTable({products, update}) {
 
     const columns = [
         (p: Product) => p.name,
-        (p: Product) => p.talles.map(t => <GBadge key={t} type={GBadgeType.SECONDARY} text={t}/>),
         (p: Product) => <Icon name={"eye"} color={p.visible ? "green" : "orange"}/>,
         (p: Product) => moneyPipe(p.price),
         (p: Product) => <>

@@ -55,7 +55,6 @@ export function isDark(variable: string, hasVarAhead: boolean) {
         0.587 * (g * g) +
         0.114 * (b * b)
     );
-    console.log(variable + " is " + ((hsp<127.5) ? "Dark": "Light"),color)
 
     // Using the HSP value, determine whether the color is light or dark
     return (hsp < 127.5) && hsp !== 0

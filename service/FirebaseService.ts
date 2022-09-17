@@ -16,7 +16,6 @@ export interface ImageUploadingOptions {
 
 class ImageService {
     removeFromFirestore = (images: string[]) => {
-        console.log("Deleting ", images)
         return new Promise((resolve, reject) => {
             images.forEach(imageUrl => {
                 const storageRef = ref(storage, imageUrl)

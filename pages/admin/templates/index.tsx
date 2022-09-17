@@ -28,7 +28,6 @@ export default function Templates() {
     }
 
     const handleDelete = (t) => {
-        console.log(t)
         ModalUtils.dialog("Eliminar formato", "¿Estas segur@ que deseas eliminarla?", () => deleteTemplate(t))
     }
 

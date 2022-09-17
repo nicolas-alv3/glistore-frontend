@@ -6,7 +6,6 @@ import SelectFilter, {SelectFilterType} from "../SortAndFilter/SelectFilter";
 import ImageUploader from "./ImageUploader";
 import ToastUtils from "../../utils/toastUtils";
 import {GFeature, GTemplate, Product} from "../../types";
-import TalleSelector from "../Utils/TalleSelector";
 import GButton, {ButtonType} from "../Utils/GButton";
 import GBadge, {GBadgeType} from "../Utils/GBadge";
 import EnumSelector from "../Utils/EnumSelector";
@@ -28,7 +27,6 @@ export default function AddEditProductModal(props: Props) {
     const [description, setDescription] = React.useState(props.product?.description || "");
     const [price, setPrice] = React.useState(props.product?.price);
     const [discount, setDiscount] = React.useState(props.product?.discount);
-    const [selectedTalles, setSelectedTalles] = React.useState(props.product?.talles || []);
     const [images, setImages] = React.useState<string[]>(props.product?.images || []);
     const [isTrending, setIsTrending] = React.useState<boolean>(typeof props.product?.isTrending !== 'boolean' ? false : props.product?.isTrending);
     const [features, setFeatures] = React.useState(props.template?.features);
@@ -40,7 +38,6 @@ export default function AddEditProductModal(props: Props) {
         setDescription("");
         setPrice(undefined);
         setDiscount(undefined);
-        setSelectedTalles([]);
         setImages([]);
         setIsTrending(false);
         setIsVisible(false);
@@ -73,10 +70,9 @@ export default function AddEditProductModal(props: Props) {
             description,
             price,
             images,
-            talles,
             category,
         } = createProductBody();
-        const isCorrect = name && description && price && talles?.length && category && images?.length;
+        const isCorrect = name && description && price && category && images?.length;
         if (!isCorrect) {
             ToastUtils.error("Hay errores en el formulario");
             setSubmitted(true);
@@ -92,7 +88,6 @@ export default function AddEditProductModal(props: Props) {
             discount: discount || 0,
             images: images.filter(i => !i.includes("preview")),
             preview: images.find(i => i.includes("preview")) || images[0],
-            talles: selectedTalles,
             category: category,
             isTrending,
             visible: isVisible,
@@ -168,12 +163,10 @@ export default function AddEditProductModal(props: Props) {
                 <Divider/>
                 {
                     props.template?.features.map( f => (
-                        <EnumSelector label={f.name} key={f.name} valueSelected={features!!.find(o => o.name == f.name)!!.options} onSelect={(v) => handleFeatureSelected(v as string[],f)} multiple options={f.enumerable}/>
+                        <EnumSelector label={f.name + " disponibles para este producto"} key={f.name} valueSelected={features!!.find(o => o.name == f.name)!!.options} onSelect={(v) => handleFeatureSelected(v as string[],f)} multiple options={f.enumerable}/>
                     ))
                 }
                 <Divider/>
-                <TalleSelector showLabel multiple onSelect={(talles: string[]) => setSelectedTalles(talles)}
-                               talles={selectedTalles} error={submitted && !selectedTalles.length}/>
                 <Form.Field error={!category && submitted}>
                     <Divider/>
                     <label>Categoría</label>

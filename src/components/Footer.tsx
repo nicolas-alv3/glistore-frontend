@@ -42,7 +42,7 @@ export default function Footer() {
                             <p><Icon name={"facebook"} color={"grey"}/>
                                 Facebook</p>
                         </List.Item>
-                        <List.Item as='a' href={WhatsappService.getWhatsappLink()}>
+                        <List.Item as='a' href={WhatsappService.getWhatsappLink(config.phoneNumber)}>
                             <p><Icon name={"whatsapp"} color={"grey"}/>
                                 Whatsapp</p>
                         </List.Item>

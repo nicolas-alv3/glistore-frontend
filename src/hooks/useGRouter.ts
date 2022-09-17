@@ -13,7 +13,6 @@ export function useGRouter() {
         page: 1,
         pageSize: 10,
         filter: {
-            talles: [],
             categories: [],
         }
     }
@@ -28,7 +27,6 @@ export function useGRouter() {
             page: 1,
             pageSize: 10,
             filter: {
-                talles: paramReq.filter?.talles,
                 categories: paramReq.filter?.categories,
             }
         }
@@ -43,7 +41,6 @@ export function useGRouter() {
                     categories: fullReq.filter?.categories.toString(),
                     sortPrice: fullReq.sort?.price,
                     sortDate: fullReq.sort?.date,
-                    talles: fullReq.filter?.talles.toString()
                 },
             }
         )
@@ -62,7 +59,6 @@ export function useGRouter() {
         page: Number(router.query.page) || 1,
         pageSize: 10,
         filter: {
-            talles: splitURL(router.query.talles as string || ""),
             categories: splitURL(router.query.categories as string || ""),
         }
     });
@@ -77,15 +73,5 @@ export function useGRouter() {
         }))
     }
 
-    const removeTalle = (talle: string) => {
-        navigate( (sReq) => ({
-            ...sReq,
-            filter: {
-                ...sReq.filter,
-                talles: sReq.filter.talles.filter(t => t!==talle)
-            }
-        }))
-    }
-
-    return {router, getReq, navigate, resetFilter, removeCategory, removeTalle};
+    return {router, getReq, navigate, resetFilter, removeCategory};
 }

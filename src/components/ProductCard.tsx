@@ -32,7 +32,6 @@ export default function ProductCard({product, loading}) {
     const dispatch = useDispatch();
 
     const handleCardClick = () => {
-        console.log("Setting last id ", product._id )
         setId(product._id);
         router.push({pathname: "/product", query: {id: product._id, product: JSON.stringify(product)}, })
     }
@@ -63,7 +62,6 @@ export default function ProductCard({product, loading}) {
                     }
                     <Card.Content className={styles.cardContent}  onClick={handleCardClick}>
                         <h2>{product.name}</h2>
-                        <h3>Talles: {product.talles.toString()}</h3>
                         <h3>{product.description}</h3>
                         <h4>{moneyPipe(product.price)}</h4>
                     </Card.Content>

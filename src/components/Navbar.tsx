@@ -1,10 +1,9 @@
 import styles from '../../styles/Home.module.css';
-import React, {CSSProperties, useEffect} from "react";
+import React, {CSSProperties} from "react";
 import {useRouter} from "next/router";
-import {isAdminLogged} from "../utils/loginUtils";
 import {selectCart, toggle} from "../../slices/sidebarSlice";
 import {useDispatch, useSelector} from "react-redux";
-import {Button, Icon, Input} from "semantic-ui-react";
+import {Input} from "semantic-ui-react";
 import GButton, {ButtonType} from "./Utils/GButton";
 import {toggleNavMenu} from "../../slices/navMenuSlice";
 
@@ -13,15 +12,10 @@ export default function Navbar() {
     const cart = useSelector(selectCart);
     const [searchInput, setSearchInput] = React.useState("");
     const router = useRouter();
-    const [isUserLogged, setIsUserLogged] = React.useState(false);
     const dispatch = useDispatch()
 
 
     const handleSearchChange = (e) => setSearchInput(e.target.value);
-
-    useEffect(() => {
-        setIsUserLogged(isAdminLogged())
-    }, [])
 
     const submitSearch = (e) => {
         e.preventDefault();
@@ -66,8 +60,5 @@ export default function Navbar() {
                 </GButton>
             </div>
         </nav>
-        {isUserLogged && !router.pathname.includes("admin") &&
-            <Button icon circular size={"large"} color={"orange"} className={styles.configButton}
-                    onClick={() => router.push({pathname: "/admin"})}><Icon name={"setting"}/></Button>}
     </>;
 }

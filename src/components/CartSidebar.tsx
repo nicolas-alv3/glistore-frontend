@@ -12,9 +12,11 @@ import CartItemComponent from "./CartItemComponent";
 import Image from "next/image";
 import SalesService from "../../service/SalesService";
 import GTitle, {GTitleSize} from "./Utils/GTitle";
+import {useConfig} from "../hooks/useConfig";
 
 
 export default function CartSidebar() {
+    const {config} = useConfig();
     const cart = useSelector(selectCart);
     const [editMode, setEditMode] = React.useState(false);
     const show = useSelector(selectShow);
@@ -37,7 +39,7 @@ export default function CartSidebar() {
         }
         SalesService.createSale(sale)
             .then(res => {
-                WhatsappService.sendMessageToStore(res.message);
+                WhatsappService.sendWhatsappMessage(res.message, config.phoneNumber);
             })
     }
     const deleteAll = () => {

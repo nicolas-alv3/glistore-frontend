@@ -16,7 +16,9 @@ export default function NavMenu() {
         getCartFromReload();
     }, [])
 
-    const hideSidebar = () => dispatch(hideNavMenu())
+    const hideSidebar = () => dispatch(hideNavMenu());
+
+    const itemStyle = {display: "flex", justifyContent: "flex-start", gap: 8, padding: "16px 0"};
 
     return <Sidebar
         as={Menu}
@@ -31,36 +33,36 @@ export default function NavMenu() {
     >
         <div onClick={hideSidebar} style={{cursor: "pointer"}}>
             <Link href={"/"}>
-                <div style={{display: "flex", justifyContent: "flex-start", gap: 8}}>
+                <div style={itemStyle}>
                     <Icon name={"home"}/>
                     <p>Home</p>
                 </div>
             </Link>
-            <Divider/>
+            <Divider fitted/>
 
             <Link href={"/admin/templates"}>
-                <div style={{display: "flex", justifyContent: "flex-start", gap: 8}}>
+                <div style={itemStyle}>
                     <Icon name={"book"}/>
                     <p>Formatos</p>
                 </div>
             </Link>
-            <Divider/>
+            <Divider fitted/>
 
             <Link href={"/admin"}>
-                <div style={{display: "flex", justifyContent: "flex-start", gap: 8}}>
+                <div style={itemStyle}>
                     <Icon name={"user"}/>
                     <p>Admin</p>
                 </div>
             </Link>
-            <Divider/>
+            <Divider fitted/>
 
             <Link href={"/admin/settings"}>
-                <div style={{display: "flex", justifyContent: "flex-start", gap: 8}}>
+                <div style={itemStyle}>
                     <Icon name={"configure"}/>
                     <p>Configuración</p>
                 </div>
             </Link>
-            <Divider/>
+            <Divider fitted/>
         </div>
     </Sidebar>
 }

@@ -14,7 +14,6 @@ export const initialState: FilterState = {
         pageSize:10,
         page:1,
         filter: {
-            talles: [],
             categories: []
         },
         sort: {
@@ -32,9 +31,6 @@ export const filterSlice = createSlice({
         setName: (state, name: PayloadAction<string>) => {
             state.req.name = name.payload;
         },
-        setTalles: (state, talles: PayloadAction<string[]>) => {
-            state.req.filter.talles = talles.payload;
-        },
         setId: (state, id) => {
             state.lastVisitedId = id.payload
         },
@@ -48,15 +44,11 @@ export const filterSlice = createSlice({
         removeCategory: (state, category: PayloadAction<string>) => {
             state.req.filter.categories = state.req.filter.categories.filter(c => c!== category.payload);
         },
-        removeTalle: (state, talle: PayloadAction<string>) => {
-            state.req.filter.talles = state.req.filter.talles.filter(c => c!== talle.payload);
-        },
+
         cleanFilter: (state) => {
             state.req.filter.categories = [];
-            state.req.filter.talles = [];
         },
         setPagination: (state, params) => {
-            console.log(params.payload)
             state.req.page = params.payload;
         }
     },
