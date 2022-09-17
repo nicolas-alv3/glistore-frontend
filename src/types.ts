@@ -41,7 +41,6 @@ export interface FeatureItem {
 export interface SaleItem {
     product: Product,
     amount: number,
-    talle: string,
     features: FeatureItem[]
 }
 

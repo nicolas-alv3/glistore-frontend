@@ -41,7 +41,7 @@ export default function AddToCart(props: Props) {
             addCorrect()
         } else {
             setFormSubmitted(true);
-            ToastUtils.error("Debes elegir un talle y cantidad primero!")
+            ToastUtils.error("Debes elegir una cantidad primero!")
         }
     }
 

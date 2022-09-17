@@ -47,6 +47,6 @@ export default function EnumSelector(props: Props) {
                 </GButton>
             </>)}
         </div>
-        {props.error && <label style={{color:"red"}}>Debes elegir un talle</label>}
+        {props.error && <label style={{color:"red"}}>Este campo es requerido</label>}
     </Form.Field>
 }
