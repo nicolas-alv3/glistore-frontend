@@ -16,7 +16,8 @@ export interface GFeature {
     enumerable: string[],
     //Options are choosen by user
     options: string[],
-    required?: boolean
+    required?: boolean,
+    priceAdded: number
 }
 
 export interface Product {

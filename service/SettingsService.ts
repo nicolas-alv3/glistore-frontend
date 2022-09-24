@@ -1,8 +1,8 @@
 import API from "./api";
 import {GConfig} from "../src/types";
 
-class ConfigService {
-    path = "/config";
+class SettingsService {
+    path = "/api/settings";
     id = "631cb3716b2e061dd85ebee9"
 
     getConfig(): Promise<GConfig> {
@@ -14,4 +14,4 @@ class ConfigService {
     }
 }
 
-export default new ConfigService();
+export default new SettingsService();

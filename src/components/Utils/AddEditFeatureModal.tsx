@@ -3,6 +3,10 @@ import {FeatureType, GFeature} from "../../types";
 import React from "react";
 import {FilterBadge} from "./FilterBadges";
 import GButton, {ButtonType} from "./GButton";
+import GToggle from "./GToggle";
+import GInput from "./GInput";
+import GForm from "./GForm";
+import GPriceInput from "./GPriceInput";
 
 interface Props {
     onChange: (feature: GFeature) => void,
@@ -18,6 +22,8 @@ export default function AddEditFeatureModal(props: Props) {
     const [item, setItem] = React.useState("");
     const [type, setType] = React.useState<FeatureType>(FeatureType.ENUM_SIMPLE);
     const [items, setItems] = React.useState<string[]>([]);
+    const [addPrice, setAddPrice] = React.useState<boolean>(false);
+    const [price, setPrice] = React.useState<string | number>("");
 
     const addToItems = () => {
         if(item) {
@@ -39,6 +45,7 @@ export default function AddEditFeatureModal(props: Props) {
         setItem("");
         setItems([]);
         setType(FeatureType.ENUM_SIMPLE);
+        setPrice("");
     }
 
     const isValidForm = () => name && items.length;
@@ -50,7 +57,8 @@ export default function AddEditFeatureModal(props: Props) {
                 type,
                 options:[],
                 enumerable: items,
-                required: true
+                required: true,
+                priceAdded: parseInt(price.toString()) || 0
             })
             setOpen(false);
             resetForm();
@@ -71,11 +79,8 @@ export default function AddEditFeatureModal(props: Props) {
     return <Modal open={open} onClose={() => setOpen(false)} size={"tiny"}>
         <Modal.Header>Agregar característica </Modal.Header>
         <Modal.Content>
-        <Form onSubmit={addToItems}>
-            <Form.Field error={submitted && name.length == 0}>
-                <label>Nombre</label>
-                <input value={name} onChange={e => setName(e.target.value)} placeholder='Aderezos'/>
-            </Form.Field>
+        <GForm onSubmit={addToItems}>
+            <GInput label={"Nombre"} value={name} onChange={ value => setName(value)} error={false} errorMessage={""}/>
             <Form.Field>
                 <label>Tipo de selección</label>
                 <Menu compact>
@@ -85,11 +90,26 @@ export default function AddEditFeatureModal(props: Props) {
                 <label>Agregar items seleccionables</label>
                 <Input action={{icon: 'arrow right'}} placeholder='Ketchup, mayonesa, mostaza...' input={<input value={item} onChange={handleItemChange}/>}/>
             </FormField>
-        </Form>
+        </GForm>
         {
             items.map(i => <FilterBadge key={i} value={i} text={i} onDelete={() => handleDelete(i)} />)
         }
-            </Modal.Content>
+        <div style={ { display: "flex", justifyContent: "space-between", margin: "16px 0" } }>
+            <label><b>Agrega precio</b></label>
+            <GToggle checked={addPrice}  onChange={ setAddPrice }/>
+        </div>
+            {
+                addPrice &&
+                <GForm>
+
+                    <GPriceInput
+                        label={"Precio agregado"}
+                        helpBubbleText={"Este precio sera agregado al producto cuando sea seleccionado"}
+                        error={!price}
+                        errorMessage={"El precio debe ser mayor a cero"} />
+                </GForm>
+            }
+        </Modal.Content>
         <Modal.Actions>
             <GButton type={ButtonType.TERTIARY} text={"Cancelar"} onClick={() => setOpen(false)}/>
             <GButton type={ButtonType.PRIMARY} text={"Agregar"} onClick={handleSubmit}/>

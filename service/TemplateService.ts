@@ -2,7 +2,7 @@ import {GTemplate} from "../src/types";
 import API from "./api";
 
 class TemplateService {
-    path = "/template"
+    path = "/api/templates"
 
     getTemplates() {
         return API.get(this.path + "/")

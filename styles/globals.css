@@ -47,3 +47,21 @@ a {
     --col-lightgray: #838383;
     --col-darkgray: #3D3D3D ;
 }
+
+.flex-start {
+    display: flex;
+    justify-content: flex-start;
+    gap: 8px;
+}
+
+.flex-center {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+
+.flex-between {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+}

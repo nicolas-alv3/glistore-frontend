@@ -7,9 +7,10 @@ import GButton, {ButtonType} from "../../../src/components/Utils/GButton";
 import ActionBar from "../../../src/utils/ActionBar";
 import {GColorPallette, GConfig} from "../../../src/types";
 import LogoPicture from "../../../src/components/Admin/Settings/LogoImage";
-import ConfigService from "../../../service/ConfigService";
+import ConfigService from "../../../service/SettingsService";
 import ToastUtils from "../../../src/utils/toastUtils";
 import {loadVariables, useConfig} from "../../../src/hooks/useConfig";
+import WhatsappService from "../../../service/WhatsappService";
 
 export default function Settings() {
     const { reloadConfig } = useConfig();
@@ -114,7 +115,7 @@ export default function Settings() {
             .then( () => {
                 ToastUtils.success("Actualizado!");
                 reloadConfig();
-                setOldConfig(getBody);
+                setOldConfig(getBody());
                 loadVariables(getBody());
             });
     }
@@ -139,12 +140,21 @@ export default function Settings() {
             <GTitle size={GTitleSize.MEDIUM} title={"Datos de contacto"} withDivider/>
             <GForm onSubmit={() => {
             }}>
-                <GInput onChange={setInstaUser} label={"Usuario de instagram"} error={false} errorMessage={""}
-                        value={instaUser} placeholder={"Ingrese usuario de instagram"}/>
-                <GInput onChange={setFbLink} label={"Link de Facebook"} error={false} errorMessage={""} value={fbLink}
-                        placeholder={"Ingrese link de facebook"}/>
+                <div className={"flex-start"}>
+                    <GInput onChange={setInstaUser}  label={"Link de instagram"} error={false} errorMessage={""}
+                            value={instaUser} placeholder={"Ingrese usuario de instagram"}/>
+                    <GButton type={ButtonType.TRANSPARENT} icon={"linkify"} text={"Probar link"} onClick={ () => window.open(instaUser, '_blank')}/>
+                </div>
+                <div className={"flex-start"}>
+                    <GInput onChange={setFbLink} label={"Link de Facebook"} error={false} errorMessage={""} value={fbLink}
+                            placeholder={"Ingrese link de facebook"}/>
+                    <GButton type={ButtonType.TRANSPARENT} icon={"linkify"} text={"Probar link"} onClick={ () => window.open(fbLink, '_blank')}/>
+                </div>
+                <div className={"flex-start"}>
                 <GInput onChange={setPhoneNumber} label={"Numero de whatsapp (sin espacios)"} error={false}
                         errorMessage={""} value={phoneNumber} placeholder={"+5491112345678"}/>
+                    <GButton type={ButtonType.TRANSPARENT} icon={"whatsapp"} text={"Probar link"} onClick={ () => WhatsappService.sendWhatsappMessage("Hey! La prueba fue exitosa :D", phoneNumber)}/>
+                </div>
             </GForm>
         </Segment>
 

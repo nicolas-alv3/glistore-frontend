@@ -105,3 +105,49 @@
 .paginatorContainer a :not(.active){
     color: var(--col-font);
 }
+
+
+
+/**
+TOGGLE
+ */
+
+/* The switch - the box around the slider */
+.switch {
+    cursor: pointer;
+    background-color: var(--col-lightgray);
+    border-radius: 20px;
+    position: relative;
+    display: inline-block;
+    width: 48px;
+    height: 24px;
+}
+
+
+/* The slider */
+.slider {
+    border-radius: 20px;
+    width: 16px;
+    height: 16px;
+    margin-top: 4px;
+    margin-left: 4px;
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--col-white);
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.sliderChecked {
+    -webkit-transform: translateX(24px);
+    -ms-transform: translateX(24px);
+    transform: translateX(24px);
+}
+
+.switchChecked {
+    background-color: var(--col-primary);
+}

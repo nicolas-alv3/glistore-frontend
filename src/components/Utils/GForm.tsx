@@ -3,7 +3,7 @@ import {ReactNode} from "react";
 
 interface Props {
     children: ReactNode,
-    onSubmit: () => void,
+    onSubmit?: () => void,
 }
 
 export default function GForm(props: Props) {

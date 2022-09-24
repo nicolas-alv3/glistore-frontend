@@ -1,6 +1,6 @@
 import {GConfig} from "../types";
 import React, {useEffect} from "react";
-import ConfigService from "../../service/ConfigService";
+import ConfigService from "../../service/SettingsService";
 import {GColors, isDark} from "../utils/GColors";
 
 function setFooterVariables(variable, root) {
