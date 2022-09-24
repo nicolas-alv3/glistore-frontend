@@ -143,7 +143,6 @@ TOGGLE
 }
 
 .sliderChecked {
-    -webkit-transform: translateX(24px);
     -ms-transform: translateX(24px);
     transform: translateX(24px);
 }

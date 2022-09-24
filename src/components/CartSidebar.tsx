@@ -13,6 +13,7 @@ import Image from "next/image";
 import SalesService from "../../service/SalesService";
 import GTitle, {GTitleSize} from "./Utils/GTitle";
 import {useConfig} from "../hooks/useConfig";
+import emptyCartURL from '../../public/empty_cart.png';
 
 
 export default function CartSidebar() {
@@ -50,8 +51,6 @@ export default function CartSidebar() {
 
     const hideSidebar = () => dispatch(hide())
 
-    const emptyCatURL = "https://media.istockphoto.com/vectors/cute-black-and-white-cat-is-sitting-in-a-cardboard-box-vector-id1284540470?k=20&m=1284540470&s=170667a&w=0&h=XOT_1QDiE_P0775yyX4ybkwgZ3-SHb_zKTIdwmDoPJg=";
-
     return <Sidebar
         as={Menu}
         animation='overlay'
@@ -62,7 +61,7 @@ export default function CartSidebar() {
         vertical
         visible={show}
     >
-        <div style={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
+        <div className={"flex-between"}>
             <GTitle size={GTitleSize.MEDIUM}>Tu carrito</GTitle>
             {
                 cart?.length > 0 &&
@@ -102,15 +101,16 @@ export default function CartSidebar() {
                     </Item.Group>
                 </> :
                 <>
-                    <GTitle size={GTitleSize.MEDIUM} centered> Aún no has agregado nada...</GTitle>
                     <Image
                         alt={"Empty cart"}
-                        loader={() => emptyCatURL}
-                        src={emptyCatURL}
+                        src={emptyCartURL}
                         width={300}
-                        height={300}
+                        height={250}
                         unoptimized
                     />
+                    <GTitle size={GTitleSize.MEDIUM} centered> Tu carrito esta vacío</GTitle>
+                    <GTitle size={GTitleSize.SMALL} centered> Parece que no has agregado nada, date una vuelta y explora nuestros productos!</GTitle>
+                    <Divider/>
                     <GButton type={ButtonType.SECONDARY} fluid onClick={hideSidebar}> Seguir mirando
                         👀 </GButton>
                 </>

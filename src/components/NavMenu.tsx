@@ -58,8 +58,8 @@ export default function NavMenu() {
 
             <Link href={"/admin/settings"}>
                 <div style={itemStyle}>
-                    <Icon name={"configure"}/>
-                    <p>Configuración</p>
+                    <Icon name={"setting"}/>
+                    <p>Ajustes</p>
                 </div>
             </Link>
             <Divider fitted/>
