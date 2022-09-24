@@ -14,7 +14,7 @@
 }
 
 .navbar {
-  margin-top: -70px;
+  margin-top: -78px;
   box-shadow: -1px 1px 20px 0 lightgrey;
   position: fixed;
   z-index: 100;
@@ -33,7 +33,6 @@
 }
 
 .navMenu {
-  padding: 16px 0;
   width: min(75%, 400px)!important;
   top: 60px !important;
 }

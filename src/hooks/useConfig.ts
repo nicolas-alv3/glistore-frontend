@@ -1,14 +1,10 @@
 import {GConfig} from "../types";
 import React, {useEffect} from "react";
 import ConfigService from "../../service/SettingsService";
-import {GColors, isDark} from "../utils/GColors";
+import {GColors} from "../utils/GColors";
 
 function setFooterVariables(variable, root) {
-    if (!isDark(variable, false)) {
-        root.style.setProperty("--col-footer-font", GColors.DARKGRAY_COLOR);
-    } else {
-        root.style.setProperty("--col-footer-font", GColors.LIGHTGRAY_COLOR);
-    }
+    root.style.setProperty("--col-footer-font", GColors.LIGHTGRAY_COLOR);
 }
 
 function setPalletteVariables(config: GConfig, root: HTMLElement) {
@@ -23,8 +19,8 @@ function setPalletteVariables(config: GConfig, root: HTMLElement) {
 
 export const loadVariables = (config: GConfig) => {
     let root = document.documentElement;
-    setFooterVariables(config.colorPalette.quaternary, root);
     setPalletteVariables(config, root)
+    setFooterVariables(config.colorPalette.quaternary, root);
 }
 
 interface ConfigHook {

@@ -10,7 +10,7 @@ import GPriceInput from "./GPriceInput";
 
 interface Props {
     onChange: (feature: GFeature) => void,
-    features: GFeature[],
+    feature?: GFeature,
 }
 
 
@@ -18,12 +18,13 @@ export default function AddEditFeatureModal(props: Props) {
     const [open, setOpen] = React.useState(true);
 
     const [submitted, setSubmitted] = React.useState(false);
-    const [name, setName] = React.useState("");
+    const [name, setName] = React.useState(props.feature?.name || "");
     const [item, setItem] = React.useState("");
-    const [type, setType] = React.useState<FeatureType>(FeatureType.ENUM_SIMPLE);
-    const [items, setItems] = React.useState<string[]>([]);
-    const [addPrice, setAddPrice] = React.useState<boolean>(false);
-    const [price, setPrice] = React.useState<string | number>("");
+    const [type, setType] = React.useState<FeatureType>(props.feature?.type || FeatureType.ENUM_SIMPLE);
+    const [items, setItems] = React.useState<string[]>(props.feature?.enumerable|| []);
+    const [addPrice, setAddPrice] = React.useState<boolean>((props.feature?.priceAdded as number > 0) || false);
+    const [price, setPrice] = React.useState<string | number>(props.feature?.priceAdded || "");
+    const [required, setRequired] = React.useState<boolean>(props.feature?.required || false);
 
     const addToItems = () => {
         if(item) {
@@ -42,6 +43,7 @@ export default function AddEditFeatureModal(props: Props) {
     }
 
     const resetForm = () => {
+        setRequired(false);
         setItem("");
         setItems([]);
         setType(FeatureType.ENUM_SIMPLE);
@@ -53,11 +55,12 @@ export default function AddEditFeatureModal(props: Props) {
     const handleSubmit = () => {
         if(isValidForm()) {
             props.onChange({
+                _id: props.feature?._id,
                 name,
                 type,
                 options:[],
                 enumerable: items,
-                required: true,
+                required,
                 priceAdded: parseInt(price.toString()) || 0
             })
             setOpen(false);
@@ -81,6 +84,7 @@ export default function AddEditFeatureModal(props: Props) {
         <Modal.Content>
         <GForm onSubmit={addToItems}>
             <GInput label={"Nombre"} value={name} onChange={ value => setName(value)} error={false} errorMessage={""}/>
+            <GToggle checked={required} label={"Es requerido"}  onChange={ setRequired }/>
             <Form.Field>
                 <label>Tipo de selección</label>
                 <Menu compact>
@@ -94,10 +98,8 @@ export default function AddEditFeatureModal(props: Props) {
         {
             items.map(i => <FilterBadge key={i} value={i} text={i} onDelete={() => handleDelete(i)} />)
         }
-        <div style={ { display: "flex", justifyContent: "space-between", margin: "16px 0" } }>
-            <label><b>Agrega precio</b></label>
-            <GToggle checked={addPrice}  onChange={ setAddPrice }/>
-        </div>
+        <GToggle checked={addPrice} label={"Agrega precio"}  onChange={ setAddPrice }/>
+
             {
                 addPrice &&
                 <GForm>

@@ -6,9 +6,10 @@ import EnumSelector from "./EnumSelector";
 interface FeatProps {
     feature: GFeature,
     setFeature: (prevState: any) => void,
+    formSubmitted: boolean
 }
 
-function Feature( props: FeatProps) {
+function Feature( props: FeatProps ) {
     const [value, setValue] = React.useState([]);
 
     const handleOnSelect = (o) => {
@@ -19,9 +20,9 @@ function Feature( props: FeatProps) {
     function getComponent() {
         switch (props.feature.type) {
             case FeatureType.ENUM_SIMPLE:
-                return <EnumSelector label={props.feature.name} valueSelected={value} options={props.feature.options || []} onSelect={handleOnSelect} />;
+                return <EnumSelector key={props.feature.name} label={props.feature.name} valueSelected={value} options={props.feature.options || []} onSelect={handleOnSelect} error={props.formSubmitted && !value.length && props.feature.required} />;
             case FeatureType.ENUM_MULT:
-                return <EnumSelector multiple label={props.feature.name} valueSelected={value} options={props.feature.options || []} onSelect={handleOnSelect} />;
+                return <EnumSelector key={props.feature.name} multiple label={props.feature.name} valueSelected={value} options={props.feature.options || []} onSelect={handleOnSelect} error={props.formSubmitted && !value.length && props.feature.required} />;
             default: return <h1>...</h1>;
         }
     }
@@ -34,11 +35,12 @@ function Feature( props: FeatProps) {
 
 interface Props {
     setFeatures: (prevState: any) => void,
-    productFeatures: GFeature[]
+    productFeatures: GFeature[],
+    formSubmitted: boolean
 }
 
 export default function Features(props: Props) {
     return <>
-        {props.productFeatures.map(f => <Feature key={f.name} feature={f} setFeature={props.setFeatures} />)}
+        {props.productFeatures.map(f => <Feature key={f.name} feature={f} setFeature={props.setFeatures} formSubmitted={props.formSubmitted} />)}
     </>
 }

@@ -10,6 +10,7 @@ export interface GTemplate {
 }
 
 export interface GFeature {
+    _id?: string,
     type: FeatureType,
     name: string,
     // Enumberables are choosen by admin

@@ -13,7 +13,7 @@ import GTitle, {GTitleSize} from "./Utils/GTitle";
 import {GColors} from "../utils/GColors";
 
 interface Props {
-    product?: Product;
+    product: Product;
     onAdd?: () => void
 }
 
@@ -37,7 +37,7 @@ export default function AddToCart(props: Props) {
     }
 
     const addToCart = () => {
-        if (amount > 0) {
+        if (amount > 0 && props.product.features.every(f => (!f.required || features[f.name]))) {
             addCorrect()
         } else {
             setFormSubmitted(true);
@@ -49,7 +49,7 @@ export default function AddToCart(props: Props) {
 
     return <div style={{marginBottom: 16}}>
         <GTitle style={{margin: "16px 0"}} size={GTitleSize.LARGE} color={GColors.DARKGRAY_COLOR}>{moneyPipe(props.product?.price as number)}</GTitle>
-        <Features setFeatures={setFeatures} productFeatures={props.product?.features || []} />
+        <Features setFeatures={setFeatures} productFeatures={props.product?.features || []} formSubmitted={formSubmitted}/>
         <Divider/>
         <AmountPicker onAmountChange={setAmount} isInvalidAmount={isInvalidAmount}/>
         <Divider/>

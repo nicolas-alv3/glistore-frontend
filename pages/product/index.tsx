@@ -85,7 +85,7 @@ const ProductDetail = () => {
                                         <GTitle size={GTitleSize.SMALL} color={GColors.SECONDARY_FONT}>{product?.description}</GTitle>
                                     </CardDescription>
                                     <Divider/>
-                                    <AddToCart product={product}/>
+                                    <AddToCart product={product as Product}/>
                                     <Divider/>
                                     <GButton type={ButtonType.SECONDARY} icon={"share alternate"}
                                              onClick={shareProduct}>Compartir</GButton>

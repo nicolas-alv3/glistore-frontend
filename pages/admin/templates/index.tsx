@@ -33,7 +33,8 @@ export default function Templates() {
 
     function getOptions(template: GTemplate): ActionOption[] {
         return [
-            {onClick: () => handleDelete(template), text: "Eliminar", icon: "delete"},
+            { onClick: () => openEditModal(template), text: "Editar", icon: "pencil" },
+            { onClick: () => handleDelete(template), text: "Eliminar", icon: "delete" },
         ]
     }
 
@@ -44,7 +45,11 @@ export default function Templates() {
     ]
     const openModal = () => ModalUtils.openModal(
         <AddEditTemplateModal update={fetchTemplates}/>
-    )
+    );
+
+    const openEditModal = (template: GTemplate) => ModalUtils.openModal(
+        <AddEditTemplateModal update={fetchTemplates} template={template}/>
+    );
     const table = <GTable elements={templates} headers={["Nombre", "Características", "Acciones"]} columns={columns}/>
     return <CRUDPage table={table} title={"Formatos"}
                      addButton={<GButton type={ButtonType.PRIMARY} text={"Agregar"} icon={"plus"}

@@ -16,8 +16,7 @@ import {useConfig} from "../src/hooks/useConfig";
 function MyApp({Component, pageProps}: AppProps) {
     const {config} = useConfig()
 
-    // Hide splash screen when we are client side
-    useEffect(() => {
+    const preloaderEffect = () => {
         if (typeof window !== 'undefined') {
             const loader = document.getElementById('globalLoader');
             if (loader){
@@ -29,6 +28,10 @@ function MyApp({Component, pageProps}: AppProps) {
                 }, 3000)
             }
         }
+    }
+    // Hide splash screen when we are client side
+    useEffect(() => {
+        //preloaderEffect()
     }, []);
 
     return <Provider store={store}>

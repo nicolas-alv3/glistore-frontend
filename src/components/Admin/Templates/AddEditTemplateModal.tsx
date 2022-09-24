@@ -20,8 +20,8 @@ export default function AddEditTemplateModal(props: Props) {
     const [open, setOpen] = React.useState(true);
     const [submitted, setSubmitted] = React.useState(false);
 
-    const [name, setName] = React.useState("");
-    const [features, setFeatures] = React.useState<GFeature[]>([]);
+    const [name, setName] = React.useState(props.template?.name || "");
+    const [features, setFeatures] = React.useState<GFeature[]>(props.template?.features || []);
 
     const resetForm = () => {
         setName("");
@@ -38,9 +38,9 @@ export default function AddEditTemplateModal(props: Props) {
     }
 
     const handleEditSubmit = (template) => {
-        TemplateService.create(template)
+        TemplateService.update(template)
             .then(() => {
-                ToastUtils.success("Creado!");
+                ToastUtils.success("Actualizado!");
                 resetForm();
                 setOpen(false);
                 props.update();
@@ -58,6 +58,7 @@ export default function AddEditTemplateModal(props: Props) {
 
     function createTemplateBody(): GTemplate {
         return {
+            _id: props.template?._id,
             name,
             features
         };
@@ -79,7 +80,11 @@ export default function AddEditTemplateModal(props: Props) {
         resetForm();
     }
 
-    const openAddModal = () => ModalUtils.openModal(<AddEditFeatureModal onChange={(f) => setFeatures(prevState => prevState.concat([f]))} features={features}/>)
+    const openAddModal = () => ModalUtils.openModal(<AddEditFeatureModal onChange={(f) => setFeatures(prevState => prevState.concat([f]))}/>)
+
+    const updateFeature = (feature: GFeature, index: number) => {
+        setFeatures(prevState => prevState.map( (f, i) => index === i ? feature : f))
+    }
 
     return <Modal
         onClose={closeModal}
@@ -99,7 +104,7 @@ export default function AddEditTemplateModal(props: Props) {
             <GTitle size={GTitleSize.SMALL}>Características</GTitle>
             <div style={{display: "flex", justifyContent:"flex-start", flexWrap:"wrap"}}>
                 {
-                    features.map(f => <FeatureCard key={f.name} feature={f}/>)
+                    features.map((f, i) => <FeatureCard key={f.name} feature={f} onUpdate={updateFeature} index={i}/>)
                 }
                 <AddDashedButton label={"Agregar característica"} onClick={openAddModal} />
             </div>

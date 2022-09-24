@@ -20,6 +20,9 @@ export function isDark(variable: string, hasVarAhead: boolean) {
     // If variable hasVarAhead should be like this var(--col-primary), otherwise should be --col-primary
     if (typeof document === "undefined") {
         return true;
+    } else {
+
+        debugger
     }
     const variableName = hasVarAhead ? variableNameOf(variable as GColors) : variable;
 

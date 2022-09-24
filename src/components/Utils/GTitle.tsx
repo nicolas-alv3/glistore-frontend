@@ -38,7 +38,7 @@ export default function GTitle(props: Props) {
     }
     return <>
         <div
-            style={{display: "flex", alignItems: "flex-end", justifyContent: props.centered ? "center" : "flex-start"}}>
+            style={{display: "flex", alignItems: "flex-end", justifyContent: props.centered ? "center" : "flex-start", margin: "8px 0"}}>
             {/*{props.withBackButton && <Button color={"facebook"} icon onClick={() => router.back()}><Icon name={"chevron left"}/></Button>}*/}
             {getHeader()}
         </div>
