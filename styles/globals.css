@@ -65,3 +65,11 @@ a {
     justify-content: space-between;
     gap: 8px;
 }
+
+.align-center {
+    align-items: center;
+}
+
+.flex-wrap {
+    flex-wrap: wrap;
+}

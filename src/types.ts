@@ -1,3 +1,5 @@
+import {SemanticICONS} from "semantic-ui-react";
+
 export enum FeatureType {
     ENUM_MULT="ENUM_MULT",
     ENUM_SIMPLE="ENUM_SIMPLE",
@@ -97,5 +99,15 @@ export interface GConfig {
     fbLink: string,
     phoneNumber: string,
     colorPalette: GColorPallette,
-    logo: string
+    logo: string,
+    menu: GMenuItem[]
+}
+
+
+export interface GMenuItem {
+    href?: string,
+    onClick?: () => void,
+    icon?: SemanticICONS,
+    text: string,
+    subItems?: GMenuItem[]
 }

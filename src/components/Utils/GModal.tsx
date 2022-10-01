@@ -6,17 +6,18 @@ import {hideModal, selectModal, setVisible} from "../../../slices/modalSlice";
 
 interface Props {
     title: string,
-    trigger: ReactNode,
+    trigger?: ReactNode,
     children: ReactNode,
     confirmText?: string,
     handleSubmit?: () => void,
     withoutButtons?: boolean,
     size? : 'mini' | 'tiny' | 'small' | 'large' | 'fullscreen',
-    id: string;
+    id: string,
+    initiallyOpened?: boolean
 }
 
 export default function GModal(props: Props) {
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = React.useState(Boolean(props.initiallyOpened));
     const dispatch = useDispatch();
 
     const modal = useSelector(selectModal);
@@ -25,7 +26,7 @@ export default function GModal(props: Props) {
         if(modal.id == props.id) {
             setOpen(modal.visible);
         }
-    }, [modal])
+    }, [modal, props.id])
 
     useEffect( () => {
         if(open){
@@ -34,7 +35,7 @@ export default function GModal(props: Props) {
         if(!open && modal.id == props.id) {
             dispatch(hideModal())
         }
-    }, [open])
+    }, [open, dispatch, modal.id, props.id])
 
     return <Modal
         onClose={() => setOpen(false)}

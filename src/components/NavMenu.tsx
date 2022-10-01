@@ -1,21 +1,15 @@
-import {Menu, SemanticICONS, Sidebar} from "semantic-ui-react";
+import {Menu, Sidebar} from "semantic-ui-react";
 import React, {useEffect} from "react";
 import styles from '../../styles/Home.module.css';
 import {hideNavMenu, selectShow} from "../../slices/navMenuSlice";
 import {useDispatch, useSelector} from "react-redux";
 import {getCartFromReload, saveCartOnReload} from "../utils/windowUtils";
-import DropdownItemMenu from "./Utils/DropdownItemMenu";
 import {useRouter} from "next/router";
+import {GMenuItem} from "../types";
+import DropdownItemMenu from "./Utils/DropdownItemMenu";
+import {useConfig} from "../hooks/useConfig";
 
-export interface MenuItem {
-    href?: string,
-    onClick?: () => void,
-    icon?: SemanticICONS,
-    text: string,
-    subItems?: MenuItem[]
-}
-
-const adminItems: MenuItem[] = [
+const adminItems: GMenuItem[] = [
     {
         href: "/",
         icon: "home",
@@ -43,31 +37,16 @@ const adminItems: MenuItem[] = [
     }
 ]
 
-const userItems: MenuItem[] = [
+export const userItems: GMenuItem[] = [
     {
         href: "/",
         icon: "home",
         text: "Home"
     },
     {
-        onClick: () => console.log("Ahre"),
+        onClick: () => console.log("Show search input"),
         icon: "search",
         text: "Buscar"
-    },
-    {
-        href: "/admin",
-        icon: "options",
-        text: "Categorias",
-        subItems: [
-            {
-                href: "/admin", text: "Sub category",icon:"list"
-            }
-        ]
-    },
-    {
-        href: "/admin/settings",
-        icon: "settings",
-        text: "Ajustes"
     }
 ]
 
@@ -76,6 +55,7 @@ export default function NavMenu() {
     const show = useSelector(selectShow);
     const dispatch = useDispatch();
     const router = useRouter();
+    const {config} = useConfig();
 
     useEffect(() => {
         saveCartOnReload();
@@ -88,7 +68,7 @@ export default function NavMenu() {
         if(router.pathname.includes("admin")){
             return adminItems;
         }
-        else return userItems;
+        else return userItems.concat(config.menu);
     }
 
     return <Sidebar

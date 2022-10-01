@@ -27,7 +27,10 @@ export default function GInput(props: Props) {
                     <input value={props.value} onChange={e => props.onChange && props.onChange(e.target.value)}
                            placeholder={props.placeholder}/>
                 }
-                <label style={{color: "red"}}>{props.errorMessage}</label>
+                {
+                    props.error &&
+                    <label style={{color: "red"}}>{props.errorMessage}</label>
+                }
             </Form.Field>
         </Form.Group>
     </>

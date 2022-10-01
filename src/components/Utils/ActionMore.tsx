@@ -5,18 +5,19 @@ import {ReactNode} from "react";
 export interface ActionOption {
     icon: SemanticICONS,
     text: string,
-    onClick: () => void,
+    onClick: () => void
 }
 
 interface Props {
-    options: ActionOption[] | ReactNode[]
+    options: ActionOption[] | ReactNode[],
+    dropdown?: boolean
 }
 
 
 export default function ActionMore(props: Props) {
     return <>
         {
-            props.options.length > 2 ?
+            props.options.length > 2 || props.dropdown ?
                 <Dropdown direction={"left"} icon={"ellipsis vertical"} item={false}>
                     <Dropdown.Menu className='left'>
                         {

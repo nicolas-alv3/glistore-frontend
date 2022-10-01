@@ -44,7 +44,8 @@ export function useConfig(): ConfigHook {
                 primaryFont: "",
                 secondaryFont: ""
             },
-            logo: ""
+            logo: "",
+            menu: []
         }
     );
 
