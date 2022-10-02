@@ -4,7 +4,7 @@ html,
 body, #root {
     color: var(--col-font) !important;
     padding: 0;
-    margin-top: 70px;
+    margin-top: 78px;
     font-family: 'Rubik', sans-serif;
 }
 

@@ -1,4 +1,4 @@
-import {Menu, Sidebar} from "semantic-ui-react";
+import {Divider, Input, Menu, Sidebar} from "semantic-ui-react";
 import React, {useEffect} from "react";
 import styles from '../../styles/Home.module.css';
 import {hideNavMenu, selectShow} from "../../slices/navMenuSlice";
@@ -42,11 +42,6 @@ export const userItems: GMenuItem[] = [
         href: "/",
         icon: "home",
         text: "Home"
-    },
-    {
-        onClick: () => console.log("Show search input"),
-        icon: "search",
-        text: "Buscar"
     }
 ]
 
@@ -56,6 +51,8 @@ export default function NavMenu() {
     const dispatch = useDispatch();
     const router = useRouter();
     const {config} = useConfig();
+    const [searchInput, setSearchInput] = React.useState("");
+
 
     useEffect(() => {
         saveCartOnReload();
@@ -71,6 +68,16 @@ export default function NavMenu() {
         else return userItems.concat(config.menu);
     }
 
+    const handleSearchChange = (e) => setSearchInput(e.target.value);
+
+    const submitSearch = (e) => {
+        e.preventDefault();
+        if (searchInput.length > 0) {
+            router.push({pathname: "/search", query: {name: searchInput}})
+            hideSidebar();
+        }
+    }
+
     return <Sidebar
         as={Menu}
         animation='push'
@@ -82,6 +89,10 @@ export default function NavMenu() {
         vertical
         visible={show}
     >
+        <form onSubmit={submitSearch} style={{margin: "8px 0"}}>
+            <Input fluid size='small' icon='search' placeholder='¿Que estas buscando?' onChange={handleSearchChange}/>
+        </form>
+        <Divider fitted/>
         <div style={{cursor: "pointer"}}>
             {
                 getItems().map(i => <DropdownItemMenu item={i} key={i.text} hideSidebar={hideSidebar}/>)
