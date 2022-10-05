@@ -11,7 +11,7 @@ interface Props {
 export default function CRUDPage(props: Props) {
     return <div>
         <div style={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
-            <GTitle size={GTitleSize.LARGE}>{props.title}</GTitle>
+            <GTitle size={GTitleSize.SMALL}>{props.title}</GTitle>
             {props.addButton}
         </div>
         <Divider/>

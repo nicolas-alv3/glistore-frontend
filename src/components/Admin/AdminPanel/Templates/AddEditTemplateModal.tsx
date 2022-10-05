@@ -1,13 +1,13 @@
 import {Divider, Form, Modal} from "semantic-ui-react";
 import React from "react";
-import TemplateService from "../../../../service/TemplateService";
-import {GFeature, GTemplate} from "../../../types";
-import ToastUtils from "../../../utils/toastUtils";
-import GButton, {ButtonType} from "../../Utils/GButton";
-import AddEditFeatureModal from "../../Utils/AddEditFeatureModal";
-import ModalUtils from "../../../utils/ModalUtils";
-import AddDashedButton from "../../Utils/AddDashedButton";
-import GTitle, {GTitleSize} from "../../Utils/GTitle";
+import TemplateService from "../../../../../service/TemplateService";
+import {GFeature, GTemplate} from "../../../../types";
+import ToastUtils from "../../../../utils/toastUtils";
+import GButton, {ButtonType} from "../../../Utils/GButton";
+import AddEditFeatureModal from "../../../Utils/AddEditFeatureModal";
+import ModalUtils from "../../../../utils/ModalUtils";
+import AddDashedButton from "../../../Utils/AddDashedButton";
+import GTitle, {GTitleSize} from "../../../Utils/GTitle";
 import FeatureCard from "./FeatureCard";
 
 

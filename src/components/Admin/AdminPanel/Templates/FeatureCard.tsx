@@ -1,10 +1,10 @@
-import GTitle, {GTitleSize} from "../../Utils/GTitle";
+import GTitle, {GTitleSize} from "../../../Utils/GTitle";
 import React from "react";
-import {FeatureType, GFeature} from "../../../types";
-import GBadge, {GBadgeType} from "../../Utils/GBadge";
-import GButton, {ButtonType} from "../../Utils/GButton";
-import ModalUtils from "../../../utils/ModalUtils";
-import AddEditFeatureModal from "../../Utils/AddEditFeatureModal";
+import {FeatureType, GFeature} from "../../../../types";
+import GBadge, {GBadgeType} from "../../../Utils/GBadge";
+import GButton, {ButtonType} from "../../../Utils/GButton";
+import ModalUtils from "../../../../utils/ModalUtils";
+import AddEditFeatureModal from "../../../Utils/AddEditFeatureModal";
 
 interface Props {
     feature: GFeature,

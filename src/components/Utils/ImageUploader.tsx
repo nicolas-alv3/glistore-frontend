@@ -1,6 +1,6 @@
 import {Button, Form, Icon, PlaceholderParagraph} from "semantic-ui-react";
 import React from "react";
-import GButton, {ButtonType} from "../Utils/GButton";
+import GButton, {ButtonType} from "./GButton";
 import FirebaseService, {IMAGE_QUALITY, ImageUploadingOptions} from "../../../service/FirebaseService";
 import ToastUtils from "../../utils/toastUtils";
 

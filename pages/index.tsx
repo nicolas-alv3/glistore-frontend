@@ -32,7 +32,6 @@ const Home: NextPage = () => {
 
     useEffect( () => {
         dispatch(resetFilter())
-        fetchProducts();
     }, []);
 
     return (

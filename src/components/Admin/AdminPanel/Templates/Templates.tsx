@@ -1,13 +1,13 @@
-import CRUDPage from "../../../src/components/Utils/CRUDPage";
-import GTable from "../../../src/components/Utils/GTable";
-import TemplateService from "../../../service/TemplateService";
-import {GTemplate} from "../../../src/types";
-import GButton, {ButtonType} from "../../../src/components/Utils/GButton";
-import ActionMore, {ActionOption} from "../../../src/components/Utils/ActionMore";
+import ToastUtils from "../../../../utils/toastUtils";
+import ModalUtils from "../../../../utils/ModalUtils";
+import CRUDPage from "../../../Utils/CRUDPage";
+import GTable from "../../../Utils/GTable";
+import ActionMore, {ActionOption} from "../../../Utils/ActionMore";
 import React, {useEffect} from "react";
-import ModalUtils from "../../../src/utils/ModalUtils";
-import AddEditTemplateModal from "../../../src/components/Admin/Templates/AddEditTemplateModal";
-import ToastUtils from "../../../src/utils/toastUtils";
+import GButton, {ButtonType} from "../../../Utils/GButton";
+import TemplateService from "../../../../../service/TemplateService";
+import {GTemplate} from "../../../../types";
+import AddEditTemplateModal from "./AddEditTemplateModal";
 
 export default function Templates() {
     const [templates, setTemplates] = React.useState([]);

@@ -3,7 +3,7 @@ import React from "react";
 import ProductService from "../../../service/ProductService";
 import styles from '../../../styles/Admin.module.css';
 import SelectFilter, {SelectFilterType} from "../SortAndFilter/SelectFilter";
-import ImageUploader from "./ImageUploader";
+import ImageUploader from "../Utils/ImageUploader";
 import ToastUtils from "../../utils/toastUtils";
 import {GFeature, GTemplate, Product} from "../../types";
 import GButton, {ButtonType} from "../Utils/GButton";
