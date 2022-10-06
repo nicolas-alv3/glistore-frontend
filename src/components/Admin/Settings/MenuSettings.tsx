@@ -15,10 +15,9 @@ interface Props {
 export default function MenuSettings(props: Props) {
     const handleEditConfirm = (index: number) => (item: Partial<GMenuItem>) => {
         const newItem: GMenuItem = {
-            subItems: [],
+            subItems: item.subItems || [],
             text: item.text as string,
             href: item.href,
-            icon: "minus"
         }
         props.setMenu(prevState => prevState.map((m, idx) => idx === index? newItem: m));
     }

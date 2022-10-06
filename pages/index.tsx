@@ -14,6 +14,8 @@ const Home: NextPage = () => {
     const dispatch = useDispatch();
 
     const fetchProducts = () => {
+        dispatch(resetFilter())
+
         setLoading(true);
         const sReq = {
             ...initialState.req,
@@ -29,10 +31,6 @@ const Home: NextPage = () => {
     useEffect( () => {
         fetchProducts();
     }, [page])
-
-    useEffect( () => {
-        dispatch(resetFilter())
-    }, []);
 
     return (
     <div>

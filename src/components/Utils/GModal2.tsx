@@ -6,7 +6,7 @@ interface Props {
     title: string,
     children: ReactNode,
     confirmText?: string,
-    handleSubmit?: () => void,
+    handleSubmit?: (closeModal : () => void) => void,
     withoutButtons?: boolean,
     size? : 'mini' | 'tiny' | 'small' | 'large' | 'fullscreen',
 }
@@ -36,8 +36,7 @@ export default function GModal2(props: Props) {
                             text={props.confirmText || "Aceptar"}
                             icon='checkmark'
                             onClick={() => {
-                                props.handleSubmit && props.handleSubmit();
-                                setOpen(false);
+                                props.handleSubmit && props.handleSubmit(() => setOpen(false));
                             }}
                             type={ButtonType.PRIMARY}
                         />

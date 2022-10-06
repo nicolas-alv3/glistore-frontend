@@ -4,6 +4,8 @@ import GForm from "../../Utils/GForm";
 import GInput from "../../Utils/GInput";
 import React from "react";
 import {GColorPallette} from "../../../types";
+import ModalUtils from "../../../utils/ModalUtils";
+import GModal2 from "../../Utils/GModal2";
 
 interface Props {
     colorPalette: GColorPallette,
@@ -72,5 +74,8 @@ export default function AppreareanceSettings(props: Props) {
                 }
             </div>
         </GForm>
+        <a onClick={() => ModalUtils.openModal(<GModal2 title={"Como elegir paleta de colores"}>
+            <iframe src="https://scribehow.com/embed/Como_elegir_tu_paleta_de_colores__9715sVfKT9yxojsYOfna-Q"
+                    width="100%" height="500" allowFullScreen></iframe></GModal2>)}>¿Aún no tienes paleta de colores?</a>
     </Segment>
 }

@@ -16,19 +16,9 @@ const adminItems: GMenuItem[] = [
         text: "Ir a la tienda"
     },
     {
-        href: "/admin/templates",
-        icon: "book",
-        text: "Formatos"
-    },
-    {
         href: "/admin",
         icon: "options",
-        text: "Productos",
-        subItems: [
-            {
-                href: "/admin", text: "Sub category",icon:"list"
-            }
-        ]
+        text: "Administración",
     },
     {
         href: "/admin/settings",

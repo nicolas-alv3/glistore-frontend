@@ -11,13 +11,14 @@ interface Props {
     placeholder?: string,
     input?: ReactNode,
     helpBubbleText?: string,
+    disabled?: boolean
 }
 
 // This component should be always inside a <GForm></GForm>
 export default function GInput(props: Props) {
     return <>
         <Form.Group widths={"equal"}>
-            <Form.Field error={props.error}>
+            <Form.Field error={props.error} disabled={props.disabled}>
                 <label style={{display: "flex", justifyContent: "flex-start", gap: 8, fontWeight: 500, color: "var(--col-secondary-font)"}}>
                     {props.label}
                     {props.helpBubbleText && <GHelpBubble text={props.helpBubbleText} />}
