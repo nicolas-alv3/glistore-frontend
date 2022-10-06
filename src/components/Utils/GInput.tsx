@@ -6,7 +6,7 @@ interface Props {
     onChange?: (value: string) => void,
     label: string,
     error: boolean,
-    errorMessage: string,
+    errorMessage?: string,
     value?: string,
     placeholder?: string,
     input?: ReactNode,
@@ -30,7 +30,7 @@ export default function GInput(props: Props) {
                 }
                 {
                     props.error &&
-                    <label style={{color: "red"}}>{props.errorMessage}</label>
+                    <label style={{color: "red"}}>{props.errorMessage || "Este campo es requerido"}</label>
                 }
             </Form.Field>
         </Form.Group>

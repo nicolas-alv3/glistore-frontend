@@ -11,6 +11,11 @@ export interface GTemplate {
     features: GFeature[]
 }
 
+export interface GCategory {
+    _id?: string,
+    name: string
+}
+
 export interface GFeature {
     _id?: string,
     type: FeatureType,
