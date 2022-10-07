@@ -7,12 +7,7 @@ class WhatsappService {
     };
 
     sendWhatsappMessage(msg: string, phoneNumber: string) {
-        if(this.isMobileBrowser()){
-            window.open(encodeURI(`https://wa.me/${phoneNumber}?text=${msg}`));
-        }
-        else {
-            window.open(encodeURI(`https://web.whatsapp.com/send/?phone=${phoneNumber}&text=${msg}`));
-        }
+        window.open(encodeURI(`https://web.whatsapp.com/send/?phone=${phoneNumber}&text=${msg}`));
     }
 
     getWhatsappLink(phoneNumber: string) {
