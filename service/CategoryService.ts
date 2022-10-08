@@ -2,9 +2,9 @@ import {GCategory} from "../src/types";
 import API from "./api";
 
 class CategoryService {
-    path = "/api/categories"
+    path = "/api/products/categories"
 
-    getCategories() {
+    getCategories(): Promise<GCategory[]> {
         return API.get(this.path + "/")
     }
 

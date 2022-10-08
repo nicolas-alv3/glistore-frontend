@@ -2,13 +2,13 @@ import {Checkbox, Divider, Form, Modal} from "semantic-ui-react";
 import React from "react";
 import ProductService from "../../../service/ProductService";
 import styles from '../../../styles/Admin.module.css';
-import SelectFilter, {SelectFilterType} from "../SortAndFilter/SelectFilter";
 import ImageUploader from "../Utils/ImageUploader";
 import ToastUtils from "../../utils/toastUtils";
 import {GFeature, GTemplate, Product} from "../../types";
 import GButton, {ButtonType} from "../Utils/GButton";
 import GBadge, {GBadgeType} from "../Utils/GBadge";
 import EnumSelector from "../Utils/EnumSelector";
+import CategorySelect from "../Utils/CategorySelect";
 
 
 interface Props {
@@ -29,7 +29,7 @@ export default function AddEditProductModal(props: Props) {
     const [discount, setDiscount] = React.useState(props.product?.discount);
     const [images, setImages] = React.useState<string[]>(props.product?.images || []);
     const [isTrending, setIsTrending] = React.useState<boolean>(typeof props.product?.isTrending !== 'boolean' ? false : props.product?.isTrending);
-    const [features, setFeatures] = React.useState(props.template?.features);
+    const [features, setFeatures] = React.useState(props.product?.features || props.template?.features);
     const [isVisible, setIsVisible] = React.useState<boolean>(typeof props.product?.visible !== 'boolean' ? true : props.product?.visible);
 
     const resetForm = () => {
@@ -162,17 +162,11 @@ export default function AddEditProductModal(props: Props) {
                     onChange={handleUploadChange} error={submitted && !images.length}/>
                 <Divider/>
                 {
-                    props.template?.features.map( f => (
+                    features?.map( f => (
                         <EnumSelector label={f.name + " disponibles para este producto"} key={f.name} valueSelected={features!!.find(o => o.name == f.name)!!.options} onSelect={(v) => handleFeatureSelected(v as string[],f)} multiple options={f.enumerable}/>
                     ))
                 }
-                <Divider/>
-                <Form.Field error={!category && submitted}>
-                    <Divider/>
-                    <label>Categoría</label>
-                    <SelectFilter multiple={false} value={category} setValue={setCategory}
-                                  type={SelectFilterType.SELECT_CATEGORY}/>
-                </Form.Field>
+                <CategorySelect category={category} onChange={setCategory} />
                 <Divider/>
                 <Form.Field>
                     <label>Detalles</label>

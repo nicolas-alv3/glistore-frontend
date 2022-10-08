@@ -22,7 +22,7 @@ export default function GTable(props: Props) {
 
             <Table.Body>
                 {props.elements.map((e) => {
-                    return <Table.Row key={e}>
+                    return <Table.Row key={JSON.stringify(e)}>
                         {props.columns.map( (col,i) => <Table.Cell key={i}>{col(e)}</Table.Cell>)}
                     </Table.Row>
                 })}

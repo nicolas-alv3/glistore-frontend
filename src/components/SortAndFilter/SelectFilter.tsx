@@ -1,6 +1,8 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {Dropdown} from "semantic-ui-react";
 import {SortType} from "../../types";
+import CategoryService from "../../../service/CategoryService";
+import {DropdownItemProps} from "semantic-ui-react/dist/commonjs/modules/Dropdown/DropdownItem";
 
 export enum SelectFilterType {
     SELECT_CATEGORY,
@@ -18,6 +20,13 @@ interface Props {
 export default function SelectFilter( props: Props ) {
     const [searchQuery, setSearchQuery] = React.useState("");
 
+    const [allCats, setAllCats] = React.useState<DropdownItemProps[]>([]);
+
+    useEffect(() => {
+        CategoryService.getCategories()
+            .then( res => setAllCats(res.map(cat => ({ key: cat._id, value: cat.name, text: cat.name}))))
+    }, [])
+
     const handleSearchChange = (e, { searchQuery }) => setSearchQuery( searchQuery );
 
     const handleQueryChange = (e, data) => {
@@ -29,17 +38,10 @@ export default function SelectFilter( props: Props ) {
 
     const sortOptionsRecent = [{ key:SortType.NEWEST,value: SortType.NEWEST, text:"Más nuevos primero"}, { key:SortType.OLDEST,value: SortType.OLDEST, text:"Más antiguos primero"}];
 
-    const categoryOptions = [
-        { key:"NEW BORN",value: "NEW BORN", text:"New born"},
-        { key:"KID",value: "KID", text:"Kid"},
-        { key:"BABY",value: "BABY", text:"Baby"},
-        { key:"ACCESORIOS",value: "ACCESORIOS", text:"Accesorios"},
-    ]
-
     const getOptions = () => {
         const options = {
             [SelectFilterType.SELECT_ORDER_PRICE]: sortOptionsPrice,
-            [SelectFilterType.SELECT_CATEGORY]: categoryOptions,
+            [SelectFilterType.SELECT_CATEGORY]: allCats,
             [SelectFilterType.SELECT_ORDER_RECENT]: sortOptionsRecent
         }
         return options[props.type];
