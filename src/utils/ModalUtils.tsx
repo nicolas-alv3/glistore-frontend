@@ -7,7 +7,6 @@ class ModalUtils {
         const div = document.createElement('div');
         const root = ReactDOMClient.createRoot(div);
         root.render(node);
-        requestIdleCallback(() => console.log("here"));
     }
 
     dialog(title: string, message: string, onSuccess: () => void) {
