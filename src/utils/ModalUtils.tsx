@@ -1,12 +1,13 @@
-import ReactDOM from 'react-dom';
-import {ReactElement} from "react";
+import * as ReactDOMClient from 'react-dom/client';
+import {ReactNode} from "react";
 import DialogComponent from "../components/Utils/DialogComponent";
 
 class ModalUtils {
-    openModal(node: ReactElement) {
-        const portalNode= document.createElement('div');
-        document.body.appendChild(portalNode);
-        ReactDOM.render(node, portalNode, () => portalNode.remove())
+    openModal(node: ReactNode) {
+        const div = document.createElement('div');
+        const root = ReactDOMClient.createRoot(div);
+        root.render(node);
+        requestIdleCallback(() => console.log("here"));
     }
 
     dialog(title: string, message: string, onSuccess: () => void) {
