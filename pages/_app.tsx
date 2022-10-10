@@ -11,6 +11,8 @@ import {store} from '../slices/store'
 import {Provider} from 'react-redux'
 import Head from "next/head";
 import {useConfig} from "../src/hooks/useConfig";
+import { UserProvider } from '@auth0/nextjs-auth0';
+
 
 
 function MyApp({Component, pageProps}: AppProps) {
@@ -35,6 +37,7 @@ function MyApp({Component, pageProps}: AppProps) {
     }, []);
 
     return <Provider store={store}>
+        <UserProvider>
         <Head>
             <title>{config.companyName}</title>
             <link rel="icon" href={config.logo}/>
@@ -45,6 +48,7 @@ function MyApp({Component, pageProps}: AppProps) {
         </Container>
         <Footer/>
         <Toaster position="bottom-left"/>
+        </UserProvider>
     </Provider>
 }
 

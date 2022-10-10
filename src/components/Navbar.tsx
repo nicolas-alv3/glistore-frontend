@@ -5,10 +5,9 @@ import {selectCart, toggle} from "../../slices/sidebarSlice";
 import {useDispatch, useSelector} from "react-redux";
 import GButton, {ButtonType} from "./Utils/GButton";
 import {toggleNavMenu} from "../../slices/navMenuSlice";
-import GTitle, {GTitleSize} from "./Utils/GTitle";
-import {GColors} from "../utils/GColors";
 import Image from "next/image";
 import {useConfig} from "../hooks/useConfig";
+import ProfileMenu from "./Login/Profile";
 
 export default function Navbar() {
     const cart = useSelector(selectCart);
@@ -37,7 +36,7 @@ export default function Navbar() {
     }
 
     return <>
-        <nav className={`${styles.navbar} ${router.pathname.includes("admin") ? "flex-start" : ""} `}>
+        <nav className={`${styles.navbar}`}>
             <GButton icon={"bars"} onClick={openNavMenu} size={"massive"} type={ButtonType.TRANSPARENT}
                      className={styles.cartButton}>
             </GButton>
@@ -56,8 +55,9 @@ export default function Navbar() {
                             {cart?.length > 0 && <div style={numberCartStyle}>{cart.length}</div>}
                         </GButton>
                     </div>
-                </> :
-                <GTitle size={GTitleSize.MEDIUM} title={"Tu tienda"} color={GColors.WHITE_COLOR}/>}
+                </> : <div className={"flex-center"}>
+                <ProfileMenu/>
+            </div>}
         </nav>
     </>;
 }

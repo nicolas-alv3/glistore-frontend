@@ -10,8 +10,9 @@ import AppreareanceSettings from "../../../src/components/Admin/Settings/Appeare
 import ContactDataSettings from "../../../src/components/Admin/Settings/ContactDataSettings";
 import StoreInfoSettings from "../../../src/components/Admin/Settings/StoreInfoSettings";
 import MenuSettings from "../../../src/components/Admin/Settings/MenuSettings";
+import {withPageAuthRequired} from "@auth0/nextjs-auth0";
 
-export default function Settings() {
+function Settings() {
     const {reloadConfig} = useConfig();
     const [companyName, setCompanyName] = React.useState("");
     const [description, setDescription] = React.useState("");
@@ -99,3 +100,5 @@ export default function Settings() {
                    button={<GButton type={ButtonType.PRIMARY} text={"Guardar"} onClick={handleSave}/>}/>
     </>
 }
+
+export default withPageAuthRequired(Settings)

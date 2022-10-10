@@ -97,3 +97,4 @@ export default function ProductsAdmin() {
     </Dropdown>
     return <CRUDPage title={"Todos tus productos"} addButton={addButton} table={<ProductsTable products={products} update={fetchProducts}/>}/>
 }
+

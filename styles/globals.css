@@ -73,3 +73,7 @@ a {
 .flex-wrap {
     flex-wrap: wrap;
 }
+
+.p-1 {
+    padding: 4px
+}

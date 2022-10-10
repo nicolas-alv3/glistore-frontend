@@ -4,8 +4,9 @@ import MenuTabs from "../../src/components/Utils/MenuTabs";
 import ProductsAdmin from "../../src/components/Admin/AdminPanel/Products/ProductsAdmin";
 import Templates from "../../src/components/Admin/AdminPanel/Templates/Templates";
 import Categories from "../../src/components/Admin/AdminPanel/Categories/Categories";
+import {withPageAuthRequired} from "@auth0/nextjs-auth0";
 
-export default function AdminPanel() {
+function AdminPanel() {
     const tabs = [
         {title: "Productos", component: <ProductsAdmin/>},
         {title: "Formatos", component: <Templates/>},
@@ -16,3 +17,5 @@ export default function AdminPanel() {
         <MenuTabs tabs={tabs}/>
         </>
 }
+
+export default withPageAuthRequired(AdminPanel)
