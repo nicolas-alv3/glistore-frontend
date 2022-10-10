@@ -10,7 +10,7 @@ import CategoryService from "../../../../../service/CategoryService";
 import AddEditCategoryModal from "./AddEditCategoryModal";
 
 export default function Categories() {
-    const [categories, setCategories] = React.useState([]);
+    const [categories, setCategories] = React.useState<GCategory[]>([]);
 
     useEffect(() => {
         fetchCategories();
