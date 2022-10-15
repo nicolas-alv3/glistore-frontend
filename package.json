@@ -6,8 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "build:vercel": "npm install && npm run build"
+    "lint": "next lint"
   },
   "dependencies": {
     "@auth0/nextjs-auth0": "^1.9.2",
