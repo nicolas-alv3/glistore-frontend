@@ -19,7 +19,12 @@ export default function Profile() {
         <Image src={user.picture as string} alt={user.name || "..."} width={32} height={32} layout={"intrinsic"} style={{borderRadius:"50%"}}/>
     </div>
 
-    const handleRouting = (route) => () => router.push(route)
+    const handleRouting = (route) => () => router.push(route);
+
+    const handleLogout = () => {
+        sessionStorage?.removeItem("glistore_user_email")
+        router.push("/api/auth/logout")
+    }
 
     return ( <div style={{marginRight:8}}>
         {
@@ -28,7 +33,7 @@ export default function Profile() {
                         <Dropdown.Menu>
                             <Dropdown.Item onClick={handleRouting("/admin/settings")}><Icon name={"setting"}/>Ajustes de la tienda</Dropdown.Item>
                             <Dropdown.Divider />
-                            <Dropdown.Item onClick={handleRouting("/api/auth/logout")} ><Icon name={"log out"}/>Cerrar sesión </Dropdown.Item>
+                            <Dropdown.Item onClick={handleLogout} ><Icon name={"log out"}/>Cerrar sesión </Dropdown.Item>
                         </Dropdown.Menu>
                     </Dropdown>
             ): <GButton type={ButtonType.TRANSPARENT} text={"Ingresar"} icon={"sign-in"} />
