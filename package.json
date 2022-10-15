@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "build:vercel": "npm run install:glistore && npm run build && npm run build:glistore",
+    "build:vercel": "npm run install:glistore && npm run build && npm run build:glistore"
   },
   "dependencies": {
     "@auth0/nextjs-auth0": "^1.9.2",
