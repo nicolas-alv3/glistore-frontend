@@ -41,12 +41,12 @@ export function getFrontendURL() {
 export function getBackendURL() {
     switch (process.env.NEXT_PUBLIC_ENVIRONMENT) {
         case (Environment.PROD):
-            return "https://pomelo-store-back.herokuapp.com";
+            return "https://bright-buttercream-4d23ef.netlify.app/";
         case (Environment.DEV):
-            return "https://dev-pomelo-store.herokuapp.com";
+            return "https://bright-buttercream-4d23ef.netlify.app/";
         case (Environment.LOCAL):
             return "http://localhost:8080";
         default:
-            return "https://pomelo-store-back.herokuapp.com";
+            return "https://bright-buttercream-4d23ef.netlify.app/";
     }
 }

@@ -3,15 +3,16 @@ import { getStorage } from "firebase/storage";
 
 
 const firebaseConfig = {
-    apiKey: "AIzaSyC2VIiXoW59ujcS8fvSNdZHWT--Ks3ZlBo",
-    authDomain: "pomelo-bebes.firebaseapp.com",
-    projectId: "pomelo-bebes",
-    storageBucket: "pomelo-bebes.appspot.com",
-    messagingSenderId: "501627781259",
-    appId: "1:501627781259:web:5f03afc496b6154fc7948e",
-    measurementId: "G-T0LWJC5XSB"
+    apiKey: process.env.NEXT_PUBLIC_FIREBASE_APIKEY,
+    authDomain: "glistore.firebaseapp.com",
+    projectId: "glistore",
+    storageBucket: "glistore.appspot.com",
+    messagingSenderId: "404281818606",
+    appId: "1:404281818606:web:9010dfc8cfadeb46d262ff",
+    measurementId: "G-3KS0H4FVE7"
 };
 
+console.log("firebas eapi key " + process.env.NEXT_PUBLIC_FIREBASE_APIKEY)
 // Initialize Firebase
 const app = initializeApp (firebaseConfig);
 
