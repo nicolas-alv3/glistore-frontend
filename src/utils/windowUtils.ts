@@ -41,12 +41,12 @@ export function getFrontendURL() {
 export function getBackendURL() {
     switch (process.env.NEXT_PUBLIC_ENVIRONMENT) {
         case (Environment.PROD):
-            return "https://bright-buttercream-4d23ef.netlify.app/";
+            return "https://bright-buttercream-4d23ef.netlify.app";
         case (Environment.DEV):
-            return "https://bright-buttercream-4d23ef.netlify.app/";
+            return "https://bright-buttercream-4d23ef.netlify.app";
         case (Environment.LOCAL):
             return "http://localhost:8080";
         default:
-            return "https://bright-buttercream-4d23ef.netlify.app/";
+            return "https://bright-buttercream-4d23ef.netlify.app";
     }
 }
