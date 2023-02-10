@@ -41,12 +41,12 @@ export function getFrontendURL() {
 export function getBackendURL() {
     switch (process.env.NEXT_PUBLIC_ENVIRONMENT) {
         case (Environment.PROD):
-            return "https://glistore-backend.vercel.app/";
+            return "https://glistore-backend.vercel.app";
         case (Environment.DEV):
-            return "https://glistore-backend.vercel.app/";
+            return "https://glistore-backend.vercel.app";
         case (Environment.LOCAL):
             return "http://localhost:8081";
         default:
-            return "https://glistore-backend.vercel.app/";
+            return "https://glistore-backend.vercel.app";
     }
 }
