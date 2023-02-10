@@ -28,9 +28,9 @@ enum Environment {
 export function getFrontendURL() {
     switch (process.env.NEXT_PUBLIC_ENVIRONMENT) {
         case (Environment.PROD):
-            return "https://glistore-backend.vercel.app/";
+            return "https://pomelobebes.vercel.app";
         case (Environment.DEV):
-            return "https://glistore-backend.vercel.app/";
+            return "https://pomelobebesdev.vercel.app";
         case (Environment.LOCAL):
             return "http://localhost:3000";
         default:
@@ -41,9 +41,9 @@ export function getFrontendURL() {
 export function getBackendURL() {
     switch (process.env.NEXT_PUBLIC_ENVIRONMENT) {
         case (Environment.PROD):
-            return "https://bright-buttercream-4d23ef.netlify.app";
+            return "https://glistore-backend.vercel.app/";
         case (Environment.DEV):
-            return "https://bright-buttercream-4d23ef.netlify.app";
+            return "https://glistore-backend.vercel.app/";
         case (Environment.LOCAL):
             return "http://localhost:8081";
         default:
