@@ -47,6 +47,6 @@ export function getBackendURL() {
         case (Environment.LOCAL):
             return "http://localhost:8081";
         default:
-            return "https://bright-buttercream-4d23ef.netlify.app";
+            return "https://glistore-backend.vercel.app/";
     }
 }
