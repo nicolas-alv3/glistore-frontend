@@ -18,7 +18,7 @@ export default function ProductList( props: Props ) {
 
     const getProducts = () => {
             return <>
-                {props.products.map( (p :Product) => <ProductCard loading={false} key={p._id} product={p} />)}
+                {!props.loading && props.products.map( (p :Product) => <ProductCard loading={false} key={p._id} product={p} />)}
                 {props.loading && [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(i => <ProductCard loading={true} key={i} product={null}/>)}
             </>
     }

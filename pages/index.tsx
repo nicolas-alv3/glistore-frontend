@@ -24,7 +24,7 @@ const Home: NextPage = () => {
         SearchService.search(sReq).then( res => {
             setTotalPages(res.totalPages);
             setLoading(false);
-            setProducts(products.concat(res.products));
+            setProducts(products.concat(res));
         });
     }
 
