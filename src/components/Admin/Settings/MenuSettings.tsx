@@ -5,7 +5,8 @@ import React from "react";
 import DropdownItemMenu from "../../Utils/DropdownItemMenu";
 import ModalUtils from "../../../utils/ModalUtils";
 import AddEditMenuPoint from "./AddEditMenuPoint";
-import {userItems} from "../../NavMenu";
+import {useSelector} from "react-redux";
+import {selectStore} from "../../../../slices/storeSlice";
 
 interface Props {
     menu: GMenuItem[],
@@ -13,21 +14,31 @@ interface Props {
 }
 
 export default function MenuSettings(props: Props) {
+    const {username} = useSelector(selectStore);
+
     const handleEditConfirm = (index: number) => (item: Partial<GMenuItem>) => {
         const newItem: GMenuItem = {
             subItems: item.subItems || [],
             text: item.text as string,
             href: item.href,
         }
-        props.setMenu(prevState => prevState.map((m, idx) => idx === index? newItem: m));
+        props.setMenu(prevState => prevState.map((m, idx) => idx === index ? newItem : m));
     }
+
+    const userItems: GMenuItem[] = [
+        {
+            href: `/${username}`,
+            icon: "home",
+            text: "Home"
+        }
+    ]
 
     const handleEditItem = (item: GMenuItem, index: number) => () => {
         ModalUtils.openModal(<AddEditMenuPoint menuItem={item} onConfirm={handleEditConfirm(index)}/>)
     }
 
     const handleDeleteItem = (index: number) => () => {
-        props.setMenu(prevState => prevState.filter((m, i) => index !== i ));
+        props.setMenu(prevState => prevState.filter((m, i) => index !== i));
     }
 
     const handleAddClick = () => {
@@ -35,7 +46,7 @@ export default function MenuSettings(props: Props) {
     }
 
     const handleAddConfirm = (item) => {
-        props.setMenu(prevState => prevState.concat([{...item, }]))
+        props.setMenu(prevState => prevState.concat([{...item,}]))
     }
 
     return <Segment>
@@ -47,7 +58,8 @@ export default function MenuSettings(props: Props) {
                         <DropdownItemMenu
                             item={i}
                             key={i.text}
-                            hideSidebar={ () => {}}
+                            hideSidebar={() => {
+                            }}
                         />)
                 }
                 {
@@ -55,14 +67,16 @@ export default function MenuSettings(props: Props) {
                         <DropdownItemMenu
                             item={i}
                             key={i.text}
-                            hideSidebar={ () => {}}
+                            hideSidebar={() => {
+                            }}
                             onEdit={handleEditItem(i, index)}
                             onDelete={handleDeleteItem(index)}
                         />)
                 }
                 <DropdownItemMenu
-                    item={{text: "Agregar item", subItems: [],onClick: handleAddClick, icon: "plus"}}
-                    hideSidebar={ () => {}}
+                    item={{text: "Agregar item", subItems: [], onClick: handleAddClick, icon: "plus"}}
+                    hideSidebar={() => {
+                    }}
                 />
             </div>
         </div>
