@@ -116,3 +116,7 @@ export interface GMenuItem {
     text: string,
     subItems?: GMenuItem[]
 }
+export enum GlistoreHeaders {
+    USER_EMAIL = 'user_email',
+    USERNAME = 'username'
+}

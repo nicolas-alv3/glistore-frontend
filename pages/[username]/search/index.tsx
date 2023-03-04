@@ -1,12 +1,12 @@
 import React, {useEffect} from "react";
-import ProductList from "../../src/components/ProductList";
-import SearchService from "../../service/SearchService";
-import {Product, SearchResponse} from "../../src/types";
-import SortOrFilter from "../../src/components/SortAndFilter/SortOrFilter";
+import ProductList from "../../../src/components/ProductList";
+import SearchService from "../../../service/SearchService";
+import {Product, SearchResponse} from "../../../src/types";
+import SortOrFilter from "../../../src/components/SortAndFilter/SortOrFilter";
 import {useDispatch} from "react-redux";
-import {setPagination} from "../../slices/filterSlice";
-import GPagination from "../../src/components/Utils/GPagination";
-import {useGRouter} from "../../src/hooks/useGRouter";
+import {setPagination} from "../../../slices/filterSlice";
+import GPagination from "../../../src/components/Utils/GPagination";
+import {useGRouter} from "../../../src/hooks/useGRouter";
 
 
 

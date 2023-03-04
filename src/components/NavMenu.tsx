@@ -8,6 +8,7 @@ import {useRouter} from "next/router";
 import {GMenuItem} from "../types";
 import DropdownItemMenu from "./Utils/DropdownItemMenu";
 import {useConfig} from "../hooks/useConfig";
+import {selectStore} from "../../slices/storeSlice";
 
 const adminItems: GMenuItem[] = [
     {
@@ -27,17 +28,10 @@ const adminItems: GMenuItem[] = [
     }
 ]
 
-export const userItems: GMenuItem[] = [
-    {
-        href: "/",
-        icon: "home",
-        text: "Home"
-    }
-]
-
 
 export default function NavMenu() {
     const show = useSelector(selectShow);
+    const {username} = useSelector(selectStore);
     const dispatch = useDispatch();
     const router = useRouter();
     const {config} = useConfig();
@@ -48,6 +42,14 @@ export default function NavMenu() {
         saveCartOnReload();
         getCartFromReload();
     }, []);
+
+    const userItems: GMenuItem[] = [
+        {
+            href: `/${username}`,
+            icon: "home",
+            text: "Home"
+        }
+    ]
 
     const hideSidebar = () => dispatch(hideNavMenu());
 
@@ -63,7 +65,7 @@ export default function NavMenu() {
     const submitSearch = (e) => {
         e.preventDefault();
         if (searchInput.length > 0) {
-            router.push({pathname: "/search", query: {name: searchInput}})
+            router.push({pathname: `${router.pathname}/search`, query: {name: searchInput}})
             hideSidebar();
         }
     }

@@ -41,21 +41,21 @@ export default function Navbar() {
                      className={styles.cartButton}>
             </GButton>
             {!router.pathname.includes("admin") ? <>
-                    {cart?.length > 0 && <div style={numberCartStyle}>{cart.length}</div>}
-                    <span>
+                {cart?.length > 0 && <div style={numberCartStyle}>{cart.length}</div>}
+                <span>
                         <Image src={config.logo || "..."} width={60}
                                layout={"intrinsic"} alt={"logo"}
                                objectFit={"cover"}
                                height={60} objectPosition={"center"}/>
                     </span>
-                    <div className={styles.cartContainer}>
-                        <GButton icon={"cart"} onClick={() => dispatch(toggle())} size={"massive"}
-                                 type={ButtonType.TRANSPARENT}
-                                 className={styles.cartButton}>
-                            {cart?.length > 0 && <div style={numberCartStyle}>{cart.length}</div>}
-                        </GButton>
-                    </div>
-                </> : <div className={"flex-center"}>
+                <div className={styles.cartContainer}>
+                    <GButton icon={"cart"} onClick={() => dispatch(toggle())} size={"massive"}
+                             type={ButtonType.TRANSPARENT}
+                             className={styles.cartButton}>
+                        {cart?.length > 0 && <div style={numberCartStyle}>{cart.length}</div>}
+                    </GButton>
+                </div>
+            </> : <div className={"flex-center"}>
                 <ProfileMenu/>
             </div>}
         </nav>

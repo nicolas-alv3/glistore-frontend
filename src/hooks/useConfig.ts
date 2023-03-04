@@ -49,19 +49,27 @@ export function useConfig(): ConfigHook {
         }
     );
 
+    function fetchAndLoadConfig() {
+        ConfigService.getConfig()
+            .then((res) => {
+                loadVariables(res);
+                sessionStorage.setItem("config", JSON.stringify(res));
+                setConfig(res);
+            })
+    }
+
     useEffect(() => {
         if (typeof window !== 'undefined') {
+            const configuration = JSON.parse(sessionStorage.getItem("config") as string);
             if (sessionStorage.getItem("config")) {
-                const configuration = JSON.parse(sessionStorage.getItem("config") as string);
-                setConfig(configuration);
-                loadVariables(configuration);
+                if(configuration.username !== sessionStorage.getItem('glistore_username')) {
+                    fetchAndLoadConfig()
+                } else {
+                    setConfig(configuration);
+                    loadVariables(configuration);
+                }
             } else {
-                ConfigService.getConfig()
-                    .then((res) => {
-                        loadVariables(res);
-                        sessionStorage.setItem("config", JSON.stringify(res));
-                        setConfig(res);
-                    })
+                fetchAndLoadConfig();
             }
         }
     }, [])

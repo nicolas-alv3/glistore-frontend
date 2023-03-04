@@ -33,7 +33,7 @@ export default function ProductCard({product, loading}) {
 
     const handleCardClick = () => {
         setId(product._id);
-        router.push({pathname: "/product", query: {id: product._id, product: JSON.stringify(product)}, })
+        router.push({pathname: `${router.asPath}/product`, query: {id: product._id, product: JSON.stringify(product)}, })
     }
 
     const isNew = () => {

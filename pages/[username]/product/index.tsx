@@ -1,19 +1,19 @@
 import {useRouter} from 'next/router'
 import React, {useEffect} from "react";
-import ProductService from "../../service/ProductService";
+import ProductService from "../../../service/ProductService";
 import {CardDescription, Container, Divider, Grid} from "semantic-ui-react";
-import Carrousel from "../../src/components/Utils/Carrousel";
-import TrendingSwiper from '../../src/components/TrendingSwiper';
-import {Product} from "../../src/types";
-import ToastUtils from "../../src/utils/toastUtils";
-import GTitle, {GTitleSize} from "../../src/components/Utils/GTitle";
+import Carrousel from "../../../src/components/Utils/Carrousel";
+import TrendingSwiper from '../../../src/components/TrendingSwiper';
+import {Product} from "../../../src/types";
+import ToastUtils from "../../../src/utils/toastUtils";
+import GTitle, {GTitleSize} from "../../../src/components/Utils/GTitle";
 import Skeleton from "react-loading-skeleton";
-import GButton, {ButtonType} from "../../src/components/Utils/GButton";
-import {parse} from "../../src/utils/parseUtils";
-import AddToCart from "../../src/components/AddToCart";
-import GBadge, {GBadgeType} from "../../src/components/Utils/GBadge";
-import {getFrontendURL} from "../../src/utils/windowUtils";
-import {GColors} from "../../src/utils/GColors";
+import GButton, {ButtonType} from "../../../src/components/Utils/GButton";
+import {parse} from "../../../src/utils/parseUtils";
+import AddToCart from "../../../src/components/AddToCart";
+import GBadge, {GBadgeType} from "../../../src/components/Utils/GBadge";
+import {getFrontendURL} from "../../../src/utils/windowUtils";
+import {GColors} from "../../../src/utils/GColors";
 
 function ShowProductSkeleton() {
     return <>
@@ -82,7 +82,8 @@ const ProductDetail = () => {
                                     <GTitle size={GTitleSize.LARGE}>{product?.name} <GBadge
                                         type={GBadgeType.PRIMARY} text={product?.category}/></GTitle>
                                     <CardDescription>
-                                        <GTitle size={GTitleSize.SMALL} color={GColors.SECONDARY_FONT}>{product?.description}</GTitle>
+                                        <GTitle size={GTitleSize.SMALL}
+                                                color={GColors.SECONDARY_FONT}>{product?.description}</GTitle>
                                     </CardDescription>
                                     <Divider/>
                                     <AddToCart product={product as Product}/>

@@ -4,9 +4,10 @@ import sidebar from "./sidebarSlice";
 import filter from "./filterSlice";
 import modalSlice from "./modalSlice";
 import navMenuSlice from "./navMenuSlice";
+import storeSlice from "./storeSlice";
 
 export const store = configureStore({
-    reducer: {counterReducer, sidebar, filter, modalSlice, navMenuSlice},
+    reducer: {counterReducer, sidebar, filter, modalSlice, navMenuSlice, storeSlice},
 })
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

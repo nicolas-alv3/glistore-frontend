@@ -1,15 +1,15 @@
-import GTitle, {GTitleSize} from "../../../src/components/Utils/GTitle";
+import GTitle, {GTitleSize} from "../../../../src/components/Utils/GTitle";
 import React, {useEffect} from "react";
-import GButton, {ButtonType} from "../../../src/components/Utils/GButton";
-import ActionBar from "../../../src/utils/ActionBar";
-import {GColorPallette, GConfig, GMenuItem} from "../../../src/types";
-import ConfigService from "../../../service/SettingsService";
-import ToastUtils from "../../../src/utils/toastUtils";
-import {loadVariables, useConfig} from "../../../src/hooks/useConfig";
-import AppreareanceSettings from "../../../src/components/Admin/Settings/AppeareanceSettings";
-import ContactDataSettings from "../../../src/components/Admin/Settings/ContactDataSettings";
-import StoreInfoSettings from "../../../src/components/Admin/Settings/StoreInfoSettings";
-import MenuSettings from "../../../src/components/Admin/Settings/MenuSettings";
+import GButton, {ButtonType} from "../../../../src/components/Utils/GButton";
+import ActionBar from "../../../../src/utils/ActionBar";
+import {GColorPallette, GConfig, GMenuItem} from "../../../../src/types";
+import ConfigService from "../../../../service/SettingsService";
+import ToastUtils from "../../../../src/utils/toastUtils";
+import {loadVariables, useConfig} from "../../../../src/hooks/useConfig";
+import AppreareanceSettings from "../../../../src/components/Admin/Settings/AppeareanceSettings";
+import ContactDataSettings from "../../../../src/components/Admin/Settings/ContactDataSettings";
+import StoreInfoSettings from "../../../../src/components/Admin/Settings/StoreInfoSettings";
+import MenuSettings from "../../../../src/components/Admin/Settings/MenuSettings";
 import {withPageAuthRequired} from "@auth0/nextjs-auth0";
 
 function Settings() {

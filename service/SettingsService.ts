@@ -1,17 +1,16 @@
 import API from "./api";
 import {GConfig} from "../src/types";
 
-class SettingsService {
-    path = "/api/settings";
-    id = "631cb3716b2e061dd85ebee9"
+class StoreService {
+    path = "/api/v1/stores";
 
     getConfig(): Promise<GConfig> {
-        return API.get(this.path + "/" + this.id)
+        return API.get(this.path + "/")
     }
 
     update(body: GConfig) {
-        return API.put(this.path + "/", body)
+        return API.patch(this.path + "/", body)
     }
 }
 
-export default new SettingsService();
+export default new StoreService();
