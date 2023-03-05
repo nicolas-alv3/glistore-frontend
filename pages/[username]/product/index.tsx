@@ -14,6 +14,8 @@ import AddToCart from "../../../src/components/AddToCart";
 import GBadge, {GBadgeType} from "../../../src/components/Utils/GBadge";
 import {getFrontendURL} from "../../../src/utils/windowUtils";
 import {GColors} from "../../../src/utils/GColors";
+import {useSelector} from "react-redux";
+import {selectStore} from "../../../slices/storeSlice";
 
 function ShowProductSkeleton() {
     return <>
@@ -33,6 +35,7 @@ function ShowProductSkeleton() {
 const ProductDetail = () => {
     const router = useRouter()
     const {id} = router.query
+    const {username} = useSelector(selectStore);
     const [loading, setLoading] = React.useState<boolean>(true);
     const [product, setProduct] = React.useState<Product>();
 
@@ -57,7 +60,7 @@ const ProductDetail = () => {
         if (navigator.share) {
             navigator.share({
                 title: "Mira este producto! " + product?.name,
-                url: `${getFrontendURL()}/product?id=${product?._id}`
+                url: `${getFrontendURL()}/${username}/product?id=${product?._id}`
             }).then(() => {
                 ToastUtils.success("¡Gracias por ayudarnos!")
             })

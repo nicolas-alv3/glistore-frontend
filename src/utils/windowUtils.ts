@@ -28,13 +28,13 @@ enum Environment {
 export function getFrontendURL() {
     switch (process.env.NEXT_PUBLIC_ENVIRONMENT) {
         case (Environment.PROD):
-            return "https://pomelobebes.vercel.app";
+            return "https://glistore.vercel.app";
         case (Environment.DEV):
-            return "https://pomelobebesdev.vercel.app";
+            return "https://glistore.vercel.app";
         case (Environment.LOCAL):
             return "http://localhost:3000";
         default:
-            return "https://pomelobebes.vercel.app";
+            return "https://glistore.vercel.app";
     }
 }
 
@@ -45,7 +45,7 @@ export function getBackendURL() {
         case (Environment.DEV):
             return "https://glistore-backend.vercel.app";
         case (Environment.LOCAL):
-            return "https://glistore-backend.vercel.app";
+            return "http://localhost:3001";
         default:
             return "https://glistore-backend.vercel.app";
     }
