@@ -45,7 +45,7 @@ export function getBackendURL() {
         case (Environment.DEV):
             return "https://glistore-backend.vercel.app";
         case (Environment.LOCAL):
-            return "http://localhost:3001";
+            return "http://localhost:8081";
         default:
             return "https://glistore-backend.vercel.app";
     }

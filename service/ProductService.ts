@@ -2,7 +2,7 @@ import { Product } from "../src/types";
 import API from "./api";
 
 class ProductService {
-    path = "/api/products"
+    path = "/api/v1/products"
 
     getVisibleProducts() {
         return API.get(this.path + "/visible")

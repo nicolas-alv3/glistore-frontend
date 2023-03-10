@@ -8,7 +8,7 @@ import SearchService from "../../service/SearchService";
 
 const Home: NextPage = () => {
     const [products, setProducts] = React.useState([]);
-    const [page, setPage] = React.useState(1);
+    const [page, setPage] = React.useState(0);
     const [totalPages, setTotalPages] = React.useState(10);
     const [loading, setLoading] = React.useState(true);
     const dispatch = useDispatch();

@@ -11,8 +11,6 @@ const firebaseConfig = {
     appId: "1:404281818606:web:9010dfc8cfadeb46d262ff",
     measurementId: "G-3KS0H4FVE7"
 };
-
-console.log("firebas eapi key " + process.env.NEXT_PUBLIC_FIREBASE_APIKEY)
 // Initialize Firebase
 const app = initializeApp (firebaseConfig);
 
