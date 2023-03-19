@@ -13,7 +13,7 @@ class TemplateService {
     }
 
     update(template: GTemplate) {
-        return API.put(this.path + "/", template)
+        return API.patch(this.path + "/", template)
     }
 
     delete(id: string) {
