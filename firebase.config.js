@@ -4,12 +4,12 @@ import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
     apiKey: process.env.NEXT_PUBLIC_FIREBASE_APIKEY,
-    authDomain: "glistore.firebaseapp.com",
-    projectId: "glistore",
-    storageBucket: "glistore.appspot.com",
-    messagingSenderId: "404281818606",
-    appId: "1:404281818606:web:9010dfc8cfadeb46d262ff",
-    measurementId: "G-3KS0H4FVE7"
+    authDomain: "glider-563df.firebaseapp.com",
+    projectId: "glider-563df",
+    storageBucket: "glider-563df.appspot.com",
+    messagingSenderId: "839479233149",
+    appId: "1:839479233149:web:e1bf763a54707750a97f14",
+    measurementId: "G-C7VBRP7CHM"
 };
 // Initialize Firebase
 const app = initializeApp (firebaseConfig);
