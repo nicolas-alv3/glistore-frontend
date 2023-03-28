@@ -2,22 +2,13 @@ import {GCategory} from "../src/types";
 import API from "./api";
 
 class CategoryService {
-    path = "/api/products/categories"
+    path = "/api/v1/stores/categories"
 
     getCategories(): Promise<GCategory[]> {
         return API.get(this.path + "/")
     }
-
-    create(template: GCategory) {
-        return API.post(this.path + "/", template)
-    }
-
-    update(template: GCategory) {
-        return API.put(this.path + "/", template)
-    }
-
-    delete(id: string) {
-        return API.delete(this.path + "/" + id)
+    update(categories: GCategory[]) {
+        return API.put(this.path + "/", {categories})
     }
 }
 

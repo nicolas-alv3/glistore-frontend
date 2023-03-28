@@ -24,7 +24,7 @@ export default function SelectFilter( props: Props ) {
 
     useEffect(() => {
         CategoryService.getCategories()
-            .then( res => setAllCats(res.map(cat => ({ key: cat._id, value: cat.name, text: cat.name}))))
+            .then( res => setAllCats(res.map(cat => ({ key: cat, value: cat, text: cat}))))
     }, [])
 
     const handleSearchChange = (e, { searchQuery }) => setSearchQuery( searchQuery );

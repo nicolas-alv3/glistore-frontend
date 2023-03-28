@@ -9,13 +9,14 @@ import GForm from "../../../Utils/GForm";
 
 interface Props {
     update: Function,
-    category?: GCategory
+    category?: GCategory,
+    categories: GCategory[]
 }
 
 export default function AddEditCategoryModal(props: Props) {
     const [submitted, setSubmitted] = React.useState(false);
 
-    const [name, setName] = React.useState(props.category?.name || "");
+    const [name, setName] = React.useState(props.category || "");
 
 
     const resetForm = () => {
@@ -23,7 +24,7 @@ export default function AddEditCategoryModal(props: Props) {
     }
 
     const handleAddSubmit = (category, closeModal: () => void) => {
-        CategoryService.create(category)
+        CategoryService.update(props.categories.concat([category]))
             .then(() => {
                 ToastUtils.success("Creado!");
                 resetForm();
@@ -33,7 +34,7 @@ export default function AddEditCategoryModal(props: Props) {
     }
 
     const handleEditSubmit = (category: GCategory, closeModal: () => void) => {
-        CategoryService.update(category)
+        CategoryService.update(props.categories.filter(c => c!== props.category).concat(category))
             .then(() => {
                 ToastUtils.success("Actualizado!");
                 resetForm();
@@ -43,15 +44,11 @@ export default function AddEditCategoryModal(props: Props) {
     }
 
     const handleSubmit = (closeModal) => {
-        const body = {
-            ...props.category,
-            name
-        }
         if (name) {
             if (props.category) {
-                handleEditSubmit(body, closeModal);
+                handleEditSubmit(name, closeModal);
             } else {
-                handleAddSubmit(body, closeModal);
+                handleAddSubmit(name, closeModal);
             }
         }
         setSubmitted(true);

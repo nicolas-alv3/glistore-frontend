@@ -20,7 +20,7 @@ export default function Categories() {
         .then(res => setCategories(res));
 
     const deleteCategory = (category: GCategory) => {
-        CategoryService.delete(category._id as string)
+        CategoryService.update(categories.filter(c => c!== category))
             .then(() => {
                 ToastUtils.success("Eliminado exitosamente");
                 fetchCategories();
@@ -39,15 +39,15 @@ export default function Categories() {
     }
 
     const columns = [
-        (c: GCategory) => c.name,
+        (c: GCategory) => c,
         (c: GCategory) => <ActionMore options={getOptions(c)}/>
     ]
     const openModal = () => ModalUtils.openModal(
-        <AddEditCategoryModal update={fetchCategories}/>
+        <AddEditCategoryModal update={fetchCategories} categories={categories}/>
     );
 
     const openEditModal = (category: GCategory) => ModalUtils.openModal(
-        <AddEditCategoryModal update={fetchCategories} category={category}/>
+        <AddEditCategoryModal update={fetchCategories} category={category} categories={categories}/>
     );
     const table = <GTable elements={categories} headers={["Nombre", "Acciones"]} columns={columns}/>
     return <CRUDPage table={table} title={"Formatos"}
