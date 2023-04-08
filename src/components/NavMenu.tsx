@@ -10,25 +10,6 @@ import DropdownItemMenu from "./Utils/DropdownItemMenu";
 import {useConfig} from "../hooks/useConfig";
 import {selectStore} from "../../slices/storeSlice";
 
-const adminItems: GMenuItem[] = [
-    {
-        href: "/",
-        icon: "home",
-        text: "Ir a la tienda"
-    },
-    {
-        href: "/admin",
-        icon: "options",
-        text: "Administración",
-    },
-    {
-        href: "/admin/settings",
-        icon: "settings",
-        text: "Ajustes"
-    }
-]
-
-
 export default function NavMenu() {
     const show = useSelector(selectShow);
     const {username} = useSelector(selectStore);
@@ -48,6 +29,24 @@ export default function NavMenu() {
             href: `/${username}`,
             icon: "home",
             text: "Home"
+        }
+    ]
+
+    const adminItems: GMenuItem[] = [
+        {
+            href: `/${username}`,
+            icon: "home",
+            text: "Ir a la tienda"
+        },
+        {
+            href: `/${username}/admin`,
+            icon: "options",
+            text: "Administración",
+        },
+        {
+            href: `/${username}/admin/settings`,
+            icon: "settings",
+            text: "Ajustes"
         }
     ]
 
