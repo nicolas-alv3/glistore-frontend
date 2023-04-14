@@ -51,12 +51,13 @@ export interface SaleItem {
 }
 
 
-export interface SearchResponse {
+export type SearchResponse = Product[]
+/*export interface SearchResponse {
     products: Product[],
     pageSize: number,
     page: number,
     totalPages: number
-}
+}*/
 
 export interface SearchRequest {
     name?: string,

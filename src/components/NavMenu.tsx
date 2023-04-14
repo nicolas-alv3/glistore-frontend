@@ -53,10 +53,9 @@ export default function NavMenu() {
     const hideSidebar = () => dispatch(hideNavMenu());
 
     const getItems = () => {
-        if(router.pathname.includes("admin")){
+        if (router.pathname.includes("admin")) {
             return adminItems;
-        }
-        else return userItems.concat(config.menu);
+        } else return userItems.concat(config.menu);
     }
 
     const handleSearchChange = (e) => setSearchInput(e.target.value);
@@ -64,7 +63,7 @@ export default function NavMenu() {
     const submitSearch = (e) => {
         e.preventDefault();
         if (searchInput.length > 0) {
-            router.push({pathname: `${router.pathname}/search`, query: {name: searchInput}})
+            router.push({pathname: `${router.asPath}/search`, query: {name: searchInput}})
             hideSidebar();
         }
     }
@@ -83,11 +82,11 @@ export default function NavMenu() {
         <form onSubmit={submitSearch} style={{margin: "8px 0"}}>
             <Input fluid size='small' icon='search' placeholder='¿Que estas buscando?' onChange={handleSearchChange}/>
         </form>
-        <Divider fitted/>
         <div style={{cursor: "pointer"}}>
             {
                 getItems().map(i => <DropdownItemMenu item={i} key={i.text} hideSidebar={hideSidebar}/>)
             }
+            <Divider fitted/>
         </div>
     </Sidebar>
 }

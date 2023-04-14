@@ -33,7 +33,7 @@ export default function ProductCard({product, loading}) {
 
     const handleCardClick = () => {
         setId(product._id);
-        router.push({pathname: `${router.asPath}/product`, query: {id: product._id, product: JSON.stringify(product)}, })
+        router.push({pathname: `${router.asPath}/product`, query: {id: product._id, product: JSON.stringify(product)},})
     }
 
     const isNew = () => {
@@ -42,7 +42,7 @@ export default function ProductCard({product, loading}) {
         aWeekAgo.setDate(aWeekAgo.getDate() - 7);
         return new Date(product.date) >= aWeekAgo;
     }
-    // @ts-ignore
+
     return <Card as={Button} id={product?._id} className={styles.card}>
         {
             loading ? <ProductSkeleton/>
@@ -55,12 +55,13 @@ export default function ProductCard({product, loading}) {
                             id={product._id} src={product.preview || product.images[0] || "..."}
                             quality={30} priority objectFit={"contain"}
                             blurDataURL={"/logo_pomelo_largo.png"}
-                            height={222} width={222} className={styles.cardImg} placeholder="blur" alt={""}  onClick={handleCardClick}/>
+                            height={222} width={222} className={styles.cardImg} placeholder="blur" alt={""}
+                            onClick={handleCardClick}/>
                     }
                     {
                         isNew() && <GBadge className={styles.newBadge} type={GBadgeType.SECONDARY} text={"Nuevo"}/>
                     }
-                    <Card.Content className={styles.cardContent}  onClick={handleCardClick}>
+                    <Card.Content className={styles.cardContent} onClick={handleCardClick}>
                         <h2>{product.name}</h2>
                         <h3>{product.description}</h3>
                         <h4>{moneyPipe(product.price)}</h4>
@@ -73,7 +74,7 @@ export default function ProductCard({product, loading}) {
                                 </a>}>
                             <div style={{padding: "0 32px"}}>
                                 <GTitle size={GTitleSize.MEDIUM}>{product.name}</GTitle>
-                                <AddToCart onAdd={() => dispatch(hideModal())} product={product} />
+                                <AddToCart onAdd={() => dispatch(hideModal())} product={product}/>
                             </div>
                         </GModal>
                     </Card.Content>

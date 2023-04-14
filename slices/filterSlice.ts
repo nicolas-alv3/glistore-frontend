@@ -11,8 +11,8 @@ export interface FilterState {
 export const initialState: FilterState = {
     req: {
         name: "",
-        pageSize:10,
-        page:1,
+        pageSize: 10,
+        page: 0,
         filter: {
             categories: []
         },
@@ -42,7 +42,7 @@ export const filterSlice = createSlice({
             state.lastVisitedId = "";
         },
         removeCategory: (state, category: PayloadAction<string>) => {
-            state.req.filter.categories = state.req.filter.categories.filter(c => c!== category.payload);
+            state.req.filter.categories = state.req.filter.categories.filter(c => c !== category.payload);
         },
 
         cleanFilter: (state) => {

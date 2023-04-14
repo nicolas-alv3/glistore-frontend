@@ -43,6 +43,7 @@ export default function DropdownItemMenu (props: Props) {
 
     const getIcon = () => hasSubItems() ? "chevron right" : "minus"
     return <>
+        <Divider fitted/>
             <div style={itemStyle} onClick={handleItemClick}>
                 <Icon name={props.item.icon || getIcon()}/>
                 <p>{props.item.text}</p>
@@ -56,6 +57,6 @@ export default function DropdownItemMenu (props: Props) {
             toggle &&
             props.item.subItems?.map( si => <DropdownItemMenu item={si} marginLeft={(props.marginLeft || 0) + 16} hideSidebar={props.hideSidebar} key={si.text} />)
         }
-        <Divider fitted/>
+
     </>
 }

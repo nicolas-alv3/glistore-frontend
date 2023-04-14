@@ -10,7 +10,7 @@ export function useGRouter() {
             price: SortType.NONE,
             date: SortType.NONE
         },
-        page: 1,
+        page: 0,
         pageSize: 10,
         filter: {
             categories: [],
@@ -24,7 +24,7 @@ export function useGRouter() {
                 price: paramReq.sort?.price || req.sort?.price || SortType.NONE,
                 date: paramReq.sort?.date || req.sort?.date || SortType.NONE
             },
-            page: 1,
+            page: 0,
             pageSize: 10,
             filter: {
                 categories: paramReq.filter?.categories,
@@ -56,7 +56,7 @@ export function useGRouter() {
             price: router.query.sortPrice as SortType || SortType.NONE,
             date: router.query.sortDate as SortType || SortType.NONE
         },
-        page: Number(router.query.page) || 1,
+        page: Number(router.query.page) || 0,
         pageSize: 10,
         filter: {
             categories: splitURL(router.query.categories as string || ""),

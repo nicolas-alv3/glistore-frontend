@@ -9,18 +9,17 @@ import GPagination from "../../../src/components/Utils/GPagination";
 import {useGRouter} from "../../../src/hooks/useGRouter";
 
 
-
 export default function SearchProducts() {
     const [products, setProducts] = React.useState<Product[]>([]);
     const [loading, setLoading] = React.useState(true);
 
-    const { router, getReq } = useGRouter();
+    const {router, getReq} = useGRouter();
     const dispatch = useDispatch();
 
     const [totalPages, setTotalPages] = React.useState<number>(1);
 
-    useEffect( () => {
-        if(router.isReady) {
+    useEffect(() => {
+        if (router.isReady) {
             setLoading(true);
             getProducts();
         }
@@ -31,16 +30,17 @@ export default function SearchProducts() {
     }
 
     const getProducts = () => {
-        SearchService.search(getReq()).then( (res: SearchResponse) => {
-            setProducts(res.products);
+        SearchService.search(getReq()).then((res: SearchResponse) => {
+            console.log(res)
+            setProducts(res);
             setLoading(false);
-            setTotalPages(res.totalPages);
+            setTotalPages(1);
         })
     }
 
     return <div>
         <SortOrFilter/>
         <ProductList loading={loading} products={products} withBackButton={false}/>
-        <GPagination onPageChange={(page) => fetchProductsWithPage(page) } totalPages={totalPages} />
+        <GPagination onPageChange={(page) => fetchProductsWithPage(page)} totalPages={totalPages}/>
     </div>
 }
