@@ -12,11 +12,13 @@ import {Provider} from 'react-redux'
 import Head from "next/head";
 import {useConfig} from "../src/hooks/useConfig";
 import { UserProvider } from '@auth0/nextjs-auth0';
+import {useRouter} from "next/router";
 
 
 
 function MyApp({Component, pageProps}: AppProps) {
-    const {config} = useConfig()
+    const {config} = useConfig();
+    const router = useRouter();
 
     const preloaderEffect = () => {
         if (typeof window !== 'undefined') {
@@ -36,17 +38,19 @@ function MyApp({Component, pageProps}: AppProps) {
         //preloaderEffect()
     }, []);
 
+    const isHomePage = router.pathname === "/"
+
     return <Provider store={store}>
         <UserProvider>
         <Head>
             <title>{config.companyName}</title>
             <link rel="icon" href={config.logo}/>
         </Head>
-        <PageHeader/>
+            {!isHomePage && <PageHeader/>}
         <Container>
             <Component {...pageProps} />
         </Container>
-        <Footer/>
+            {!isHomePage && <Footer/>}
         <Toaster position="bottom-left"/>
         </UserProvider>
     </Provider>

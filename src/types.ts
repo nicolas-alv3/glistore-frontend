@@ -118,3 +118,22 @@ export enum GlistoreHeaders {
     USER_EMAIL = 'user_email',
     USERNAME = 'username'
 }
+
+export const GlistoreConfig: GConfig = {
+    _id:"",
+    menu:[],
+    logo:"/glider_logo.png",
+    phoneNumber:"",
+    companyName: "Glistore",
+    description: "Crea tu tienda online con Glistore de forma rapida y 100% personalizable",
+    fbLink:"",
+    instaUser:"",
+    colorPalette: {
+        primary: "#E4D553",
+        secondary: "#03256C",
+        tertiary: "#C98474",
+        quaternary: "#03256C",
+        primaryFont: "#212121",
+        secondaryFont: "#3D3D3D"
+    }
+}
