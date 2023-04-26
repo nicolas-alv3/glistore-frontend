@@ -50,7 +50,7 @@ function MyApp({Component, pageProps}: AppProps) {
         <Container>
             <Component {...pageProps} />
         </Container>
-            {!isHomePage && <Footer/>}
+            <Footer/>
         <Toaster position="bottom-left"/>
         </UserProvider>
     </Provider>

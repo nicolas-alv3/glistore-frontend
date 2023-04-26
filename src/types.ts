@@ -122,7 +122,7 @@ export enum GlistoreHeaders {
 export const GlistoreConfig: GConfig = {
     _id:"",
     menu:[],
-    logo:"/glider_logo.png",
+    logo:"/landingPage/glider_logo.png",
     phoneNumber:"",
     companyName: "Glistore",
     description: "Crea tu tienda online con Glistore de forma rapida y 100% personalizable",

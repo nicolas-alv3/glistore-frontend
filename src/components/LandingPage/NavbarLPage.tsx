@@ -7,7 +7,7 @@ import {GlistoreConfig} from "../../types";
 
 export default function NavbarLPage() {
     useEffect(() => {
-        loadVariables(GlistoreConfig)
+        loadVariables(GlistoreConfig);
     }, [])
     return <nav className={styles.navbar}>
         <div className={styles.navbarContent}>

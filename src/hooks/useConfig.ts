@@ -1,4 +1,4 @@
-import {GConfig} from "../types";
+import {GConfig, GlistoreConfig} from "../types";
 import React, {useEffect} from "react";
 import ConfigService from "../../service/SettingsService";
 import {GColors} from "../utils/GColors";
@@ -25,29 +25,12 @@ export const loadVariables = (config: GConfig) => {
 
 interface ConfigHook {
     config: GConfig,
-    reloadConfig: () => void
+    reloadConfig: () => void,
+    setConfig: (config) => void
 }
 
 export function useConfig(): ConfigHook {
-    const [config, setConfig] = React.useState<GConfig>({
-            _id: "",
-            companyName: "",
-            description: "",
-            instaUser: "",
-            fbLink: "",
-            phoneNumber: "",
-            colorPalette: {
-                primary: "",
-                secondary: "",
-                tertiary: "",
-                quaternary: "",
-                primaryFont: "",
-                secondaryFont: ""
-            },
-            logo: "",
-            menu: []
-        }
-    );
+    const [config, setConfig] = React.useState<GConfig>(GlistoreConfig);
 
     function fetchAndLoadConfig() {
         ConfigService.getConfig()
@@ -77,5 +60,5 @@ export function useConfig(): ConfigHook {
     const reloadConfig = () => {
         sessionStorage.removeItem("config");
     }
-    return { config, reloadConfig };
+    return { config, reloadConfig, setConfig };
 }

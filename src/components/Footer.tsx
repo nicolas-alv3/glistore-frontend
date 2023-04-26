@@ -17,7 +17,7 @@ export default function Footer() {
                 <Grid.Column width={4}>
                         <span>
                         <Image src={config.logo || "..."} width={200}
-                               layout={"intrinsic"} alt={"logo"}
+                               layout={"intrinsic"} alt={"logo"} style={{borderRadius:8}}
                                objectFit={"cover"}
                                height={200} objectPosition={"center"}/>
                     </span>

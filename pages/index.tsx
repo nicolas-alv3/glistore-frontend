@@ -36,6 +36,7 @@ function ExampleCard({urlImage, text}) {
         <GTitle size={GTitleSize.SMALL} color={GColors.SECONDARY_COLOR} centered>{text}</GTitle>
         <Image src={urlImage}
                layout='fixed'
+               style={{borderRadius: 12}}
                width={200}
                height={450}
                alt={urlImage}
@@ -68,7 +69,7 @@ function Examples() {
 
 const LandingPage: NextPage = () => {
     return (
-        <div className={'lp'}>
+        <div>
             <NavbarLPage/>
             <main>
                 <Banner/>
