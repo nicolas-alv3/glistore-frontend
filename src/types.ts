@@ -129,10 +129,10 @@ export const GlistoreConfig: GConfig = {
     fbLink:"",
     instaUser:"",
     colorPalette: {
-        primary: "#E4D553",
+        primary: "#3a7ca5",
         secondary: "#03256C",
-        tertiary: "#C98474",
-        quaternary: "#03256C",
+        tertiary: "#D9DCD6",
+        quaternary: "#16425B",
         primaryFont: "#212121",
         secondaryFont: "#3D3D3D"
     }

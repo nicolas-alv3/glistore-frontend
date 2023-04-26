@@ -18,7 +18,9 @@
 }
 
 .bannerContainer {
+    width: 100%;
     display: flex;
+    align-items: center;
 }
 
 .navbarContent {
@@ -29,6 +31,40 @@
 }
 
 
-.title {
+.title h1 {
+    font-size: 3em;
+}
 
+.examplesSection {
+    margin: 16px 0;
+    padding: 16px;
+    width: 100%;
+    background-color: var(--col-primary);
+}
+
+.examplesPictures {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.exampleCard {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex: 30%;
+    gap: 8px;
+}
+
+@media screen and (max-width: 600px) {
+    .bannerContainer {
+        flex-direction: column-reverse;
+    }
+
+    .examplesPictures div {
+        flex: 25%;
+    }
 }
