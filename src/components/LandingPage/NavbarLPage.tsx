@@ -11,7 +11,7 @@ export default function NavbarLPage() {
     }, [])
     return <nav className={styles.navbar}>
         <div className={styles.navbarContent}>
-            <Image src={"/glider_logo.png"} width={120}
+            <Image src={"/landingPage/glider_logo.png"} width={120}
                    layout={"intrinsic"} alt={"logo"}
                    objectFit={"cover"}
                    height={120} objectPosition={"center"}/>
