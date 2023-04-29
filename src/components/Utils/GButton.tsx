@@ -65,7 +65,7 @@ export default function GButton(props: Props) {
 
     return <>
         <Button
-            className={`${getClass()} ${props.className}`}
+            className={`g-button ${getClass()} ${props.className}`}
             icon={Boolean(props.icon)}
             onClick={props.onClick}
             basic={props.basic}

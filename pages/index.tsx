@@ -17,7 +17,7 @@ function Banner() {
                     title={"Cualquier persona puede poner en marcha un negocio en cualquier lugar"}/>
             <GForm>
                 <GInput label={"Correo electrónico"} error={false}/>
-                <GButton fluid type={ButtonType.PRIMARY} text={"Prueba gratis"}/>
+                <GButton fluid type={ButtonType.PRIMARY} text={"Prueba gratis"} icon={"shopping bag"}/>
             </GForm>
         </div>
         <div className={styles.bannerImg}>
@@ -67,13 +67,27 @@ function Examples() {
     </section>;
 }
 
+function CallToAction() {
+    return <section className={styles.callToAction}>
+        <GTitle centered title={"Comienza la aventura de tu negocio con Glistore"} size={GTitleSize.LARGE}/>
+        <GTitle centered
+                title={"Prueba Glistore gratis y explora todas las herramientas y servicios que necesitas para comenzar, gestionar y hacer cecer tu negocio."}
+                size={GTitleSize.SMALL}
+                color={GColors.DARKGRAY_COLOR}
+        />
+        <GButton type={ButtonType.PRIMARY} text={"Prueba gratis"} icon={"shopping bag"} size={"large"} />
+    </section>;
+}
+
 const LandingPage: NextPage = () => {
     return (
         <div>
             <NavbarLPage/>
-            <main>
+            <main id={"main"}>
                 <Banner/>
                 <Examples/>
+                <CallToAction/>
+                <GButton fluid type={ButtonType.TRANSPARENT} icon={"arrow up"}><a href={"#main"}>De vuelta al comienzo</a></GButton>
             </main>
         </div>
     )
