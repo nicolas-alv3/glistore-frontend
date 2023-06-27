@@ -103,7 +103,9 @@ export interface GConfig {
     phoneNumber: string,
     colorPalette: GColorPallette,
     logo: string,
-    menu: GMenuItem[]
+    menu: GMenuItem[],
+    username: string,
+    userEmail: string,
 }
 
 
@@ -120,6 +122,8 @@ export enum GlistoreHeaders {
 }
 
 export const GlistoreConfig: GConfig = {
+    userEmail: "",
+    username: "",
     _id:"",
     menu:[],
     logo:"/landingPage/glider_logo.png",

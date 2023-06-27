@@ -18,7 +18,7 @@ interface Props {
 export default function GInput(props: Props) {
     return <>
         <Form.Group widths={"equal"}>
-            <Form.Field error={props.error} disabled={props.disabled}>
+            <Form.Field width={"16"} error={props.error} disabled={props.disabled}>
                 <label style={{display: "flex", justifyContent: "flex-start", gap: 8, fontWeight: 500, color: "var(--col-secondary-font)"}}>
                     {props.label}
                     {props.helpBubbleText && <GHelpBubble text={props.helpBubbleText} />}

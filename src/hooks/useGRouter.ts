@@ -1,9 +1,12 @@
 import {useRouter} from "next/router";
 import {SearchRequest, SortType} from "../types";
 import {splitURL} from "../utils/parseUtils";
+import {useSelector} from "react-redux";
+import {selectStore} from "../../slices/storeSlice";
 
 export function useGRouter() {
     const router = useRouter();
+    const {username} = useSelector(selectStore);
     const baseReq: SearchRequest = {
         name: "",
         sort: {
@@ -64,14 +67,16 @@ export function useGRouter() {
     });
 
     const removeCategory = (cat: string) => {
-        navigate( (sReq) => ({
-          ...sReq,
-          filter: {
-              ...sReq.filter,
-              categories: sReq.filter.categories.filter(c => c!==cat)
-          }
+        navigate((sReq) => ({
+            ...sReq,
+            filter: {
+                ...sReq.filter,
+                categories: sReq.filter.categories.filter(c => c !== cat)
+            }
         }))
     }
 
-    return {router, getReq, navigate, resetFilter, removeCategory};
+    const pushToAdminPath = (path) => router.push(`/${username}/admin/${path}`);
+
+    return {router, getReq, navigate, resetFilter, removeCategory, pushToAdminPath};
 }

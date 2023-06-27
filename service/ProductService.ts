@@ -29,7 +29,7 @@ class ProductService {
     }
 
     update(p: Product) {
-        return API.put(this.path + "/", p)
+        return API.patch(this.path + "/" + p._id, p)
     }
 }
 

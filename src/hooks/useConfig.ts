@@ -18,6 +18,7 @@ function setPalletteVariables(config: GConfig, root: HTMLElement) {
 }
 
 export const loadVariables = (config: GConfig) => {
+    console.log("loading variables", config);
     let root = document.documentElement;
     setPalletteVariables(config, root)
     setFooterVariables(config.colorPalette.quaternary, root);
@@ -26,7 +27,8 @@ export const loadVariables = (config: GConfig) => {
 interface ConfigHook {
     config: GConfig,
     reloadConfig: () => void,
-    setConfig: (config) => void
+    setConfig: (config) => void,
+    fetchAndLoadConfig: (config) => void
 }
 
 export function useConfig(): ConfigHook {
@@ -60,5 +62,5 @@ export function useConfig(): ConfigHook {
     const reloadConfig = () => {
         sessionStorage.removeItem("config");
     }
-    return { config, reloadConfig, setConfig };
+    return { config, reloadConfig, setConfig, fetchAndLoadConfig };
 }

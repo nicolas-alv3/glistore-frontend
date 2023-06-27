@@ -6,10 +6,11 @@ import GTitle, {GTitleSize} from "../Utils/GTitle";
 import {GColors} from "../../utils/GColors";
 import {Dropdown, Icon} from "semantic-ui-react";
 import {useRouter} from "next/router";
+import {useGRouter} from "../../hooks/useGRouter";
 
 export default function Profile() {
     const { user, error, isLoading } = useUser();
-    const router = useRouter();
+    const { pushToAdminPath, router } = useGRouter();
 
     if (isLoading) return <div>Loading...</div>;
     if (error) return <div>{error.message}</div>;
@@ -19,10 +20,10 @@ export default function Profile() {
         <Image src={user.picture as string} alt={user.name || "..."} width={32} height={32} layout={"intrinsic"} style={{borderRadius:"50%"}}/>
     </div>
 
-    const handleRouting = (route) => () => router.push(route);
-
     const handleLogout = () => {
-        sessionStorage?.removeItem("glistore_user_email")
+        sessionStorage?.removeItem("glistore_user_email");
+        sessionStorage?.removeItem("glistore_username");
+        sessionStorage?.removeItem("config");
         router.push("/api/auth/logout")
     }
 
@@ -31,7 +32,7 @@ export default function Profile() {
             user ? (
                     <Dropdown direction={"left"} trigger={menuHeader(user)} icon={false}>
                         <Dropdown.Menu>
-                            <Dropdown.Item onClick={handleRouting("/admin/settings")}><Icon name={"setting"}/>Ajustes de la tienda</Dropdown.Item>
+                            <Dropdown.Item onClick={() => pushToAdminPath("/admin/settings")}><Icon name={"setting"}/>Ajustes de la tienda</Dropdown.Item>
                             <Dropdown.Divider />
                             <Dropdown.Item onClick={handleLogout} ><Icon name={"log out"}/>Cerrar sesión </Dropdown.Item>
                         </Dropdown.Menu>

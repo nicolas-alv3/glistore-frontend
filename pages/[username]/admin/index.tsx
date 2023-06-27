@@ -6,7 +6,8 @@ import Templates from "../../../src/components/Admin/AdminPanel/Templates/Templa
 import Categories from "../../../src/components/Admin/AdminPanel/Categories/Categories";
 import {useUser, withPageAuthRequired} from "@auth0/nextjs-auth0";
 import {useDispatch} from "react-redux";
-import {setUserEmail} from "../../../slices/storeSlice";
+import {setUserEmail, setUsername} from "../../../slices/storeSlice";
+import {useConfig} from '../../../src/hooks/useConfig';
 
 function AdminPanel() {
     const dispatch = useDispatch();
@@ -16,9 +17,12 @@ function AdminPanel() {
         {title: "Categorías", component: <Categories/>}
     ]
     const {user} = useUser();
+    const { config, fetchAndLoadConfig } = useConfig();
     useEffect(() => {
-        dispatch(setUserEmail(user?.email as string))
-    }, [user?.email])
+        dispatch(setUserEmail(user?.email as string));
+        dispatch(setUsername(window.location.pathname));
+        fetchAndLoadConfig(config);
+    }, [user])
     return <>
         <GTitle size={GTitleSize.MEDIUM} title={"Administración"}/>
         <MenuTabs tabs={tabs}/>

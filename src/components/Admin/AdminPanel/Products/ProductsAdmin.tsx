@@ -69,11 +69,17 @@ export default function ProductsAdmin() {
         fetchTemplates();
     }, [])
 
-    const templateOptions = templates.map(t => ({
+    const basicTemplate =  {
+        "name": "Básico",
+        "features": [
+        ],
+    }
+
+    const templateOptions = [basicTemplate, ...templates].map(t => ({
         key: t.name,
         value: t,
         text: t.name
-    }))
+    }));
 
 
     const openAddModal = (template) => {

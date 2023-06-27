@@ -54,6 +54,7 @@ export default function Navbar() {
                              className={styles.cartButton}>
                         {cart?.length > 0 && <div style={numberCartStyle}>{cart.length}</div>}
                     </GButton>
+                    <ProfileMenu/>
                 </div>
             </> : <div className={"flex-center"}>
                 <ProfileMenu/>

@@ -11,6 +11,8 @@ import ContactDataSettings from "../../../../src/components/Admin/Settings/Conta
 import StoreInfoSettings from "../../../../src/components/Admin/Settings/StoreInfoSettings";
 import MenuSettings from "../../../../src/components/Admin/Settings/MenuSettings";
 import {withPageAuthRequired} from "@auth0/nextjs-auth0";
+import {selectStore} from "../../../../slices/storeSlice";
+import {useSelector} from "react-redux";
 
 function Settings() {
     const {reloadConfig} = useConfig();
@@ -22,6 +24,7 @@ function Settings() {
     const [logo, setLogo] = React.useState("");
     const [colorPalette, setColorPalette] = React.useState<GColorPallette>({} as GColorPallette)
     const [menu, setMenu] = React.useState<GMenuItem[]>([]);
+    const {username} = useSelector(selectStore);
 
     const [oldConfig, setOldConfig] = React.useState<GConfig>({} as GConfig)
 
@@ -67,6 +70,7 @@ function Settings() {
 
     function getBody(): GConfig {
         return {
+            username,
             _id: oldConfig._id,
             description,
             instaUser,

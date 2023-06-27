@@ -4,8 +4,10 @@ import React, {useEffect} from "react";
 import GButton, {ButtonType} from "../Utils/GButton";
 import {loadVariables} from "../../hooks/useConfig";
 import {GlistoreConfig} from "../../types";
+import {useGRouter} from "../../hooks/useGRouter";
 
 export default function NavbarLPage() {
+    const {router} = useGRouter();
     useEffect(() => {
         loadVariables(GlistoreConfig);
     }, [])
@@ -16,10 +18,9 @@ export default function NavbarLPage() {
                    objectFit={"cover"}
                    height={120} objectPosition={"center"}/>
             <div>
-                Menues
             </div>
             <div className={styles.freeTestButton}>
-                <GButton type={ButtonType.PRIMARY} icon={"shopping bag"} text={"Prueba gratis"} />
+                <GButton type={ButtonType.PRIMARY} icon={"shopping bag"} text={"Prueba gratis"} onClick={() => router.push("/onBoarding")} />
             </div>
         </div>
     </nav>
