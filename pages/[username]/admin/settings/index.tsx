@@ -24,7 +24,7 @@ function Settings() {
     const [logo, setLogo] = React.useState("");
     const [colorPalette, setColorPalette] = React.useState<GColorPallette>({} as GColorPallette)
     const [menu, setMenu] = React.useState<GMenuItem[]>([]);
-    const {username} = useSelector(selectStore);
+    const {username, user_email} = useSelector(selectStore);
 
     const [oldConfig, setOldConfig] = React.useState<GConfig>({} as GConfig)
 
@@ -70,6 +70,7 @@ function Settings() {
 
     function getBody(): GConfig {
         return {
+            userEmail: user_email,
             username,
             _id: oldConfig._id,
             description,
